@@ -73,44 +73,41 @@ static int ShowMenu(string[] options)
     }
 }
 
-Projects & Experience
+```
+
+## Projects & Experience
 
 Since I am just starting my professional journey, here are my key milestones:
 
-Project: "My First CV" (this)
+* **Project:** "My First CV" (this)
+* **University** Coursework: many
 
-University Coursework: many
+## Education
 
-Education
+* **University:** Belarusian-Russian University
+* **Major:** Software Engineering (PIR)
+* **Status:** 2nd Year Student
 
-University: Belarusian-Russian University
+## Courses & Training
 
-Major: Software Engineering (PIR)
+* **YouTube Academy:** "Professional C# Development" (watched tons of tutorials, still sane).
+* **Central Testing Prep Center:** "Russian Language Expert" – Successfully survived the exam and mastered the art of commas.
 
-Status: 2nd Year Student
+## Languages
 
-Courses & Training
+* **Russian:** Native (Certified by the Central Testing exam mentioned above).
+* **English:** Intermediate (B1).
 
-YouTube Academy: "Professional C# Development" (watched tons of tutorials, still sane).
+---
 
-Central Testing Prep Center: "Russian Language Expert" – Successfully survived the exam and mastered the art of commas.
+## Where you can find me
 
-Languages
+* **Phone:** +375-44-457-27-99
+* **Email:** matveiqaz2006@gmail.com
+* **Telegram:** @Merking_rey
 
-Russian: Native (Certified by the Central Testing exam mentioned above).
-
-English: Intermediate (B1).
-
-Where you can find me
-
-Phone: +375-44-457-27-99
-
-Email: matveiqaz2006@gmail.com
-
-Telegram: @Merking_rey
-
-Important
+## Important
 
 ![alt text](./img/qrcode.png)
 
-© 2026 Matvei Klebcha
+*© 2026 Matvei Klebcha*
