@@ -1,0 +1,63 @@
+:root {
+  --color-bg-light: #f9fbff;
+  --color-dark-blue: #415167;
+  --color-accent: #c7a17a;
+  --color-text-main: #232c38;
+  --color-text-dark-blue: #415167;
+  --color-text-light: #f9fbff;
+
+  --container-width: 1440px;
+
+  --font-main: "Nunito", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-heading);
+}
+
+button {
+  padding: 0;
+  border: none;
+  outline: inherit;
+  background: none;
+  font: inherit;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.01);
+}
