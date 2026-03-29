@@ -61,3 +61,144 @@ button:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transform: scale(1.01);
 }
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  width: calc((100vw - 1440px) / 2 + 354px);
+  height: 100%;
+  background: var(--color-dark-blue);
+}
+
+.hero__container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 768px;
+  padding: 0 144px;
+}
+
+.hero__logo {
+  max-width: 110px;
+  max-height: 36px;
+}
+
+.hero__info {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 408px;
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 70px;
+}
+
+.hero__text-line {
+  display: block;
+  color: var(--color-text-dark-blue);
+  white-space: pre-wrap;
+}
+
+.hero__text-line--highlight {
+  display: block;
+  align-self: stretch;
+  padding: 1px 15px;
+  background: var(--color-accent);
+  color: var(--color-text-light);
+}
+
+.hero__image-wrapper {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: calc(50% - 324px);
+  width: 690px;
+  height: 100%;
+  z-index: 0;
+  background: url(img/hero-img.png) 50% / cover no-repeat;
+}
+
+.hero__nav {
+  align-self: flex-start;
+  margin-top: 96px;
+  position: relative;
+  color: var(--color-text-light);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 126px;
+}
+
+.hero__cart {
+  width: 33px;
+  height: 31px;
+}
+
+.hero__nav-link--header {
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+  font-style: bold;
+  line-height: 24px;
+}
+
+.hero__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  align-self: stretch;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.hero__play-btn {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__play-icon {
+  fill: var(--color-accent);
+  position: absolute;
+  top: 19px;
+  right: 19px;
+  width: 12px;
+  height: 16px;
+}
