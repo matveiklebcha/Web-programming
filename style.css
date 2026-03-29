@@ -69,6 +69,28 @@ button:hover {
   padding: 0 20px;
 }
 
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  color: var(--color-text-dark-blue);
+}
+
+.section-header__slogan {
+  font-family: var(--font-main);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.section-header__title {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 34px;
+}
+
 .hero {
   position: relative;
 }
@@ -201,4 +223,63 @@ button:hover {
   right: 19px;
   width: 12px;
   height: 16px;
+}
+
+.features {
+  position: relative;
+}
+
+.features__container {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  justify-content: center;
+  min-height: 583px;
+}
+
+.features__cards {
+  display: flex;
+  gap: 66px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.features__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 226px;
+  height: 230px;
+}
+
+.features__card-icon {
+  max-height: 80px; /* Или какой там размер у твоих SVG */
+  object-fit: contain;
+}
+
+.features__card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.features__card-title {
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  text-align: center;
+}
+
+.features__card-text {
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+  text-align: center;
 }
