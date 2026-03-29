@@ -91,6 +91,34 @@ button:hover {
   line-height: 34px;
 }
 
+.btn:hover {
+  transform: scale(1.02);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.btn--primary {
+  padding: 5px 23px;
+  background: var(--color-accent);
+  color: var(--color-text-light);
+}
+
+.btn--secondary {
+  padding: 5px 10px;
+  background: transparent;
+  color: var(--color-text-dark-blue);
+}
+
 .hero {
   position: relative;
 }
@@ -214,6 +242,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .hero__play-icon {
@@ -254,7 +283,7 @@ button:hover {
 }
 
 .features__card-icon {
-  max-height: 80px; /* Или какой там размер у твоих SVG */
+  max-height: 80px;
   object-fit: contain;
 }
 
@@ -282,4 +311,140 @@ button:hover {
   font-weight: 300;
   line-height: normal;
   text-align: center;
+}
+
+.catalog {
+  position: relative;
+}
+
+.catalog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: calc((100vw - 1440px) / 2 + 400px);
+  height: 100%;
+  background: var(--color-dark-blue);
+}
+
+.catalog__container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  align-items: center;
+  min-height: 895px;
+  padding: 85px 0;
+}
+
+.catalog__slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: flex-end;
+  padding-right: 274px;
+}
+
+.catalog__next-btn {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+}
+
+.catalog__track {
+  position: absolute;
+  top: 24px;
+  right: -445px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.catalog__column {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 560px;
+}
+
+.catalog__product {
+  display: flex;
+  gap: 45px;
+  align-items: center;
+  width: 560px;
+  padding-right: 42px;
+  background: #fff;
+  box-shadow: 0 4px 24px 0 rgba(205, 205, 205, 0.5);
+}
+
+.catalog__product-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.catalog__product-image {
+  flex-shrink: 0;
+  width: 235px;
+  height: 256px;
+}
+
+.catalog__product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  width: 238px;
+}
+
+.catalog__product-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.catalog__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.catalog__price {
+  color: #c7a17a;
+  font-family: var(--font-main);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.catalog__product-name {
+  color: #232c38;
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  margin: 0;
+}
+
+.catalog__product-desc {
+  color: #151d28;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.catalog__actions {
+  display: flex;
+  gap: 19px;
+  align-items: center;
 }
