@@ -772,3 +772,22 @@ button:hover {
   transition: 0.3s;
   margin-left: 78.5417%;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 19px 0;
+  background: #edf0f5;
+}
+
+.footer__text {
+  color: #415167;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 22px;
+  text-align: center;
+}
