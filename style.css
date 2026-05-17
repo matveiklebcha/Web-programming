@@ -426,6 +426,8 @@ button:hover {
   grid-auto-flow: column; /* Направление: заполняем колонку, потом идем вправо */
   grid-auto-columns: 560px; /* Ширина каждой карточки-колонки */
   gap: 32px 30px; /* Отступы: 32px между строками, 30px между колонками */
+  padding: 24px 24px 36px;
+  margin: -24px -24px -36px;
   
   overflow-x: auto; /* Оставляем возможность свайпать/скроллить */
   scrollbar-width: none; /* Прячем ползунок в Firefox */
@@ -558,7 +560,7 @@ button:hover {
 
 .giftset__wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   margin-left: clamp(0px, 58.9vw - 452px, 396px);
 }
 
@@ -677,14 +679,16 @@ button:hover {
 .giftset__tabs {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   width: 88px;
 }
 
 .giftset__tab {
   display: flex;
+  flex: 1 1 0;
   align-items: center;
   justify-content: center;
-  height: 153px;
+  min-height: 153px;
   background: rgba(237, 240, 245, 0.3);
   color: var(--color-text-dark-blue);
   font-family: var(--font-heading);
@@ -743,6 +747,8 @@ button:hover {
 .combo__track {
   display: flex;
   gap: 30px;
+  padding: 24px 24px 36px;
+  margin: -24px -24px -36px;
   overflow-x: auto;
 }
 
@@ -871,10 +877,75 @@ button:hover {
   text-align: center;
 }
 
+@media (max-width: 1150px) {
+  .giftset__container {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .giftset__wrapper {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .giftset__card {
+    display: grid;
+    grid-template-columns: minmax(220px, 34%) 1fr;
+    gap: 32px;
+    align-items: center;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: auto;
+    padding: 40px;
+  }
+
+  .giftset__image {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    object-fit: contain;
+  }
+
+  .giftset__content {
+    min-width: 0;
+    gap: 30px;
+  }
+
+  .giftset__text {
+    max-width: none;
+  }
+
+  .giftset__features {
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+
+  .giftset__actions {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .giftset__tabs {
+    flex-shrink: 0;
+    width: 64px;
+  }
+
+  .giftset__tab {
+    height: auto;
+    min-width: 100%;
+    min-height: 0;
+    font-size: 24px;
+  }
+}
+
 @media (max-width: 970px) {
   .hero {
     display: flex;
-    height: 80vh;
+    height: clamp(520px, 72vh, 650px);
     overflow: hidden;
   }
 
@@ -888,7 +959,7 @@ button:hover {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    min-height: 80vh;
+    min-height: clamp(520px, 72vh, 650px);
     padding: 0;
   }
 
@@ -945,14 +1016,20 @@ button:hover {
     align-self: start;
     margin-bottom: 7vh;
     margin-left: clamp(20px, 17vw - 100px, 80px);
+    margin-right: 20px;
+    max-width: calc(100% - 40px);
+    width: max-content;
   }
 
   .hero__text-line {
     color: #ffffff;
   }
-.hero__text-line--highlight {
-      align-self:auto;
-}
+
+  .hero__text-line--highlight {
+    align-self: auto;
+    max-width: 100%;
+  }
+
   .hero__nav {
     position: static;
     margin-top: 0;
@@ -983,6 +1060,82 @@ button:hover {
     color: #ffffff;
     font-size: 18px;
   }
+
+  .catalog::before {
+    display: none;
+  }
+
+  .catalog__container {
+    gap: 48px;
+  }
+
+  .catalog__slider {
+    align-self: auto;
+    width: 100%;
+    padding: 16px 40px;
+  }
+
+  .catalog__track {
+    grid-auto-columns: minmax(0, calc(100vw - 80px));
+    gap: 24px;
+    width: 100%;
+    padding: 24px 20px 36px;
+    margin: -24px -20px -36px;
+  }
+
+  .catalog__product {
+    grid-template-columns: minmax(210px, 38%) 1fr;
+    gap: 24px;
+    min-width: 0;
+    padding-right: 28px;
+  }
+
+  .catalog__product-img {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
+  }
+
+  .catalog__product-info {
+    width: auto;
+    min-width: 0;
+    gap: 24px;
+    padding: 20px 0;
+  }
+
+  .catalog__product-text {
+    gap: 16px;
+  }
+
+  .catalog__actions {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .catalog__next-btn {
+    display: none;
+  }
+
+  .combo::before {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .catalog__slider {
+    padding: 16px 0;
+  }
+
+  .catalog__track {
+    grid-auto-columns: calc(100vw - 40px);
+  }
+
+  .catalog__product {
+    grid-template-columns: minmax(185px, 36%) 1fr;
+    gap: 20px;
+    padding-right: 24px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -990,9 +1143,27 @@ button:hover {
     padding: 0 20px;
   }
 
+  .section-header {
+    gap: 4px;
+    text-align: center;
+  }
+
+  .section-header__slogan {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .section-header__title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
   .hero__container {
-    min-height: 600px;
     padding: 0;
+  }
+
+  .hero__play-btn {
+    display: none;
   }
 
   .features,
@@ -1007,33 +1178,346 @@ button:hover {
     gap: 40px;
   }
 
+  .catalog__track {
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+  }
 
+  .catalog__product {
+    display: grid;
+    grid-template-columns: minmax(190px, 36%) 1fr;
+    gap: 20px;
+    padding-right: 24px;
+  }
 
+  .catalog__product-img {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+  }
+
+  .catalog__product-info {
+    width: auto;
+    min-width: 0;
+    gap: 20px;
+    padding: 18px 0;
+  }
+
+  .catalog__actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .combo__next-btn {
+    display: none;
+  }
+
+  .combo__container {
+    gap: 40px;
+  }
+
+  .combo__slider {
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .combo__track {
+    gap: 24px;
+    width: 100%;
+    padding: 24px 20px 36px;
+    margin: -24px -20px -36px;
+  }
+
+  .combo__card {
+    width: min(320px, calc(100vw - 40px));
+    gap: 28px;
+    min-height: auto;
+  }
+
+  .combo__card-info {
+    gap: 24px;
+    padding: 0 28px 30px;
+  }
+
+  .combo__actions {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 680px) {
   .giftset__wrapper {
-    margin-left: 0;
+    flex-direction: column;
   }
 
   .giftset__card {
-    padding: 40px 40px 40px 150px;
-    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    padding: 28px 24px;
   }
 
   .giftset__image {
-    width: 300px;
-    left: -100px;
+    align-self: center;
+    width: min(320px, 100%);
+    max-height: 260px;
+  }
+
+  .giftset__features {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .giftset__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .giftset__tabs {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .giftset__tab {
+    min-width: 0;
+    min-height: 56px;
+    width: 33.333%;
   }
 }
 
 @media (max-width: 471px) {
+  .hero {
+    height: clamp(440px, 78svh, 540px);
+    min-height: 440px;
+  }
+
+  .hero__container {
+    min-height: clamp(440px, 78svh, 540px);
+    padding: 0;
+  }
+
+  .hero__top-bar {
+    padding: 10px 18px;
+  }
+
+  .hero__title {
+    margin: 0 18px 5vh;
+    max-width: calc(100% - 36px);
+    width: auto;
+    padding: 16px 18px;
+    font-size: clamp(27px, 8vw, 34px);
+    line-height: 1.18;
+  }
+
   .features__cards {
-    grid-template-columns: 1fr; /* Строго 1 колонка */
+    grid-template-columns: 1fr;
     gap: 30px;
   }
   .features__card-info{
     max-width: clamp(150px, 62.5vw, 300px);
   }
+
+  .catalog__track {
+    grid-template-rows: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(360px, calc(100vw - 72px));
+    justify-content: flex-start;
+    width: 100%;
+    padding-right: 32px;
+    padding-left: 20px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .catalog__product-img {
+    height: 210px;
+    min-height: 0;
+    object-fit: contain;
+    background: #f2f4f7;
+  }
+
+  .catalog__product {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-right: 0;
+  }
+
+  .catalog__product-info {
+    width: 100%;
+    padding: 22px;
+  }
+
+  .catalog__actions {
+    justify-content: space-between;
+  }
+
+  .combo__card {
+    width: min(360px, calc(100vw - 72px));
+  }
+
+  .combo__track {
+    width: 100%;
+    padding-right: 32px;
+    padding-left: 20px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .combo__card-img {
+    height: 220px;
+    max-height: none;
+    object-fit: contain;
+    background: #edf0f5;
+  }
+
+  .combo__card-info {
+    padding: 0 28px 28px;
+  }
+
+  .combo__actions {
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 320px) {
-  
+  .container {
+    padding: 0 12px;
+  }
+
+  .section-header__slogan {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .section-header__title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .features,
+  .catalog,
+  .giftset,
+  .combo {
+    padding: 46px 0;
+  }
+
+  .hero__top-bar {
+    padding: 8px 12px;
+  }
+
+  .hero__container {
+    padding: 0;
+  }
+
+  .hero__burger {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero__logo {
+    max-width: 92px;
+  }
+
+  .hero__cart {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero__title {
+    margin: 0 12px 5vh;
+    max-width: calc(100% - 24px);
+    padding: 14px 12px;
+    font-size: 27px;
+  }
+
+  .hero__text-line--highlight {
+    padding: 1px 8px;
+  }
+
+  .hero__nav-list {
+    width: 250px;
+    padding: 84px 24px 24px;
+  }
+
+  .catalog__container,
+  .giftset__container,
+  .combo__container {
+    gap: 34px;
+  }
+
+  .catalog__track {
+    grid-auto-columns: calc(100vw - 48px);
+  }
+
+  .catalog__product-img {
+    height: 185px;
+  }
+
+  .catalog__product-info,
+  .combo__card-info {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .catalog__product-name,
+  .giftset__title,
+  .combo__card-title,
+  .features__card-title {
+    font-size: 21px;
+    line-height: 26px;
+  }
+
+  .catalog__actions,
+  .giftset__actions,
+  .combo__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .btn,
+  .btn--primary,
+  .btn--secondary,
+  .btn--large,
+  .btn--large--secondary {
+    width: 100%;
+  }
+
+  .giftset__card {
+    padding: 22px 18px;
+  }
+
+  .giftset__image {
+    max-height: 220px;
+  }
+
+  .giftset__feature {
+    gap: 12px;
+  }
+
+  .giftset__tab {
+    min-height: 48px;
+    font-size: 20px;
+  }
+
+  .combo__card {
+    width: calc(100vw - 48px);
+  }
+
+  .combo__card-img {
+    height: 200px;
+  }
+
+  .footer {
+    padding: 14px 12px;
+  }
+
+  .footer__text {
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
