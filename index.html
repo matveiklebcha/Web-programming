@@ -15,8 +15,19 @@
   <body>
     <header id="Home" class="hero">
       <div class="container hero__container">
-        <div class="hero__info">
+        <div class="hero__top-bar">
+          <button class="hero__burger" aria-label="Open menu">
+            <span class="hero__burger-line"></span>
+            <span class="hero__burger-line"></span>
+            <span class="hero__burger-line"></span>
+          </button>
           <img class="hero__logo" src="/img/revo-logo.svg" alt="Revo Coffee" />
+          <div class="hero__cart">
+            <img src="img/shopping-cart.svg" alt="Shopping cart" />
+          </div>
+        </div>
+
+        <div class="hero__info">
           <h1 class="hero__title">
             <span class="hero__text-line"> YOUR</span>
             <span class="hero__text-line hero__text-line--highlight"
@@ -37,9 +48,6 @@
         </div>
 
         <nav class="hero__nav">
-          <div class="hero__cart">
-            <img src="img/shopping-cart.svg" alt="Shopping cart" />
-          </div>
           <ul class="hero__nav-list">
             <li>
               <a class="hero__nav-link hero__nav-link--header" href="#Home"
@@ -130,7 +138,7 @@
           </div>
           <div class="catalog__slider">
             <div class="catalog__track">
-              <div class="catalog__column">
+              
                 <article class="catalog__product">
                   <img
                     class="catalog__product-img"
@@ -177,8 +185,8 @@
                     </div>
                   </div>
                 </article>
-              </div>
-              <div class="catalog__column">
+              
+             
                 <article class="catalog__product">
                   <img
                     class="catalog__product-img"
@@ -225,7 +233,7 @@
                     </div>
                   </div>
                 </article>
-              </div>
+             
               <!-- <div class="catalog__column">
                 <article class="catalog__product">
                   <img
@@ -303,10 +311,10 @@
                       </h3>
                     </div>
                     <p class="giftset__description">
-                      Món quà tuyệt vời dành cho người sành cà phê. Hạt cà phê
+                      Món quà tuyệt vờ i dành cho ngườ i sành cà phê. Hạt cà phê
                       được Revo cẩn trọng chọn lựa, rang xay theo công nghệ và
                       bí quyết học hỏi từ những nghệ nhân nổi tiếng, cùng với
-                      tình yêu, sự đam mê của người làm cà phê… tạo ra những
+                      tình yêu, sự đam mê của ngườ i làm cà phê… tạo ra những
                       tách cà phê tinh khiết chỉ dành riêng cho bạn.
                     </p>
                   </div>
@@ -395,7 +403,7 @@
                       <h3 class="combo__card-title">Combo Revo Everyday</h3>
                     </div>
                     <p class="combo__card-desc">
-                      Revo Everyday được phối trộn giữa vị đắng của hạt Robusta
+                      Revo Everyday được phố i trộn giữa vị đắng của hạt Robusta
                       và hương thơm...
                     </p>
                   </div>
@@ -421,7 +429,7 @@
                       <h3 class="combo__card-title">Combo Revo Honey</h3>
                     </div>
                     <p class="combo__card-desc">
-                      Honey – trong tên gọi Revo Honey đến từ phương pháp chế
+                      Honey – trong tên gọ i Revo Honey đến từ phương pháp chế
                       biến hạt Arabica...
                     </p>
                   </div>
@@ -468,5 +476,6 @@
     <footer class="footer" id="Footer">
       <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>

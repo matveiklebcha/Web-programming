@@ -5,6 +5,7 @@
   --color-text-main: #232c38;
   --color-text-dark-blue: #415167;
   --color-text-light: #f9fbff;
+  --color-burger: #f9fbff;
 
   --container-width: 1440px;
 
@@ -151,9 +152,49 @@ button:hover {
   padding: 0 clamp(40px, 24.9vw - 215px, 144px);
 }
 
+.hero__top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 clamp(40px, 24.9vw - 215px, 144px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero__top-bar > * {
+  pointer-events: auto;
+}
+
+.hero__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hero__burger-line {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--color-burger);
+  border-radius: 2px;
+}
+
 .hero__logo {
   max-width: 110px;
   max-height: 36px;
+  margin-top: 60px;
 }
 
 .hero__info {
@@ -164,6 +205,13 @@ button:hover {
   gap: clamp(300px, 43.26vw - 215px, 408px);
 }
 
+.hero__info::before {
+  content: "";
+  display: block;
+  width: 110px;
+  height: 36px;
+}
+
 .hero__title {
   display: flex;
   flex-direction: column;
@@ -171,9 +219,9 @@ button:hover {
   align-self: stretch;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: clamp(38px, 4vw, 54px);
+  font-size: clamp(42px, 4vw, 54px);
   font-weight: 900;
-  line-height: clamp(40px, 5vw, 70px);
+  line-height: clamp(56px, 5vw, 70px);
 }
 
 .hero__text-line {
@@ -211,12 +259,12 @@ button:hover {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: clamp(80px, 15.83vw - 100px, 126px);
 }
 
 .hero__cart {
   width: 33px;
   height: 31px;
+  margin-top: 96px;
 }
 
 .hero__nav-link--header {
@@ -239,6 +287,7 @@ button:hover {
   font-weight: 300;
   font-style: normal;
   line-height: 24px;
+  margin-top: clamp(80px, 15.83vw - 100px, 126px);
 }
 
 .hero__play-btn {
@@ -276,8 +325,8 @@ button:hover {
 
 .features__cards {
   display: grid;
-  grid-template-columns: repeat(4, clamp(180px, 15vw, 226px));
-  gap: 66px;
+  grid-template-columns: repeat(4, clamp(160px, 15vw, 226px));
+  gap: clamp(20px, 4vw, 66px);
   justify-content: center;
 }
 
@@ -285,13 +334,14 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 230px;
+  justify-content: flex-start;
+   height: 100%;
 }
 
 .features__card-icon {
-  max-height: 80px;
+  height: 80px;
   object-fit: contain;
+  margin-bottom: 25px;
 }
 
 .features__card-info {
@@ -368,15 +418,17 @@ button:hover {
   border: none;
   cursor: pointer;
   right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .catalog__track {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  overflow-x: auto;
+  display: grid;
+  grid-template-rows: repeat(2, auto); /* Строго 2 строки */
+  grid-auto-flow: column; /* Направление: заполняем колонку, потом идем вправо */
+  grid-auto-columns: 560px; /* Ширина каждой карточки-колонки */
+  gap: 32px 30px; /* Отступы: 32px между строками, 30px между колонками */
+  
+  overflow-x: auto; /* Оставляем возможность свайпать/скроллить */
+  scrollbar-width: none; /* Прячем ползунок в Firefox */
 }
 
 .catalog__column {
@@ -386,7 +438,7 @@ button:hover {
   width: 560px;
 }
 
-.catalog__product {
+/* .catalog__product {
   display: flex;
   gap: 45px;
   align-items: center;
@@ -394,7 +446,29 @@ button:hover {
   padding-right: 42px;
   background: #fff;
   box-shadow: 0 4px 24px 0 rgba(205, 205, 205, 0.5);
+} */
+.catalog__product {
+  display: grid;
+  /* Левая колонка для картинки (235px), правая для текста (всё оставшееся место - 1fr) */
+  grid-template-columns: 235px 1fr; 
+  gap: 45px;
+  align-items: center;
+  
+  /* width: 560px; <-- ЭТУ СТРОКУ УДАЛЯЕМ! Ширину теперь задает трек */
+  
+  background: #fff;
+  box-shadow: 0 4px 24px 0 rgba(205, 205, 205, 0.5);
+  padding-right: 42px;
 }
+
+/* Обертке инфы больше не нужна жесткая ширина */
+
+/* .catalog__product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  
+} */
 
 .catalog__product-header {
   display: flex;
@@ -776,8 +850,6 @@ button:hover {
   cursor: pointer;
   transition: 0.3s;
   right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .footer {
@@ -800,44 +872,116 @@ button:hover {
 }
 
 @media (max-width: 970px) {
-  .hero__container {
+  .hero {
     display: flex;
-    flex-direction: column; 
-    padding: 0 clamp(px, 24.9vw - 215px, 144px);
+    height: 80vh;
+    overflow: hidden;
   }
 
-  .hero__nav {
-    order: -1; 
+  .hero::before {
+    display: none;
+  }
+
+  .hero__container {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 80vh;
+    padding: 0;
+  }
+
+  .hero__top-bar {
+    position: relative;
+    display: flex;
     width: 100%;
-    flex-direction: row;  
-    padding: 5px 20px;
-    background-color: var(--color-dark-blue);
-    gap: 100px;
+    padding: 10px 30px;
+    justify-content: space-between;
+    align-items: center;
+    background: #415167;
+    z-index: 10;
+  }
+
+  .hero__burger {
+    display: flex;
+  }
+
+  .hero__logo {
+    margin-top: 0;
+    filter: invert(1) brightness(2);
+  }
+
+  .hero__cart {
+    margin-top: 0;
   }
 
   .hero__image-wrapper {
-    order: 1; 
-    position: relative;
-    height: clamp(500px, 71.5vw - 215px, 512px)
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
   }
 
   .hero__info {
-    order: 2;
-    gap: 10px;
+    display: flex;
+    z-index: 2;
+    flex: 1;
+    justify-content: flex-end;
   }
 
-  .hero__info {
+  .hero__info::before {
+    display: none;
   }
 
   .hero__title {
+    background: hsl(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;  
+    text-align: left;
+    align-self: start;
+    margin-bottom: 7vh;
+    margin-left: clamp(20px, 17vw - 100px, 80px);
   }
 
-  .hero__nav-list{
-    flex-direction: row;
-  }  
+  .hero__text-line {
+    color: #ffffff;
+  }
+.hero__text-line--highlight {
+      align-self:auto;
+}
+  .hero__nav {
+    position: static;
+    margin-top: 0;
+    align-self: auto;
+  }
 
-    .hero::before {
-    display: none;
+  .hero__nav-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    margin-top: 0;
+    padding: 100px 30px 30px;
+    background: #536681;
+    flex-direction: column;
+    gap: 24px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 5;
+  }
+
+  .hero__nav-list.is-open {
+    transform: translateX(0);
+  }
+
+  .hero__nav-link {
+    color: #ffffff;
+    font-size: 18px;
   }
 }
 
@@ -849,11 +993,6 @@ button:hover {
   .hero__container {
     min-height: 600px;
     padding: 0;
-  }
-
-  .hero__image-wrapper {
-    left: calc(50% - 150px);
-    width: 450px;
   }
 
   .features,
@@ -868,20 +1007,7 @@ button:hover {
     gap: 40px;
   }
 
-  .catalog__slider,
-  .combo__slider {
-    padding: 24px 0;
-    flex-direction: column;
-    gap: 30px;
-    justify-content: center;
-  }
 
-  .catalog__next-btn,
-  .combo__next-btn {
-    position: static;
-    transform: none;
-    margin: 20px auto 0;
-  }
 
   .giftset__wrapper {
     margin-left: 0;
@@ -896,4 +1022,18 @@ button:hover {
     width: 300px;
     left: -100px;
   }
+}
+
+@media (max-width: 471px) {
+  .features__cards {
+    grid-template-columns: 1fr; /* Строго 1 колонка */
+    gap: 30px;
+  }
+  .features__card-info{
+    max-width: clamp(150px, 62.5vw, 300px);
+  }
+}
+
+@media (max-width: 320px) {
+  
 }
