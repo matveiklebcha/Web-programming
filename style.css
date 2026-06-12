@@ -1142,6 +1142,71 @@ html {
   animation: active-tab-glow 3.6s ease-in-out infinite;
 }
 
+.combo__card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+.combo__card::after {
+  content: "";
+  position: absolute;
+  inset: auto 28px 0;
+  height: 3px;
+  border-radius: 999px 999px 0 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+
+.combo__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(199, 161, 122, 0.34) 50%, transparent 100%)
+      -120% 0 / 70% 4px no-repeat,
+    linear-gradient(180deg, rgba(199, 161, 122, 0.16), transparent 38%);
+  opacity: 0.36;
+  animation: combo-card-accent 5.4s ease-in-out infinite;
+}
+
+.combo__card:hover {
+  box-shadow: 0 16px 34px rgba(65, 81, 103, 0.16);
+  transform: translateY(-9px);
+}
+
+.combo__card:hover::after {
+  transform: scaleX(1);
+}
+
+.combo__card-img {
+  transition:
+    filter 0.35s ease,
+    transform 0.45s ease;
+}
+
+.combo__card:hover .combo__card-img {
+  animation: none;
+  filter: saturate(1.08);
+  transform: scale(1.035);
+}
+
+.footer__text {
+  animation: footer-soft-fade 4s ease-in-out infinite alternate;
+}
+
+.features:target,
+.catalog:target,
+.giftset:target,
+.combo:target {
+  animation: target-section-flash 1.4s ease-out;
+}
+
 @keyframes logo-drop-in {
   from {
     opacity: 0;
@@ -1317,6 +1382,43 @@ html {
 
   50% {
     box-shadow: 0 0 22px rgba(65, 81, 103, 0.12);
+  }
+}
+
+@keyframes combo-card-accent {
+  0%,
+  100% {
+    background-position:
+      -120% 0,
+      0 0;
+    opacity: 0.26;
+  }
+
+  50% {
+    background-position:
+      220% 0,
+      0 0;
+    opacity: 0.72;
+  }
+}
+
+@keyframes footer-soft-fade {
+  from {
+    opacity: 0.62;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes target-section-flash {
+  0% {
+    filter: brightness(1.04);
+  }
+
+  100% {
+    filter: brightness(1);
   }
 }
 
