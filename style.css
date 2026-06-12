@@ -1207,6 +1207,31 @@ html {
   animation: target-section-flash 1.4s ease-out;
 }
 
+.btn {
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease,
+    transform 0.25s ease;
+}
+
+.btn:focus-visible,
+.giftset__tab:focus-visible,
+.hero__burger:focus-visible,
+.catalog__next-btn:focus-visible,
+.combo__next-btn:focus-visible,
+.hero__play-btn:focus-visible {
+  outline: 3px solid rgba(199, 161, 122, 0.45);
+  outline-offset: 4px;
+}
+
+.btn:active,
+.catalog__next-btn:active,
+.combo__next-btn:active,
+.hero__play-btn:active {
+  transform: scale(0.96);
+}
+
 @keyframes logo-drop-in {
   from {
     opacity: 0;
@@ -1419,6 +1444,17 @@ html {
 
   100% {
     filter: brightness(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
