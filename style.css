@@ -956,6 +956,63 @@ html {
   opacity: 0.72;
 }
 
+.section-header__title {
+  position: relative;
+}
+
+.section-header {
+  animation: section-fade-up 0.8s ease-out both;
+}
+
+.section-header__title::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 3px;
+  margin: 12px auto 0;
+  border-radius: 999px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: title-rule-grow 0.7s 0.25s ease-out forwards;
+}
+
+.features__card {
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.features__card:hover {
+  filter: drop-shadow(0 12px 18px rgba(65, 81, 103, 0.14));
+  transform: translateY(-8px);
+}
+
+.features__card-icon {
+  transform-origin: 50% 80%;
+  transition:
+    filter 0.35s ease,
+    transform 0.35s cubic-bezier(0.2, 0.9, 0.25, 1.25);
+}
+
+.features__card:nth-child(odd) .features__card-icon {
+  animation: feature-icon-float 4.2s ease-in-out infinite;
+}
+
+.features__card:nth-child(even) .features__card-icon {
+  animation: feature-icon-float 4.2s 0.8s ease-in-out infinite reverse;
+}
+
+.features__card:hover .features__card-icon {
+  animation: none;
+  filter: saturate(1.2);
+  transform: translateY(-4px) rotate(-4deg) scale(1.06);
+}
+
+.features__card:first-child .features__card-title {
+  animation: first-feature-accent 3.8s ease-in-out infinite;
+}
+
 @keyframes logo-drop-in {
   from {
     opacity: 0;
@@ -1036,6 +1093,46 @@ html {
 
   92% {
     transform: scale(0.94);
+  }
+}
+
+@keyframes section-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes title-rule-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes feature-icon-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+@keyframes first-feature-accent {
+  0%,
+  100% {
+    color: var(--color-text-main);
+  }
+
+  50% {
+    color: var(--color-accent);
   }
 }
 
