@@ -237,56 +237,55 @@ const formatPrice = (price) => `${price.toLocaleString('ru-RU')} VND`;
 
 const normalizeText = (value) => value.toLowerCase().trim();
 
+const methodHandlers = {
+  map: () =>
+    coffeeProducts.map((product) => ({
+      ...product,
+      salePrice: Math.round(product.price * 0.9),
+      badge: 'Скидка 10%',
+    })),
+  filter: () => coffeeProducts.filter((product) => product.rating >= 4.7),
+  sort: () => [...coffeeProducts].sort((first, second) => first.price - second.price),
+  reduce: () =>
+    Object.values(
+      coffeeProducts.reduce((bestByCategory, product) => {
+        const current = bestByCategory[product.category];
+
+        if (!current || product.rating > current.rating) {
+          bestByCategory[product.category] = product;
+        }
+
+        return bestByCategory;
+      }, {}),
+    ),
+  find: () => {
+    const product = coffeeProducts.find((item) => item.rating >= 4.9);
+
+    return product ? [product] : [];
+  },
+  slice: () => coffeeProducts.slice(0, 6),
+  reverse: () => [...coffeeProducts].reverse(),
+  flatMap: () =>
+    Object.keys(categoryLabels).flatMap((category) =>
+      coffeeProducts.filter((product) => product.category === category).slice(0, 2),
+    ),
+  concat: () => {
+    const baseLine = coffeeProducts.slice(0, 8);
+    const limitedLine = coffeeProducts.slice(8);
+
+    return baseLine.concat(limitedLine);
+  },
+  splice: () => {
+    const productsCopy = [...coffeeProducts];
+
+    return productsCopy.splice(5, 5);
+  },
+};
+
 const getMethodProducts = () => {
-  switch (state.method) {
-    case 'map':
-      return coffeeProducts.map((product) => ({
-        ...product,
-        salePrice: Math.round(product.price * 0.9),
-        badge: 'Скидка 10%',
-      }));
-    case 'filter':
-      return coffeeProducts.filter((product) => product.rating >= 4.7);
-    case 'sort':
-      return [...coffeeProducts].sort((first, second) => first.price - second.price);
-    case 'reduce':
-      return Object.values(
-        coffeeProducts.reduce((bestByCategory, product) => {
-          const current = bestByCategory[product.category];
+  const handler = methodHandlers[state.method];
 
-          if (!current || product.rating > current.rating) {
-            bestByCategory[product.category] = product;
-          }
-
-          return bestByCategory;
-        }, {}),
-      );
-    case 'find': {
-      const product = coffeeProducts.find((item) => item.rating >= 4.9);
-      return product ? [product] : [];
-    }
-    case 'slice':
-      return coffeeProducts.slice(0, 6);
-    case 'reverse':
-      return [...coffeeProducts].reverse();
-    case 'flatMap':
-      return Object.keys(categoryLabels).flatMap((category) =>
-        coffeeProducts.filter((product) => product.category === category).slice(0, 2),
-      );
-    case 'concat': {
-      const baseLine = coffeeProducts.slice(0, 8);
-      const limitedLine = coffeeProducts.slice(8);
-
-      return baseLine.concat(limitedLine);
-    }
-    case 'splice': {
-      const productsCopy = [...coffeeProducts];
-
-      return productsCopy.splice(5, 5);
-    }
-    default:
-      return [...coffeeProducts];
-  }
+  return handler ? handler() : [...coffeeProducts];
 };
 
 const applySearch = (products) => {
