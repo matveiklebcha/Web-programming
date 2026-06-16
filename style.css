@@ -1204,10 +1204,16 @@ html {
 }
 
 .catalog-page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background:
     linear-gradient(90deg, transparent 0 76%, var(--color-dark-blue) 76% 100%),
     var(--color-bg-light);
+}
+
+.catalog-page main {
+  flex: 1;
 }
 
 .catalog-header {
