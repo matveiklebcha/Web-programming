@@ -236,6 +236,21 @@ const methodButtons = document.querySelectorAll('[data-method]');
 
 const formatPrice = (price) => `${price.toLocaleString('ru-RU')} VND`;
 
+const formatProductsCount = (count) => {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return `${count} позиция`;
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
+    return `${count} позиции`;
+  }
+
+  return `${count} позиций`;
+};
+
 const normalizeText = (value) => value.toLowerCase().trim();
 
 const methodHandlers = {
@@ -385,7 +400,7 @@ const renderProducts = () => {
 
   productsGrid.replaceChildren(...visibleProducts.map(createProductCard));
   emptyState.hidden = visibleProducts.length > 0;
-  productsCount.textContent = `${visibleProducts.length} ${visibleProducts.length === 1 ? 'позиция' : 'позиций'}`;
+  productsCount.textContent = formatProductsCount(visibleProducts.length);
 };
 
 searchInput.addEventListener('input', (event) => {
