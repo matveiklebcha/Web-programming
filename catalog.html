@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог кофе | Revo Coffee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="catalog-page">
+    <header class="catalog-header">
+      <div class="container catalog-header__container">
+        <a class="catalog-header__logo-link" href="index.html#Catalog">
+          <img
+            class="catalog-header__logo"
+            src="img/brand/revo-logo.svg"
+            alt="Revo Coffee"
+          />
+        </a>
+        <a class="catalog-header__back" href="index.html#Catalog">Назад на главную</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="products">
+        <div class="container products__container">
+          <div class="section-header products__header">
+            <p class="section-header__slogan">Revo Coffee</p>
+            <h1 class="section-header__title">Каталог кофе</h1>
+          </div>
+
+          <div class="products__controls" aria-label="Управление каталогом">
+            <label class="products__search">
+              <span class="products__label">Поиск</span>
+              <input
+                id="searchInput"
+                class="products__input"
+                type="search"
+                placeholder="Название или описание"
+                autocomplete="off"
+              />
+            </label>
+
+            <label class="products__sort">
+              <span class="products__label">Сортировка</span>
+              <select id="sortSelect" class="products__select">
+                <option value="default">По умолчанию</option>
+                <option value="price-asc">Цена по возрастанию</option>
+                <option value="price-desc">Цена по убыванию</option>
+                <option value="name-asc">Название А-Я</option>
+                <option value="rating-desc">Рейтинг по убыванию</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="products__filter-group" aria-label="Категории кофе">
+            <button class="products__chip is-active" type="button" data-category="all">
+              Все
+            </button>
+            <button class="products__chip" type="button" data-category="Classic">
+              Классика
+            </button>
+            <button class="products__chip" type="button" data-category="Fruity">
+              Фруктовый
+            </button>
+            <button class="products__chip" type="button" data-category="Sweet">
+              Сладкий
+            </button>
+            <button class="products__chip" type="button" data-category="Strong">
+              Крепкий
+            </button>
+          </div>
+
+          <div class="products__filter-group" aria-label="Методы массивов">
+            <button class="products__chip" type="button" data-method="map">map</button>
+            <button class="products__chip" type="button" data-method="filter">
+              filter
+            </button>
+            <button class="products__chip" type="button" data-method="sort">sort</button>
+            <button class="products__chip" type="button" data-method="reduce">
+              reduce
+            </button>
+            <button class="products__chip" type="button" data-method="find">find</button>
+            <button class="products__chip" type="button" data-method="slice">
+              slice
+            </button>
+            <button class="products__chip" type="button" data-method="reverse">
+              reverse
+            </button>
+            <button class="products__chip" type="button" data-method="flatMap">
+              flatMap
+            </button>
+            <button class="products__chip" type="button" data-method="concat">
+              concat
+            </button>
+            <button class="products__chip" type="button" data-method="splice">
+              splice
+            </button>
+          </div>
+
+          <p id="productsCount" class="products__count" aria-live="polite"></p>
+          <div id="productsGrid" class="products__grid"></div>
+          <div id="emptyState" class="products__empty" hidden>
+            <h2 class="products__empty-title">Кофе не найден</h2>
+            <p class="products__empty-text">
+              Попробуйте изменить запрос, категорию или выбранный метод.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="Footer">
+      <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>
+    </footer>
+    <script src="catalog.js"></script>
+  </body>
+</html>
