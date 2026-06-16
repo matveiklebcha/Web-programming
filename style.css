@@ -850,7 +850,8 @@ button:hover {
   text-align: center;
 }
 
-/* Lab5: motion layer keeps the layout frame untouched. */
+/* Часть с анимациями */
+
 html {
   scroll-behavior: smooth;
 }
@@ -865,7 +866,7 @@ html {
 }
 
 .hero__image-wrapper {
-  animation: hero-photo-breathe 12s ease-in-out infinite alternate;
+  animation: hero-photo-breathe 3s ease-in-out infinite alternate;
 }
 
 .hero__text-line {
@@ -1204,7 +1205,7 @@ html {
 .catalog:target,
 .giftset:target,
 .combo:target {
-  animation: target-section-flash 1.4s ease-out;
+  animation: target-section-flash 3s ease-out;
 }
 
 .btn {
@@ -1246,11 +1247,11 @@ html {
 
 @keyframes hero-photo-breathe {
   from {
-    filter: saturate(0.95) brightness(0.98);
+    filter: saturate(0.95) brightness(0.8);
   }
 
   to {
-    filter: saturate(1.08) brightness(1.03);
+    filter: saturate(1.08) brightness(1.1);
   }
 }
 
@@ -1439,7 +1440,7 @@ html {
 
 @keyframes target-section-flash {
   0% {
-    filter: brightness(1.04);
+    filter: brightness(1.6);
   }
 
   100% {
