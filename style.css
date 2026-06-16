@@ -1532,6 +1532,10 @@ html {
   font-weight: 300;
 }
 
+.products__reset {
+  margin-top: 24px;
+}
+
 .footer__text {
   animation: footer-soft-fade 4s ease-in-out infinite alternate;
 }

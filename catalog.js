@@ -230,6 +230,7 @@ const emptyState = document.querySelector('#emptyState');
 const productsCount = document.querySelector('#productsCount');
 const searchInput = document.querySelector('#searchInput');
 const sortSelect = document.querySelector('#sortSelect');
+const resetFilters = document.querySelector('#resetFilters');
 const categoryButtons = document.querySelectorAll('[data-category]');
 const methodButtons = document.querySelectorAll('[data-method]');
 
@@ -394,6 +395,19 @@ searchInput.addEventListener('input', (event) => {
 
 sortSelect.addEventListener('change', (event) => {
   state.sort = event.target.value;
+  renderProducts();
+});
+
+resetFilters.addEventListener('click', () => {
+  state.query = '';
+  state.category = 'all';
+  state.method = null;
+  state.sort = 'default';
+
+  searchInput.value = '';
+  sortSelect.value = state.sort;
+  setActiveButton(categoryButtons, state.category, 'category');
+  setActiveButton(methodButtons, state.method, 'method');
   renderProducts();
 });
 
