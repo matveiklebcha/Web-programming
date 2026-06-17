@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Корзина | Revo Coffee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="catalog-page">
+    <header class="catalog-header">
+      <div class="container catalog-header__container">
+        <a class="catalog-header__logo-link" href="index.html#Catalog">
+          <img
+            class="catalog-header__logo"
+            src="img/brand/revo-logo.svg"
+            alt="Revo Coffee"
+          />
+        </a>
+        <nav class="catalog-header__nav" aria-label="Навигация каталога">
+          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
+          <a class="catalog-header__back" href="catalog.html">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html">Избранное</a>
+          <a class="catalog-header__back" href="cart.html">Корзина</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="products">
+        <div class="container products__container">
+          <div class="section-header products__header">
+            <p class="section-header__slogan">Revo Coffee</p>
+            <h1 class="section-header__title">Корзина</h1>
+          </div>
+
+          <p id="cartStatus" class="products__count" aria-live="polite"></p>
+          <p id="cartError" class="products__error" hidden></p>
+          <p id="cartLoader" class="products__loader" hidden>Загрузка корзины...</p>
+
+          <div id="cartList" class="cart-list"></div>
+
+          <div id="cartEmpty" class="products__empty" hidden>
+            <h2 class="products__empty-title">Корзина пуста</h2>
+            <p class="products__empty-text">
+              Добавьте кофе из каталога, чтобы оформить заказ.
+            </p>
+            <a class="btn btn--primary products__reset" href="catalog.html">Перейти в каталог</a>
+          </div>
+
+          <div id="cartSummary" class="cart-summary" hidden>
+            <p class="cart-summary__label">Итого</p>
+            <p id="cartTotal" class="cart-summary__total"></p>
+            <button id="checkoutButton" class="btn btn--primary" type="button">
+              Оформить покупку
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <p id="notice" class="notice" hidden></p>
+
+    <footer class="footer" id="Footer">
+      <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>
+    </footer>
+    <script type="module" src="cart.js"></script>
+  </body>
+</html>
