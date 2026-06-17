@@ -1,0 +1,13 @@
+{
+  "name": "revo-coffee-labs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "api": "json-server --watch db.json --port 3000",
+    "check": "node --check script.js && node --check api.js && node --check ui.js && node --check catalog.js && node --check favorites.js && node --check cart.js"
+  },
+  "devDependencies": {
+    "json-server": "0.17.4"
+  }
+}
