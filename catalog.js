@@ -1,449 +1,367 @@
-const coffeeProducts = [
-  {
-    id: 1,
-    name: 'REVO Morning Amber',
-    price: 99000,
-    image: 'img/products/catalog/card-image-yellow.jpg',
-    category: 'Classic',
-    rating: 4.6,
-    description: 'Сбалансированный утренний кофе с мягкой горчинкой и ароматом ореха.',
-    roast: 'Medium',
-    origin: 'Lam Dong',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(0deg) saturate(1.05)',
-  },
-  {
-    id: 2,
-    name: 'REVO Origin Citrus',
-    price: 139000,
-    image: 'img/products/catalog/card-image-orange.jpg',
-    category: 'Fruity',
-    rating: 4.8,
-    description: 'Яркий сорт с цитрусовой кислинкой, медовым послевкусием и легким телом.',
-    roast: 'Light',
-    origin: 'Cau Dat',
-    intensity: 2,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(-8deg) saturate(1.18)',
-  },
-  {
-    id: 3,
-    name: 'REVO Everyday Blue',
-    price: 85000,
-    image: 'img/products/catalog/card-image-blue.jpg',
-    category: 'Classic',
-    rating: 4.5,
-    description: 'Повседневная смесь Robusta и Arabica с плотным вкусом и шоколадной нотой.',
-    roast: 'Medium',
-    origin: 'Dak Lak',
-    intensity: 4,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(0deg) saturate(1.08)',
-  },
-  {
-    id: 4,
-    name: 'REVO Dark Brown',
-    price: 75000,
-    image: 'img/products/catalog/card-image-brown.jpg',
-    category: 'Strong',
-    rating: 4.4,
-    description: 'Крепкий темный кофе с выраженной горчинкой и плотным сливочным телом.',
-    roast: 'Dark',
-    origin: 'Buon Ma Thuot',
-    intensity: 5,
-    weight: '250 г',
-    imageFilter: 'brightness(0.92) contrast(1.08) saturate(1.08)',
-  },
-  {
-    id: 5,
-    name: 'REVO Honey Red',
-    price: 195000,
-    image: 'img/products/catalog/card-image-red.jpg',
-    category: 'Sweet',
-    rating: 4.9,
-    description: 'Сладкий honey-процесс с нотами карамели, яблока и мягкой ягодности.',
-    roast: 'Medium',
-    origin: 'Da Lat',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(0deg) saturate(1.15)',
-  },
-  {
-    id: 6,
-    name: 'REVO Natural Green',
-    price: 169000,
-    image: 'img/products/catalog/card-image-green.jpg',
-    category: 'Fruity',
-    rating: 4.7,
-    description: 'Натуральная обработка с ароматом цветов, спелых ягод и мягкой кислотностью.',
-    roast: 'Light',
-    origin: 'Son La',
-    intensity: 2,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(4deg) saturate(1.12)',
-  },
-  {
-    id: 7,
-    name: 'REVO Golden Crema',
-    price: 125000,
-    image: 'img/products/catalog/card-image-yellow.jpg',
-    category: 'Sweet',
-    rating: 4.7,
-    description: 'Золотая смесь для молочных напитков с нотами печенья и сливочной карамели.',
-    roast: 'Medium',
-    origin: 'Lam Ha',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(12deg) brightness(1.06) saturate(1.22)',
-  },
-  {
-    id: 8,
-    name: 'REVO Orange Bloom',
-    price: 149000,
-    image: 'img/products/catalog/card-image-orange.jpg',
-    category: 'Fruity',
-    rating: 4.8,
-    description: 'Легкий кофе с ароматом апельсинового цвета, абрикоса и тростникового сахара.',
-    roast: 'Light',
-    origin: 'Cau Dat',
-    intensity: 2,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(18deg) brightness(1.04) saturate(1.2)',
-  },
-  {
-    id: 9,
-    name: 'REVO Blue Velvet',
-    price: 118000,
-    image: 'img/products/catalog/card-image-blue.jpg',
-    category: 'Classic',
-    rating: 4.6,
-    description: 'Мягкий кофейный профиль с какао, ореховой пастой и чистым послевкусием.',
-    roast: 'Medium',
-    origin: 'Dak Nong',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(20deg) saturate(1.16) brightness(1.02)',
-  },
-  {
-    id: 10,
-    name: 'REVO Espresso Brown',
-    price: 132000,
-    image: 'img/products/catalog/card-image-brown.jpg',
-    category: 'Strong',
-    rating: 4.9,
-    description: 'Эспрессо-смесь с густой крема, темным шоколадом и долгим сухим финишем.',
-    roast: 'Dark',
-    origin: 'Gia Lai',
-    intensity: 5,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(-10deg) contrast(1.15) saturate(1.18)',
-  },
-  {
-    id: 11,
-    name: 'REVO Red Berry',
-    price: 182000,
-    image: 'img/products/catalog/card-image-red.jpg',
-    category: 'Fruity',
-    rating: 4.8,
-    description: 'Фруктовый профиль с красной смородиной, какао и легкой винной кислотностью.',
-    roast: 'Light',
-    origin: 'Da Lat',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(14deg) brightness(1.03) saturate(1.25)',
-  },
-  {
-    id: 12,
-    name: 'REVO Green Garden',
-    price: 158000,
-    image: 'img/products/catalog/card-image-green.jpg',
-    category: 'Sweet',
-    rating: 4.7,
-    description: 'Сладкий кофе с цветочным ароматом, медом, зеленым яблоком и мягким телом.',
-    roast: 'Medium',
-    origin: 'Son La',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(22deg) brightness(1.05) saturate(1.18)',
-  },
-  {
-    id: 13,
-    name: 'REVO Morning Strong',
-    price: 109000,
-    image: 'img/products/catalog/card-image-yellow.jpg',
-    category: 'Strong',
-    rating: 4.5,
-    description: 'Бодрая утренняя смесь с повышенной интенсивностью, какао и жареным орехом.',
-    roast: 'Dark',
-    origin: 'Buon Ma Thuot',
-    intensity: 5,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(-18deg) contrast(1.12) saturate(1.12)',
-  },
-  {
-    id: 14,
-    name: 'REVO Caramel Orange',
-    price: 172000,
-    image: 'img/products/catalog/card-image-orange.jpg',
-    category: 'Sweet',
-    rating: 4.9,
-    description: 'Сладкий профиль с карамелью, цедрой апельсина и бархатным послевкусием.',
-    roast: 'Medium',
-    origin: 'Lam Dong',
-    intensity: 3,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(28deg) brightness(1.07) saturate(1.26)',
-  },
-  {
-    id: 15,
-    name: 'REVO Midnight Blue',
-    price: 145000,
-    image: 'img/products/catalog/card-image-blue.jpg',
-    category: 'Strong',
-    rating: 4.6,
-    description: 'Темная смесь для насыщенного фильтра с горьким шоколадом и пряным финишем.',
-    roast: 'Dark',
-    origin: 'Dak Lak',
-    intensity: 5,
-    weight: '250 г',
-    imageFilter: 'hue-rotate(-28deg) brightness(0.88) contrast(1.18) saturate(1.2)',
-  },
-];
-
-const categoryLabels = {
-  Classic: 'Классика',
-  Fruity: 'Фруктовый',
-  Sweet: 'Сладкий',
-  Strong: 'Крепкий',
-};
+import {
+  addProductToCart,
+  addProductToFavorites,
+  getAllProducts,
+  getProduct,
+  getProducts,
+} from './api.js';
+import {
+  categoryLabels,
+  createProductCard,
+  formatProductsCount,
+  setActiveButton,
+  showNotice,
+} from './ui.js';
 
 const state = {
   query: '',
   category: 'all',
-  method: null,
+  roast: '',
+  origin: '',
+  minPrice: '',
+  maxPrice: '',
+  minRating: '',
+  minIntensity: '',
   sort: 'default',
+  page: 1,
+  limit: 6,
 };
 
 const productsGrid = document.querySelector('#productsGrid');
 const emptyState = document.querySelector('#emptyState');
-const productsCount = document.querySelector('#productsCount');
+const productsStatus = document.querySelector('#productsStatus');
+const productsError = document.querySelector('#productsError');
+const productsLoader = document.querySelector('#productsLoader');
 const searchInput = document.querySelector('#searchInput');
 const sortSelect = document.querySelector('#sortSelect');
+const roastSelect = document.querySelector('#roastSelect');
+const originSelect = document.querySelector('#originSelect');
+const minPriceInput = document.querySelector('#minPriceInput');
+const maxPriceInput = document.querySelector('#maxPriceInput');
+const ratingSelect = document.querySelector('#ratingSelect');
+const intensitySelect = document.querySelector('#intensitySelect');
+const limitSelect = document.querySelector('#limitSelect');
 const resetFilters = document.querySelector('#resetFilters');
-const categoryButtons = document.querySelectorAll('[data-category]');
-const methodButtons = document.querySelectorAll('[data-method]');
+const categoryFilters = document.querySelector('#categoryFilters');
+const prevPageButton = document.querySelector('#prevPageButton');
+const nextPageButton = document.querySelector('#nextPageButton');
+const paginationInfo = document.querySelector('#paginationInfo');
+const notice = document.querySelector('#notice');
 
-const formatPrice = (price) => `${price.toLocaleString('ru-RU')} VND`;
+const debounce = (callback, delay = 300) => {
+  let timerId;
 
-const formatProductsCount = (count) => {
-  const lastDigit = count % 10;
-  const lastTwoDigits = count % 100;
+  return (...args) => {
+    window.clearTimeout(timerId);
+    timerId = window.setTimeout(() => callback(...args), delay);
+  };
+};
 
-  if (lastDigit === 1 && lastTwoDigits !== 11) {
-    return `${count} позиция`;
+const setLoading = (isLoading) => {
+  productsLoader.hidden = !isLoading;
+  productsGrid.setAttribute('aria-busy', String(isLoading));
+};
+
+const setError = (message = '') => {
+  productsError.hidden = !message;
+  productsError.textContent = message;
+};
+
+const resetPage = () => {
+  state.page = 1;
+};
+
+const syncCategoryButtons = () => {
+  const categoryButtons = categoryFilters.querySelectorAll('[data-category]');
+
+  setActiveButton(categoryButtons, state.category, 'category');
+};
+
+const buildProductsQuery = () => {
+  const params = new URLSearchParams();
+
+  if (state.query) {
+    params.set('q', state.query);
   }
 
-  if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
-    return `${count} позиции`;
+  if (state.category !== 'all') {
+    params.set('category', state.category);
   }
 
-  return `${count} позиций`;
-};
-
-const normalizeText = (value) => value.toLowerCase().trim();
-
-const methodHandlers = {
-  map: () =>
-    coffeeProducts.map((product) => ({
-      ...product,
-      salePrice: Math.round(product.price * 0.9),
-      badge: 'Скидка 10%',
-    })),
-  filter: () => coffeeProducts.filter((product) => product.rating >= 4.7),
-  sort: () => [...coffeeProducts].sort((first, second) => first.price - second.price),
-  reduce: () =>
-    Object.values(
-      coffeeProducts.reduce((bestByCategory, product) => {
-        const current = bestByCategory[product.category];
-
-        if (!current || product.rating > current.rating) {
-          bestByCategory[product.category] = product;
-        }
-
-        return bestByCategory;
-      }, {}),
-    ),
-  find: () => {
-    const product = coffeeProducts.find((item) => item.rating >= 4.9);
-
-    return product ? [product] : [];
-  },
-  slice: () => coffeeProducts.slice(0, 6),
-  reverse: () => [...coffeeProducts].reverse(),
-  flatMap: () =>
-    Object.keys(categoryLabels).flatMap((category) =>
-      coffeeProducts.filter((product) => product.category === category).slice(0, 2),
-    ),
-  concat: () => {
-    const baseLine = coffeeProducts.slice(0, 8);
-    const limitedLine = coffeeProducts.slice(8);
-
-    return baseLine.concat(limitedLine);
-  },
-  splice: () => {
-    const productsCopy = [...coffeeProducts];
-
-    return productsCopy.splice(5, 5);
-  },
-};
-
-const getMethodProducts = () => {
-  const handler = methodHandlers[state.method];
-
-  return handler ? handler() : [...coffeeProducts];
-};
-
-const applySearch = (products) => {
-  const query = normalizeText(state.query);
-
-  if (!query) {
-    return products;
+  if (state.roast) {
+    params.set('roast', state.roast);
   }
 
-  return products.filter((product) => {
-    const searchableText = normalizeText(`${product.name} ${product.description}`);
-
-    return searchableText.includes(query);
-  });
-};
-
-const applyCategory = (products) => {
-  if (state.category === 'all') {
-    return products;
+  if (state.origin) {
+    params.set('origin', state.origin);
   }
 
-  return products.filter((product) => product.category === state.category);
-};
+  if (state.minPrice) {
+    params.set('price_gte', state.minPrice);
+  }
 
-const applySort = (products) => {
-  const sortedProducts = [...products];
+  if (state.maxPrice) {
+    params.set('price_lte', state.maxPrice);
+  }
+
+  if (state.minRating) {
+    params.set('rating_gte', state.minRating);
+  }
+
+  if (state.minIntensity) {
+    params.set('intensity_gte', state.minIntensity);
+  }
 
   switch (state.sort) {
     case 'price-asc':
-      return sortedProducts.sort((first, second) => first.price - second.price);
+      params.set('_sort', 'price');
+      params.set('_order', 'asc');
+      break;
     case 'price-desc':
-      return sortedProducts.sort((first, second) => second.price - first.price);
+      params.set('_sort', 'price');
+      params.set('_order', 'desc');
+      break;
     case 'name-asc':
-      return sortedProducts.sort((first, second) =>
-        first.name.localeCompare(second.name, 'ru'),
-      );
+      params.set('_sort', 'name');
+      params.set('_order', 'asc');
+      break;
     case 'rating-desc':
-      return sortedProducts.sort((first, second) => second.rating - first.rating);
+      params.set('_sort', 'rating');
+      params.set('_order', 'desc');
+      break;
     default:
-      return sortedProducts;
+      break;
+  }
+
+  params.set('_page', state.page);
+  params.set('_limit', state.limit);
+
+  return `?${params.toString()}`;
+};
+
+const renderPagination = (total) => {
+  const totalPages = Math.max(1, Math.ceil(total / state.limit));
+
+  paginationInfo.textContent = `Страница ${state.page} из ${totalPages}`;
+  prevPageButton.disabled = state.page <= 1;
+  nextPageButton.disabled = state.page >= totalPages;
+};
+
+const renderProducts = (products, total) => {
+  productsGrid.replaceChildren(
+    ...products.map((product) =>
+      createProductCard(product, {
+        showFavorite: true,
+        showCart: true,
+      }),
+    ),
+  );
+
+  emptyState.hidden = products.length > 0;
+  productsStatus.textContent = `Найдено: ${formatProductsCount(total)}`;
+  renderPagination(total);
+};
+
+const renderCatalog = async () => {
+  setLoading(true);
+  setError();
+
+  try {
+    const query = buildProductsQuery();
+    const { data, total } = await getProducts(query);
+
+    renderProducts(data, total);
+  } catch (error) {
+    productsGrid.replaceChildren();
+    emptyState.hidden = true;
+    productsStatus.textContent = '';
+    paginationInfo.textContent = '';
+    prevPageButton.disabled = true;
+    nextPageButton.disabled = true;
+    setError('Не удалось загрузить каталог. Проверьте, что JSON Server запущен командой npm run api.');
+  } finally {
+    setLoading(false);
   }
 };
 
-const createProductCard = (product) => {
-  const card = document.createElement('article');
-  const currentPrice = product.salePrice || product.price;
-  const oldPrice = product.salePrice ? product.price : null;
+const createCategoryButton = (category) => {
+  const button = document.createElement('button');
 
-  card.className = 'product-card';
-  card.style.setProperty('--product-filter', product.imageFilter);
-  card.innerHTML = `
-    <div class="product-card__image-wrap">
-      <img class="product-card__image" src="${product.image}" alt="${product.name}" />
-      ${product.badge ? `<span class="product-card__badge">${product.badge}</span>` : ''}
-    </div>
-    <div class="product-card__body">
-      <div class="product-card__top">
-        <span class="product-card__category">${categoryLabels[product.category]}</span>
-        <span class="product-card__rating">★ ${product.rating.toFixed(1)}</span>
-      </div>
-      <h2 class="product-card__title">${product.name}</h2>
-      <p class="product-card__description">${product.description}</p>
-      <div class="product-card__meta">
-        <span>${product.roast}</span>
-        <span>${product.origin}</span>
-        <span>${product.intensity}/5</span>
-        <span>${product.weight}</span>
-      </div>
-      <div class="product-card__footer">
-        <div class="product-card__price">
-          <span>${formatPrice(currentPrice)}</span>
-          ${oldPrice ? `<del>${formatPrice(oldPrice)}</del>` : ''}
-        </div>
-        <button class="btn btn--primary product-card__button" type="button">В корзину</button>
-      </div>
-    </div>
-  `;
+  button.className = 'products__chip';
+  button.type = 'button';
+  button.dataset.category = category;
+  button.textContent = category === 'all' ? 'Все' : categoryLabels[category] || category;
+  button.setAttribute('aria-pressed', String(category === state.category));
 
-  return card;
+  return button;
 };
 
-const setActiveButton = (buttons, activeValue, dataKey) => {
-  buttons.forEach((button) => {
-    const isActive = button.dataset[dataKey] === activeValue;
+const renderFilterOptions = async () => {
+  const products = await getAllProducts();
+  const categories = new Set(products.map((product) => product.category));
+  const origins = new Set(products.map((product) => product.origin));
 
-    button.classList.toggle('is-active', isActive);
-    button.setAttribute('aria-pressed', String(isActive));
+  categoryFilters.replaceChildren(
+    createCategoryButton('all'),
+    ...[...categories].map(createCategoryButton),
+  );
+  syncCategoryButtons();
+
+  origins.forEach((origin) => {
+    const option = document.createElement('option');
+
+    option.value = origin;
+    option.textContent = origin;
+    originSelect.append(option);
   });
 };
 
-const renderProducts = () => {
-  const methodProducts = getMethodProducts();
-  const searchedProducts = applySearch(methodProducts);
-  const categoryProducts = applyCategory(searchedProducts);
-  const visibleProducts = applySort(categoryProducts);
-
-  productsGrid.replaceChildren(...visibleProducts.map(createProductCard));
-  emptyState.hidden = visibleProducts.length > 0;
-  productsCount.textContent = formatProductsCount(visibleProducts.length);
-};
-
-searchInput.addEventListener('input', (event) => {
-  state.query = event.target.value;
-  renderProducts();
-});
-
-sortSelect.addEventListener('change', (event) => {
-  state.sort = event.target.value;
-  renderProducts();
-});
-
-resetFilters.addEventListener('click', () => {
+const resetFiltersState = () => {
   state.query = '';
   state.category = 'all';
-  state.method = null;
+  state.roast = '';
+  state.origin = '';
+  state.minPrice = '';
+  state.maxPrice = '';
+  state.minRating = '';
+  state.minIntensity = '';
   state.sort = 'default';
+  state.page = 1;
+  state.limit = Number(limitSelect.value);
 
   searchInput.value = '';
   sortSelect.value = state.sort;
-  setActiveButton(categoryButtons, state.category, 'category');
-  setActiveButton(methodButtons, state.method, 'method');
-  renderProducts();
+  roastSelect.value = state.roast;
+  originSelect.value = state.origin;
+  minPriceInput.value = '';
+  maxPriceInput.value = '';
+  ratingSelect.value = '';
+  intensitySelect.value = '';
+  syncCategoryButtons();
+};
+
+searchInput.addEventListener(
+  'input',
+  debounce((event) => {
+    state.query = event.target.value.trim();
+    resetPage();
+    renderCatalog();
+  }),
+);
+
+sortSelect.addEventListener('change', (event) => {
+  state.sort = event.target.value;
+  resetPage();
+  renderCatalog();
 });
 
-categoryButtons.forEach((button) => {
-  button.setAttribute('aria-pressed', String(button.classList.contains('is-active')));
-
-  button.addEventListener('click', () => {
-    state.category = button.dataset.category;
-    setActiveButton(categoryButtons, state.category, 'category');
-    renderProducts();
-  });
+roastSelect.addEventListener('change', (event) => {
+  state.roast = event.target.value;
+  resetPage();
+  renderCatalog();
 });
 
-methodButtons.forEach((button) => {
-  button.setAttribute('aria-pressed', String(button.classList.contains('is-active')));
-
-  button.addEventListener('click', () => {
-    state.method = state.method === button.dataset.method ? null : button.dataset.method;
-    setActiveButton(methodButtons, state.method, 'method');
-    renderProducts();
-  });
+originSelect.addEventListener('change', (event) => {
+  state.origin = event.target.value;
+  resetPage();
+  renderCatalog();
 });
 
-renderProducts();
+minPriceInput.addEventListener(
+  'input',
+  debounce((event) => {
+    state.minPrice = event.target.value;
+    resetPage();
+    renderCatalog();
+  }),
+);
+
+maxPriceInput.addEventListener(
+  'input',
+  debounce((event) => {
+    state.maxPrice = event.target.value;
+    resetPage();
+    renderCatalog();
+  }),
+);
+
+ratingSelect.addEventListener('change', (event) => {
+  state.minRating = event.target.value;
+  resetPage();
+  renderCatalog();
+});
+
+intensitySelect.addEventListener('change', (event) => {
+  state.minIntensity = event.target.value;
+  resetPage();
+  renderCatalog();
+});
+
+limitSelect.addEventListener('change', (event) => {
+  state.limit = Number(event.target.value);
+  resetPage();
+  renderCatalog();
+});
+
+resetFilters.addEventListener('click', () => {
+  resetFiltersState();
+  renderCatalog();
+});
+
+categoryFilters.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-category]');
+
+  if (!button) {
+    return;
+  }
+
+  state.category = button.dataset.category;
+  resetPage();
+  syncCategoryButtons();
+  renderCatalog();
+});
+
+prevPageButton.addEventListener('click', () => {
+  state.page -= 1;
+  renderCatalog();
+});
+
+nextPageButton.addEventListener('click', () => {
+  state.page += 1;
+  renderCatalog();
+});
+
+productsGrid.addEventListener('click', async (event) => {
+  const favoriteButton = event.target.closest('[data-favorite-id]');
+  const cartButton = event.target.closest('[data-cart-id]');
+
+  if (!favoriteButton && !cartButton) {
+    return;
+  }
+
+  try {
+    if (favoriteButton) {
+      const product = await getProduct(favoriteButton.dataset.favoriteId);
+      const result = await addProductToFavorites(product);
+
+      showNotice(notice, result.created ? 'Товар добавлен в избранное' : 'Товар уже есть в избранном');
+    }
+
+    if (cartButton) {
+      const product = await getProduct(cartButton.dataset.cartId);
+      const result = await addProductToCart(product);
+
+      showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+    }
+  } catch (error) {
+    showNotice(notice, 'Не удалось выполнить действие. Проверьте JSON Server.');
+  }
+});
+
+try {
+  await renderFilterOptions();
+  await renderCatalog();
+} catch (error) {
+  setError('Не удалось подготовить фильтры. Проверьте, что JSON Server запущен командой npm run api.');
+  setLoading(false);
+}

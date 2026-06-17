@@ -22,7 +22,12 @@
             alt="Revo Coffee"
           />
         </a>
-        <a class="catalog-header__back" href="index.html#Catalog">Назад на главную</a>
+        <nav class="catalog-header__nav" aria-label="Навигация каталога">
+          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
+          <a class="catalog-header__back" href="catalog.html">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html">Избранное</a>
+          <a class="catalog-header__back" href="cart.html">Корзина</a>
+        </nav>
       </div>
     </header>
 
@@ -41,7 +46,7 @@
                 id="searchInput"
                 class="products__input"
                 type="search"
-                placeholder="Название или описание"
+                placeholder="Название, описание, происхождение"
                 autocomplete="off"
               />
             </label>
@@ -58,69 +63,121 @@
             </label>
           </div>
 
-          <div class="products__filter-group" aria-label="Категории кофе">
-            <button class="products__chip is-active" type="button" data-category="all">
-              Все
-            </button>
-            <button class="products__chip" type="button" data-category="Classic">
-              Классика
-            </button>
-            <button class="products__chip" type="button" data-category="Fruity">
-              Фруктовый
-            </button>
-            <button class="products__chip" type="button" data-category="Sweet">
-              Сладкий
-            </button>
-            <button class="products__chip" type="button" data-category="Strong">
-              Крепкий
+          <div
+            id="categoryFilters"
+            class="products__filter-group"
+            aria-label="Категории кофе"
+          ></div>
+
+          <div class="products__advanced" aria-label="Расширенные фильтры">
+            <label class="products__field">
+              <span class="products__label">Обжарка</span>
+              <select id="roastSelect" class="products__select">
+                <option value="">Любая</option>
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+              </select>
+            </label>
+
+            <label class="products__field">
+              <span class="products__label">Происхождение</span>
+              <select id="originSelect" class="products__select">
+                <option value="">Любое</option>
+              </select>
+            </label>
+
+            <label class="products__field">
+              <span class="products__label">Цена от</span>
+              <input
+                id="minPriceInput"
+                class="products__input"
+                type="number"
+                min="0"
+                step="1000"
+                placeholder="0"
+              />
+            </label>
+
+            <label class="products__field">
+              <span class="products__label">Цена до</span>
+              <input
+                id="maxPriceInput"
+                class="products__input"
+                type="number"
+                min="0"
+                step="1000"
+                placeholder="250000"
+              />
+            </label>
+
+            <label class="products__field">
+              <span class="products__label">Рейтинг от</span>
+              <select id="ratingSelect" class="products__select">
+                <option value="">Любой</option>
+                <option value="4.5">4.5</option>
+                <option value="4.7">4.7</option>
+                <option value="4.9">4.9</option>
+              </select>
+            </label>
+
+            <label class="products__field">
+              <span class="products__label">Интенсивность от</span>
+              <select id="intensitySelect" class="products__select">
+                <option value="">Любая</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="products__toolbar">
+            <label class="products__limit">
+              <span class="products__label">На странице</span>
+              <select id="limitSelect" class="products__select">
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+              </select>
+            </label>
+            <button id="resetFilters" class="btn btn--secondary products__reset" type="button">
+              Сбросить фильтры
             </button>
           </div>
 
-          <div class="products__filter-group" aria-label="Методы массивов">
-            <button class="products__chip" type="button" data-method="map">map</button>
-            <button class="products__chip" type="button" data-method="filter">
-              filter
-            </button>
-            <button class="products__chip" type="button" data-method="sort">sort</button>
-            <button class="products__chip" type="button" data-method="reduce">
-              reduce
-            </button>
-            <button class="products__chip" type="button" data-method="find">find</button>
-            <button class="products__chip" type="button" data-method="slice">
-              slice
-            </button>
-            <button class="products__chip" type="button" data-method="reverse">
-              reverse
-            </button>
-            <button class="products__chip" type="button" data-method="flatMap">
-              flatMap
-            </button>
-            <button class="products__chip" type="button" data-method="concat">
-              concat
-            </button>
-            <button class="products__chip" type="button" data-method="splice">
-              splice
-            </button>
-          </div>
+          <p id="productsStatus" class="products__count" aria-live="polite"></p>
+          <p id="productsError" class="products__error" hidden></p>
+          <p id="productsLoader" class="products__loader" hidden>Загрузка каталога...</p>
 
-          <p id="productsCount" class="products__count" aria-live="polite"></p>
           <div id="productsGrid" class="products__grid"></div>
+
           <div id="emptyState" class="products__empty" hidden>
             <h2 class="products__empty-title">Кофе не найден</h2>
             <p class="products__empty-text">
-              Попробуйте изменить запрос, категорию или выбранный метод.
+              Попробуйте изменить запрос, категорию или расширенные фильтры.
             </p>
-            <button id="resetFilters" class="btn btn--primary products__reset" type="button">
-              Сбросить фильтры
+          </div>
+
+          <div class="products__pagination" aria-label="Пагинация каталога">
+            <button id="prevPageButton" class="btn btn--secondary" type="button">
+              Назад
+            </button>
+            <span id="paginationInfo" class="products__pagination-info"></span>
+            <button id="nextPageButton" class="btn btn--secondary" type="button">
+              Вперед
             </button>
           </div>
         </div>
       </section>
     </main>
 
+    <p id="notice" class="notice" hidden></p>
+
     <footer class="footer" id="Footer">
       <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>
     </footer>
-    <script src="catalog.js"></script>
+    <script type="module" src="catalog.js"></script>
   </body>
 </html>
