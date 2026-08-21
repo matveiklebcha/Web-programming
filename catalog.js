@@ -48,6 +48,8 @@ const nextPageButton = document.querySelector('#nextPageButton');
 const paginationInfo = document.querySelector('#paginationInfo');
 const notice = document.querySelector('#notice');
 
+let latestCatalogRequestId = 0;
+
 const debounce = (callback, delay = 300) => {
   let timerId;
 
@@ -69,6 +71,18 @@ const setError = (message = '') => {
 
 const resetPage = () => {
   state.page = 1;
+};
+
+const getPriceRangeError = () => {
+  if (state.minPrice === '' || state.maxPrice === '') {
+    return '';
+  }
+
+  if (Number(state.minPrice) > Number(state.maxPrice)) {
+    return 'Цена «от» не может быть больше цены «до».';
+  }
+
+  return '';
 };
 
 const syncCategoryButtons = () => {
@@ -163,24 +177,50 @@ const renderProducts = (products, total) => {
 };
 
 const renderCatalog = async () => {
+  const requestId = ++latestCatalogRequestId;
+
   setLoading(true);
   setError();
 
-  try {
-    const query = buildProductsQuery();
-    const { data, total } = await getProducts(query);
+  const priceRangeError = getPriceRangeError();
 
-    renderProducts(data, total);
-  } catch (error) {
+  if (priceRangeError) {
     productsGrid.replaceChildren();
     emptyState.hidden = true;
     productsStatus.textContent = '';
     paginationInfo.textContent = '';
     prevPageButton.disabled = true;
     nextPageButton.disabled = true;
-    setError('Не удалось загрузить каталог. Проверьте, что JSON Server запущен командой npm run api.');
-  } finally {
+    setError(priceRangeError);
     setLoading(false);
+    return;
+  }
+
+  try {
+    const query = buildProductsQuery();
+    const { data, total } = await getProducts(query);
+
+    if (requestId !== latestCatalogRequestId) {
+      return;
+    }
+
+    renderProducts(data, total);
+  } catch (error) {
+    if (requestId !== latestCatalogRequestId) {
+      return;
+    }
+
+    productsGrid.replaceChildren();
+    emptyState.hidden = true;
+    productsStatus.textContent = '';
+    paginationInfo.textContent = '';
+    prevPageButton.disabled = true;
+    nextPageButton.disabled = true;
+    setError('Каталог временно недоступен. Попробуйте обновить страницу.');
+  } finally {
+    if (requestId === latestCatalogRequestId) {
+      setLoading(false);
+    }
   }
 };
 
@@ -354,7 +394,7 @@ productsGrid.addEventListener('click', async (event) => {
       showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
     }
   } catch (error) {
-    showNotice(notice, 'Не удалось выполнить действие. Проверьте JSON Server.');
+    showNotice(notice, 'Не удалось добавить товар. Попробуйте еще раз.');
   }
 });
 
@@ -362,6 +402,6 @@ try {
   await renderFilterOptions();
   await renderCatalog();
 } catch (error) {
-  setError('Не удалось подготовить фильтры. Проверьте, что JSON Server запущен командой npm run api.');
+  setError('Каталог временно недоступен. Попробуйте обновить страницу.');
   setLoading(false);
 }
