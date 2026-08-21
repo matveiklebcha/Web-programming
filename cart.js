@@ -57,7 +57,7 @@ const renderCart = async () => {
     cartEmpty.hidden = true;
     cartSummary.hidden = true;
     cartStatus.textContent = '';
-    setError('Не удалось загрузить корзину. Проверьте, что JSON Server запущен.');
+    setError('Корзина временно недоступна. Попробуйте обновить страницу.');
   } finally {
     setLoading(false);
   }
@@ -99,7 +99,7 @@ cartList.addEventListener('click', async (event) => {
 
     await renderCart();
   } catch (error) {
-    showNotice(notice, 'Не удалось изменить корзину. Проверьте JSON Server.');
+    showNotice(notice, 'Не удалось изменить корзину. Попробуйте еще раз.');
   }
 });
 
@@ -113,7 +113,7 @@ checkoutButton.addEventListener('click', async () => {
     showNotice(notice, 'Покупка успешно оформлена');
     await renderCart();
   } catch (error) {
-    showNotice(notice, 'Не удалось оформить покупку. Проверьте JSON Server.');
+    showNotice(notice, 'Не удалось оформить покупку. Попробуйте еще раз.');
   }
 });
 

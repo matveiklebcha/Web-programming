@@ -49,7 +49,7 @@ const renderFavorites = async () => {
     favoritesGrid.replaceChildren();
     favoritesEmpty.hidden = true;
     favoritesStatus.textContent = '';
-    setError('Не удалось загрузить избранное. Проверьте, что JSON Server запущен.');
+    setError('Избранное временно недоступно. Попробуйте обновить страницу.');
   } finally {
     setLoading(false);
   }
@@ -77,7 +77,7 @@ favoritesGrid.addEventListener('click', async (event) => {
       showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
     }
   } catch (error) {
-    showNotice(notice, 'Не удалось выполнить действие. Проверьте JSON Server.');
+    showNotice(notice, 'Не удалось выполнить действие. Попробуйте еще раз.');
   }
 });
 

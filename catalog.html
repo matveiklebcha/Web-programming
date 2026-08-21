@@ -24,7 +24,7 @@
         </a>
         <nav class="catalog-header__nav" aria-label="Навигация каталога">
           <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
-          <a class="catalog-header__back" href="catalog.html">Каталог</a>
+          <a class="catalog-header__back" href="catalog.html" aria-current="page">Каталог</a>
           <a class="catalog-header__back" href="favorites.html">Избранное</a>
           <a class="catalog-header__back" href="cart.html">Корзина</a>
         </nav>
@@ -148,7 +148,7 @@
           </div>
 
           <p id="productsStatus" class="products__count" aria-live="polite"></p>
-          <p id="productsError" class="products__error" hidden></p>
+          <p id="productsError" class="products__error" role="alert" hidden></p>
           <p id="productsLoader" class="products__loader" hidden>Загрузка каталога...</p>
 
           <div id="productsGrid" class="products__grid"></div>
@@ -173,7 +173,7 @@
       </section>
     </main>
 
-    <p id="notice" class="notice" hidden></p>
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
 
     <footer class="footer" id="Footer">
       <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>

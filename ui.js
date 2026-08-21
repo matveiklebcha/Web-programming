@@ -121,9 +121,9 @@ export const createCartItem = (item) => {
       <p class="cart-item__price">${formatPrice(item.price)}</p>
     </div>
     <div class="cart-item__quantity" aria-label="Количество товара">
-      <button class="cart-item__quantity-button" type="button" data-cart-decrease="${item.id}">−</button>
+      <button class="cart-item__quantity-button" type="button" data-cart-decrease="${item.id}" aria-label="Уменьшить количество">−</button>
       <span>${item.quantity}</span>
-      <button class="cart-item__quantity-button" type="button" data-cart-increase="${item.id}">+</button>
+      <button class="cart-item__quantity-button" type="button" data-cart-increase="${item.id}" aria-label="Увеличить количество">+</button>
     </div>
     <p class="cart-item__sum">${formatPrice(item.price * item.quantity)}</p>
     <button class="cart-item__remove" type="button" data-cart-remove="${item.id}">Удалить</button>
