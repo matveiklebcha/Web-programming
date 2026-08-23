@@ -10,6 +10,7 @@ import {
 import { isAdmin, syncSessionNavigation } from './session.js';
 import { showNotice } from './ui.js';
 import { clearFieldError, getNativeValidationMessage, setFieldError } from './validation.js';
+import { initializePageInteractions } from './interactions.js';
 
 const adminAccess = document.querySelector('#adminAccess');
 const adminWorkspace = document.querySelector('#adminWorkspace');
@@ -17,6 +18,13 @@ const productForm = document.querySelector('#productForm');
 const adminProductSelect = document.querySelector('#adminProductSelect');
 const productSubmit = document.querySelector('#productSubmit');
 const productDelete = document.querySelector('#productDelete');
+const openCreateProduct = document.querySelector('#openCreateProduct');
+const openEditProduct = document.querySelector('#openEditProduct');
+const openDeleteProduct = document.querySelector('#openDeleteProduct');
+const productEditorDialog = document.querySelector('#productEditorDialog');
+const productDeleteDialog = document.querySelector('#productDeleteDialog');
+const productEditorTitle = document.querySelector('#productEditorTitle');
+const productDeleteText = document.querySelector('#productDeleteText');
 const productFormError = document.querySelector('#productFormError');
 const adminFeedbackProduct = document.querySelector('#adminFeedbackProduct');
 const adminFeedbackUser = document.querySelector('#adminFeedbackUser');
@@ -82,10 +90,32 @@ const fillProductForm = (product) => {
   });
 
   const isNew = !product;
+  productEditorTitle.textContent = isNew ? 'Новый товар' : 'Редактирование товара';
   productSubmit.textContent = isNew ? 'Добавить товар' : 'Сохранить изменения';
-  productDelete.hidden = isNew;
   setMessage(productFormError);
   syncProductSubmit();
+};
+
+const getSelectedProduct = () => productsById.get(Number(adminProductSelect.value));
+
+const syncProductActions = () => {
+  const hasSelectedProduct = Boolean(getSelectedProduct());
+  openEditProduct.disabled = !hasSelectedProduct;
+  openDeleteProduct.disabled = !hasSelectedProduct;
+};
+
+const openEditor = (product = null) => {
+  fillProductForm(product);
+  productEditorDialog.showModal();
+  window.setTimeout(() => fields.name.focus(), 0);
+};
+
+const closeDialogOnBackdrop = (dialog) => {
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
 };
 
 const fillSelect = (select, items, getLabel) => {
@@ -108,6 +138,7 @@ const loadReferenceData = async () => {
   fillSelect(adminProductSelect, products, (product) => product.name);
   fillSelect(adminFeedbackProduct, products, (product) => product.name);
   fillSelect(adminFeedbackUser, users, (user) => `${user.nickname} — ${user.email}`);
+  syncProductActions();
 };
 
 const createAdminFeedbackCard = (item) => {
@@ -169,7 +200,7 @@ const initializeAdmin = async () => {
     await loadReferenceData();
     await renderAdminFeedback();
   } catch (error) {
-    setMessage(productFormError, 'Не удалось загрузить данные магазина. Обновите страницу.');
+    showNotice(notice, 'Не удалось загрузить данные магазина. Обновите страницу.');
   }
 };
 
@@ -183,10 +214,37 @@ productForm.addEventListener('input', (event) => {
 
 productForm.addEventListener('change', syncProductSubmit);
 
-adminProductSelect.addEventListener('change', () => {
-  const product = productsById.get(Number(adminProductSelect.value));
-  fillProductForm(product);
+adminProductSelect.addEventListener('change', syncProductActions);
+
+openCreateProduct.addEventListener('click', () => {
+  adminProductSelect.value = 'new';
+  syncProductActions();
+  openEditor();
 });
+
+openEditProduct.addEventListener('click', () => {
+  const product = getSelectedProduct();
+
+  if (product) {
+    openEditor(product);
+  }
+});
+
+openDeleteProduct.addEventListener('click', () => {
+  const product = getSelectedProduct();
+
+  if (product) {
+    productDeleteText.textContent = `«${product.name}» будет удалён из каталога.`;
+    productDeleteDialog.showModal();
+  }
+});
+
+document.querySelectorAll('[data-product-editor-close]').forEach((button) => {
+  button.addEventListener('click', () => productEditorDialog.close());
+});
+document.querySelector('[data-product-delete-close]').addEventListener('click', () => productDeleteDialog.close());
+closeDialogOnBackdrop(productEditorDialog);
+closeDialogOnBackdrop(productDeleteDialog);
 
 productForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -211,7 +269,8 @@ productForm.addEventListener('submit', async (event) => {
 
     await loadReferenceData();
     adminProductSelect.value = 'new';
-    fillProductForm(null);
+    syncProductActions();
+    productEditorDialog.close();
     await renderAdminFeedback();
   } catch (error) {
     setMessage(productFormError, 'Не удалось сохранить товар. Попробуйте ещё раз.');
@@ -224,7 +283,7 @@ productDelete.addEventListener('click', async () => {
   const productId = Number(adminProductSelect.value);
   const product = productsById.get(productId);
 
-  if (!product || !window.confirm(`Удалить «${product.name}» из каталога?`)) {
+  if (!product) {
     return;
   }
 
@@ -235,7 +294,8 @@ productDelete.addEventListener('click', async () => {
     showNotice(notice, 'Товар удалён');
     await loadReferenceData();
     adminProductSelect.value = 'new';
-    fillProductForm(null);
+    syncProductActions();
+    productDeleteDialog.close();
     await renderAdminFeedback();
   } catch (error) {
     setMessage(productFormError, 'Не удалось удалить товар. Попробуйте ещё раз.');
@@ -267,4 +327,5 @@ adminFeedbackList.addEventListener('click', async (event) => {
   }
 });
 
+initializePageInteractions();
 initializeAdmin();

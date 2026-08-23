@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Админ-панель | Revo Coffee</title>
+    <link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="catalog-page">
+  <body class="catalog-page is-loading">
     <header class="catalog-header">
       <div class="container catalog-header__container">
         <a class="catalog-header__logo-link" href="index.html#Catalog"><img class="catalog-header__logo" src="img/brand/revo-logo.svg" alt="Revo Coffee" /></a>
@@ -47,13 +48,27 @@
                   <h2 id="productsAdminTitle" class="admin-card__title">Товары</h2>
                 </div>
                 <div class="form-field admin-card__selector">
-                  <label class="form-field__label" for="adminProductSelect">Режим работы</label>
+                  <label class="form-field__label" for="adminProductSelect">Выберите товар</label>
                   <select id="adminProductSelect" class="form-control">
-                    <option value="new">Добавить новый товар</option>
+                    <option value="new">Новый товар</option>
                   </select>
                 </div>
               </div>
 
+              <div class="admin-product-actions">
+                <button id="openCreateProduct" class="btn btn--primary" type="button">Добавить товар</button>
+                <button id="openEditProduct" class="btn btn--secondary" type="button" disabled>Редактировать</button>
+                <button id="openDeleteProduct" class="btn btn--danger" type="button" disabled>Удалить</button>
+              </div>
+
+              <dialog id="productEditorDialog" class="admin-dialog" aria-labelledby="productEditorTitle">
+                <div class="admin-dialog__header">
+                  <div>
+                    <p class="admin-card__eyebrow">Каталог</p>
+                    <h2 id="productEditorTitle" class="admin-card__title">Новый товар</h2>
+                  </div>
+                  <button class="dialog-close" type="button" data-product-editor-close aria-label="Закрыть">×</button>
+                </div>
               <form id="productForm" class="shop-form" novalidate>
                 <div class="form-grid">
                   <div class="form-field">
@@ -126,9 +141,19 @@
                 <p id="productFormError" class="form-message form-message--error" role="alert" hidden></p>
                 <div class="admin-actions">
                   <button id="productSubmit" class="btn btn--primary" type="submit" disabled>Добавить товар</button>
-                  <button id="productDelete" class="btn btn--danger" type="button" hidden>Удалить товар</button>
+                  <button class="btn btn--secondary" type="button" data-product-editor-close>Отмена</button>
                 </div>
               </form>
+              </dialog>
+
+              <dialog id="productDeleteDialog" class="confirm-dialog" aria-labelledby="productDeleteTitle">
+                <h2 id="productDeleteTitle" class="confirm-dialog__title">Удалить товар?</h2>
+                <p id="productDeleteText" class="confirm-dialog__text"></p>
+                <div class="admin-actions">
+                  <button id="productDelete" class="btn btn--danger" type="button">Удалить</button>
+                  <button class="btn btn--secondary" type="button" data-product-delete-close>Отмена</button>
+                </div>
+              </dialog>
             </section>
 
             <section class="admin-card" aria-labelledby="feedbackAdminTitle">
