@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ-панель | Revo Coffee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="catalog-page">
+    <header class="catalog-header">
+      <div class="container catalog-header__container">
+        <a class="catalog-header__logo-link" href="index.html#Catalog"><img class="catalog-header__logo" src="img/brand/revo-logo.svg" alt="Revo Coffee" /></a>
+        <nav class="catalog-header__nav" aria-label="Навигация магазина">
+          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
+          <a class="catalog-header__back" href="catalog.html">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html">Избранное</a>
+          <a class="catalog-header__back" href="cart.html">Корзина</a>
+          <a class="catalog-header__back" href="feedback.html">Отзывы</a>
+          <a class="catalog-header__back" href="auth.html">Профиль</a>
+          <a class="catalog-header__back" href="admin.html" aria-current="page" data-session-admin hidden>Админ-панель</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="account-section">
+        <div class="container account-section__container">
+          <div class="section-header account-section__header">
+            <p class="section-header__slogan">Revo Coffee</p>
+            <h1 class="section-header__title">Управление магазином</h1>
+          </div>
+
+          <div id="adminAccess" class="access-card" hidden>
+            <h2 class="access-card__title">Доступ ограничен</h2>
+            <p class="access-card__text">Войдите в профиль администратора, чтобы продолжить.</p>
+            <a class="btn btn--primary" href="auth.html">Перейти ко входу</a>
+          </div>
+
+          <div id="adminWorkspace" class="admin-workspace" hidden>
+            <section class="admin-card" aria-labelledby="productsAdminTitle">
+              <div class="admin-card__header">
+                <div>
+                  <p class="admin-card__eyebrow">Каталог</p>
+                  <h2 id="productsAdminTitle" class="admin-card__title">Товары</h2>
+                </div>
+                <div class="form-field admin-card__selector">
+                  <label class="form-field__label" for="adminProductSelect">Режим работы</label>
+                  <select id="adminProductSelect" class="form-control">
+                    <option value="new">Добавить новый товар</option>
+                  </select>
+                </div>
+              </div>
+
+              <form id="productForm" class="shop-form" novalidate>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label class="form-field__label" for="productName">Название <span aria-hidden="true">*</span></label>
+                    <input id="productName" class="form-control" name="name" type="text" minlength="3" maxlength="80" required aria-describedby="productNameError" />
+                    <p id="productNameError" class="form-field__error" data-error-for="productName" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productPrice">Цена, VND <span aria-hidden="true">*</span></label>
+                    <input id="productPrice" class="form-control" name="price" type="number" min="1" step="1" required aria-describedby="productPriceError" />
+                    <p id="productPriceError" class="form-field__error" data-error-for="productPrice" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productImage">Путь к изображению <span aria-hidden="true">*</span></label>
+                    <input id="productImage" class="form-control" name="image" type="text" placeholder="img/products/catalog/card-image-yellow.jpg" required aria-describedby="productImageError" />
+                    <p id="productImageError" class="form-field__error" data-error-for="productImage" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productCategory">Категория <span aria-hidden="true">*</span></label>
+                    <select id="productCategory" class="form-control" name="category" required aria-describedby="productCategoryError">
+                      <option value="">Выберите категорию</option>
+                      <option value="Classic">Классика</option>
+                      <option value="Fruity">Фруктовый</option>
+                      <option value="Sweet">Сладкий</option>
+                      <option value="Strong">Крепкий</option>
+                    </select>
+                    <p id="productCategoryError" class="form-field__error" data-error-for="productCategory" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productRating">Рейтинг <span aria-hidden="true">*</span></label>
+                    <input id="productRating" class="form-control" name="rating" type="number" min="1" max="5" step="0.1" required aria-describedby="productRatingError" />
+                    <p id="productRatingError" class="form-field__error" data-error-for="productRating" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productRoast">Обжарка <span aria-hidden="true">*</span></label>
+                    <select id="productRoast" class="form-control" name="roast" required aria-describedby="productRoastError">
+                      <option value="">Выберите обжарку</option>
+                      <option value="Light">Светлая</option>
+                      <option value="Medium">Средняя</option>
+                      <option value="Dark">Тёмная</option>
+                    </select>
+                    <p id="productRoastError" class="form-field__error" data-error-for="productRoast" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productOrigin">Происхождение <span aria-hidden="true">*</span></label>
+                    <input id="productOrigin" class="form-control" name="origin" type="text" minlength="2" maxlength="60" required aria-describedby="productOriginError" />
+                    <p id="productOriginError" class="form-field__error" data-error-for="productOrigin" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productIntensity">Интенсивность <span aria-hidden="true">*</span></label>
+                    <input id="productIntensity" class="form-control" name="intensity" type="number" min="1" max="5" step="1" required aria-describedby="productIntensityError" />
+                    <p id="productIntensityError" class="form-field__error" data-error-for="productIntensity" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productWeight">Вес <span aria-hidden="true">*</span></label>
+                    <input id="productWeight" class="form-control" name="weight" type="text" pattern="[0-9]+\s?г" title="Например: 250 г" required aria-describedby="productWeightError" />
+                    <p id="productWeightError" class="form-field__error" data-error-for="productWeight" aria-live="polite"></p>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label" for="productImageFilter">Фильтр изображения</label>
+                    <input id="productImageFilter" class="form-control" name="imageFilter" type="text" placeholder="none" aria-describedby="productImageFilterError" />
+                    <p id="productImageFilterError" class="form-field__error" data-error-for="productImageFilter" aria-live="polite"></p>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label" for="productDescription">Описание <span aria-hidden="true">*</span></label>
+                  <textarea id="productDescription" class="form-control form-control--textarea" name="description" minlength="20" maxlength="500" required aria-describedby="productDescriptionError"></textarea>
+                  <p id="productDescriptionError" class="form-field__error" data-error-for="productDescription" aria-live="polite"></p>
+                </div>
+                <p id="productFormError" class="form-message form-message--error" role="alert" hidden></p>
+                <div class="admin-actions">
+                  <button id="productSubmit" class="btn btn--primary" type="submit" disabled>Добавить товар</button>
+                  <button id="productDelete" class="btn btn--danger" type="button" hidden>Удалить товар</button>
+                </div>
+              </form>
+            </section>
+
+            <section class="admin-card" aria-labelledby="feedbackAdminTitle">
+              <div class="admin-card__header">
+                <div><p class="admin-card__eyebrow">Модерация</p><h2 id="feedbackAdminTitle" class="admin-card__title">Отзывы</h2></div>
+              </div>
+              <div class="form-grid admin-filters">
+                <div class="form-field">
+                  <label class="form-field__label" for="adminFeedbackProduct">Товар</label>
+                  <select id="adminFeedbackProduct" class="form-control"><option value="">Все товары</option></select>
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label" for="adminFeedbackUser">Пользователь</label>
+                  <select id="adminFeedbackUser" class="form-control"><option value="">Все пользователи</option></select>
+                </div>
+              </div>
+              <p id="adminFeedbackError" class="form-message form-message--error" role="alert" hidden></p>
+              <div id="adminFeedbackList" class="feedback-list feedback-list--admin"></div>
+              <p id="adminFeedbackEmpty" class="products__empty-text" hidden>Отзывы не найдены.</p>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+    <footer class="footer" id="Footer"><p class="footer__text">© Revo Coffee Việt Nam - 2018</p></footer>
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>
