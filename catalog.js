@@ -13,6 +13,7 @@ import {
   showNotice,
 } from './ui.js';
 import { syncSessionNavigation } from './session.js';
+import { initializePageInteractions, refreshShopCounters } from './interactions.js';
 
 const state = {
   query: '',
@@ -386,6 +387,7 @@ productsGrid.addEventListener('click', async (event) => {
       const result = await addProductToFavorites(product);
 
       showNotice(notice, result.created ? 'Товар добавлен в избранное' : 'Товар уже есть в избранном');
+      await refreshShopCounters();
     }
 
     if (cartButton) {
@@ -393,6 +395,7 @@ productsGrid.addEventListener('click', async (event) => {
       const result = await addProductToCart(product);
 
       showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+      await refreshShopCounters();
     }
   } catch (error) {
     showNotice(notice, 'Не удалось добавить товар. Попробуйте еще раз.');
@@ -400,6 +403,7 @@ productsGrid.addEventListener('click', async (event) => {
 });
 
 syncSessionNavigation();
+initializePageInteractions();
 
 try {
   await renderFilterOptions();

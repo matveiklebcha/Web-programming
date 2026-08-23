@@ -10,6 +10,7 @@ import {
   showNotice,
 } from './ui.js';
 import { syncSessionNavigation } from './session.js';
+import { initializePageInteractions, refreshShopCounters } from './interactions.js';
 
 const favoritesGrid = document.querySelector('#favoritesGrid');
 const favoritesEmpty = document.querySelector('#favoritesEmpty');
@@ -69,6 +70,7 @@ favoritesGrid.addEventListener('click', async (event) => {
       await removeFavorite(removeButton.dataset.removeFavoriteId);
       showNotice(notice, 'Товар удален из избранного');
       await renderFavorites();
+      await refreshShopCounters();
     }
 
     if (cartButton) {
@@ -76,6 +78,7 @@ favoritesGrid.addEventListener('click', async (event) => {
       const result = await addProductToCart(product);
 
       showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+      await refreshShopCounters();
     }
   } catch (error) {
     showNotice(notice, 'Не удалось выполнить действие. Попробуйте еще раз.');
@@ -83,4 +86,5 @@ favoritesGrid.addEventListener('click', async (event) => {
 });
 
 syncSessionNavigation();
+initializePageInteractions();
 renderFavorites();

@@ -12,6 +12,7 @@ import {
   showNotice,
 } from './ui.js';
 import { getCurrentUser, syncSessionNavigation } from './session.js';
+import { initializePageInteractions, refreshShopCounters } from './interactions.js';
 
 const cartList = document.querySelector('#cartList');
 const cartEmpty = document.querySelector('#cartEmpty');
@@ -100,6 +101,7 @@ cartList.addEventListener('click', async (event) => {
     }
 
     await renderCart();
+    await refreshShopCounters();
   } catch (error) {
     showNotice(notice, 'Не удалось изменить корзину. Попробуйте еще раз.');
   }
@@ -139,6 +141,7 @@ checkoutButton.addEventListener('click', async () => {
     await clearCart();
     showNotice(notice, 'Покупка успешно оформлена');
     await renderCart();
+    await refreshShopCounters();
   } catch (error) {
     showNotice(notice, 'Не удалось оформить покупку. Попробуйте еще раз.');
   } finally {
@@ -147,4 +150,5 @@ checkoutButton.addEventListener('click', async () => {
 });
 
 syncSessionNavigation();
+initializePageInteractions();
 renderCart();

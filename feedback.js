@@ -2,6 +2,7 @@ import { createFeedback, getAllProducts, getFeedback, getOrders } from './api.js
 import { getCurrentUser, isAdmin, syncSessionNavigation } from './session.js';
 import { showNotice } from './ui.js';
 import { clearFieldError, getNativeValidationMessage, setFieldError } from './validation.js';
+import { initializePageInteractions } from './interactions.js';
 
 const feedbackAccess = document.querySelector('#feedbackAccess');
 const feedbackAccessTitle = document.querySelector('#feedbackAccessTitle');
@@ -191,4 +192,5 @@ feedbackForm.addEventListener('submit', async (event) => {
   }
 });
 
+initializePageInteractions();
 initializeFeedback();

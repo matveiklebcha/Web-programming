@@ -57,6 +57,10 @@ export const createProductCard = (product, options = {}) => {
   const productId = product.productId || product.id;
   const actions = [];
 
+  actions.push(
+    `<button class="btn btn--secondary product-card__button" type="button" data-product-detail-id="${productId}">Подробнее</button>`,
+  );
+
   if (showFavorite) {
     actions.push(
       `<button class="btn btn--secondary product-card__button" type="button" data-favorite-id="${productId}">В избранное</button>`,
@@ -76,6 +80,7 @@ export const createProductCard = (product, options = {}) => {
   }
 
   card.className = 'product-card';
+  card.dataset.productId = productId;
   card.style.setProperty('--product-filter', product.imageFilter);
   card.innerHTML = `
     <div class="product-card__image-wrap">

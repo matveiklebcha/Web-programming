@@ -6,6 +6,7 @@ import {
   setCurrentUser,
 } from './session.js';
 import { showNotice } from './ui.js';
+import { initializePageInteractions } from './interactions.js';
 import {
   clearFieldError,
   generateNickname,
@@ -486,4 +487,5 @@ registrationForm.addEventListener('submit', async (event) => {
 });
 
 birthDate.max = getLatestAllowedBirthDate();
+initializePageInteractions();
 renderAccount();
