@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Отзывы | Revo Coffee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="catalog-page">
+    <header class="catalog-header">
+      <div class="container catalog-header__container">
+        <a class="catalog-header__logo-link" href="index.html#Catalog">
+          <img class="catalog-header__logo" src="img/brand/revo-logo.svg" alt="Revo Coffee" />
+        </a>
+        <nav class="catalog-header__nav" aria-label="Навигация магазина">
+          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
+          <a class="catalog-header__back" href="catalog.html">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html">Избранное</a>
+          <a class="catalog-header__back" href="cart.html">Корзина</a>
+          <a class="catalog-header__back" href="feedback.html" aria-current="page">Отзывы</a>
+          <a class="catalog-header__back" href="auth.html">Профиль</a>
+          <a class="catalog-header__back" href="admin.html" data-session-admin hidden>Админ-панель</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="account-section">
+        <div class="container account-section__container">
+          <div class="section-header account-section__header">
+            <p class="section-header__slogan">Revo Coffee</p>
+            <h1 class="section-header__title">Отзывы о покупках</h1>
+          </div>
+
+          <div id="feedbackAccess" class="access-card" hidden>
+            <h2 id="feedbackAccessTitle" class="access-card__title"></h2>
+            <p id="feedbackAccessText" class="access-card__text"></p>
+            <a id="feedbackAccessLink" class="btn btn--primary" href="auth.html">Войти в профиль</a>
+          </div>
+
+          <div id="feedbackWorkspace" class="feedback-workspace" hidden>
+            <section class="auth-card feedback-form-card">
+              <h2 class="auth-card__title">Поделиться впечатлением</h2>
+              <form id="feedbackForm" class="shop-form" novalidate>
+                <div class="form-field">
+                  <label class="form-field__label" for="feedbackProduct">Товар <span aria-hidden="true">*</span></label>
+                  <select id="feedbackProduct" class="form-control" name="productId" required aria-describedby="feedbackProductError">
+                    <option value="">Выберите покупку</option>
+                  </select>
+                  <p id="feedbackProductError" class="form-field__error" data-error-for="feedbackProduct" aria-live="polite"></p>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-field__label" for="feedbackRating">Оценка <span aria-hidden="true">*</span></label>
+                  <select id="feedbackRating" class="form-control" name="rating" required aria-describedby="feedbackRatingError">
+                    <option value="">Выберите оценку</option>
+                    <option value="5">5 — превосходно</option>
+                    <option value="4">4 — хорошо</option>
+                    <option value="3">3 — нормально</option>
+                    <option value="2">2 — есть недостатки</option>
+                    <option value="1">1 — не понравилось</option>
+                  </select>
+                  <p id="feedbackRatingError" class="form-field__error" data-error-for="feedbackRating" aria-live="polite"></p>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-field__label" for="feedbackText">Ваш отзыв <span aria-hidden="true">*</span></label>
+                  <textarea id="feedbackText" class="form-control form-control--textarea" name="text" minlength="30" maxlength="500" required aria-describedby="feedbackTextHelp feedbackTextError"></textarea>
+                  <div class="form-field__meta">
+                    <p id="feedbackTextHelp" class="form-field__help">Минимум 30 символов.</p>
+                    <p id="feedbackCounter" class="form-field__counter">0 / 500</p>
+                  </div>
+                  <p id="feedbackTextError" class="form-field__error" data-error-for="feedbackText" aria-live="polite"></p>
+                </div>
+
+                <p id="feedbackError" class="form-message form-message--error" role="alert" hidden></p>
+                <button id="feedbackSubmit" class="btn btn--primary shop-form__submit" type="submit" disabled>Опубликовать отзыв</button>
+              </form>
+            </section>
+
+            <section class="feedback-history" aria-labelledby="feedbackHistoryTitle">
+              <h2 id="feedbackHistoryTitle" class="feedback-history__title">Мои отзывы</h2>
+              <div id="feedbackList" class="feedback-list"></div>
+              <p id="feedbackEmpty" class="products__empty-text" hidden>У вас пока нет опубликованных отзывов.</p>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+    <footer class="footer" id="Footer"><p class="footer__text">© Revo Coffee Việt Nam - 2018</p></footer>
+    <script type="module" src="feedback.js"></script>
+  </body>
+</html>
