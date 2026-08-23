@@ -1,5 +1,6 @@
 import {
   clearCart,
+  createOrder,
   getCart,
   removeCartItem,
   updateCartItemQuantity,
@@ -10,6 +11,7 @@ import {
   formatProductsCount,
   showNotice,
 } from './ui.js';
+import { getCurrentUser, syncSessionNavigation } from './session.js';
 
 const cartList = document.querySelector('#cartList');
 const cartEmpty = document.querySelector('#cartEmpty');
@@ -108,13 +110,41 @@ checkoutButton.addEventListener('click', async () => {
     return;
   }
 
+  const currentUser = getCurrentUser();
+
+  if (!currentUser) {
+    showNotice(notice, 'Войдите в профиль, чтобы оформить заказ');
+    window.setTimeout(() => {
+      window.location.href = 'auth.html';
+    }, 900);
+    return;
+  }
+
+  checkoutButton.disabled = true;
+
   try {
+    await createOrder({
+      userId: currentUser.id,
+      items: cartItems.map((item) => ({
+        productId: item.productId,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+      })),
+      total: getTotalPrice(),
+      status: 'created',
+      createdAt: new Date().toISOString(),
+    });
     await clearCart();
     showNotice(notice, 'Покупка успешно оформлена');
     await renderCart();
   } catch (error) {
     showNotice(notice, 'Не удалось оформить покупку. Попробуйте еще раз.');
+  } finally {
+    checkoutButton.disabled = false;
   }
 });
 
+syncSessionNavigation();
 renderCart();
