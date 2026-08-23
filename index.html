@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Revo Coffee</title>
+    <link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,19 +13,19 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="is-loading">
     <header id="Home" class="hero">
       <div class="container hero__container">
         <div class="hero__top-bar">
-          <button class="hero__burger" aria-label="Open menu">
+          <button class="hero__burger" type="button" aria-label="Открыть меню">
             <span class="hero__burger-line"></span>
             <span class="hero__burger-line"></span>
             <span class="hero__burger-line"></span>
           </button>
           <img class="hero__logo" src="img/brand/revo-logo.svg" alt="Revo Coffee" />
-          <div class="hero__cart">
-            <img src="img/icons/shopping-cart.svg" alt="Shopping cart" />
-          </div>
+          <a class="hero__cart" href="cart.html" aria-label="Перейти в корзину">
+            <img src="img/icons/shopping-cart.svg" alt="" />
+          </a>
         </div>
 
         <div class="hero__info">
@@ -38,11 +39,11 @@
         </div>
 
         <div class="hero__image-wrapper">
-          <button class="hero__play-btn">
+          <button class="hero__play-btn" type="button" data-open-video aria-label="Смотреть историю Revo Coffee">
             <img
               class="hero__play-icon"
               src="img/icons/play-button.svg"
-              alt="Play button"
+              alt=""
             />
           </button>
         </div>
@@ -55,13 +56,14 @@
               >
             </li>
             <li><a class="hero__nav-link" href="#Catalog">COFFEE</a></li>
-            <li><a class="hero__nav-link" href="#">PHIN MẠ MÀU</a></li>
+            <li><a class="hero__nav-link" href="#Gallery">MEDIA</a></li>
             <li><a class="hero__nav-link" href="#Combo">COMBO PHIN PHÊ</a></li>
             <li><a class="hero__nav-link" href="#Giftset">GIFTSET</a></li>
             <li><a class="hero__nav-link" href="catalog.html">МАГАЗИН</a></li>
             <li><a class="hero__nav-link" href="feedback.html">ОТЗЫВЫ</a></li>
             <li><a class="hero__nav-link" href="auth.html">ПРОФИЛЬ</a></li>
             <li data-session-admin hidden><a class="hero__nav-link" href="admin.html">УПРАВЛЕНИЕ</a></li>
+            <li><a class="hero__nav-link" href="#Location">ĐỊA CHỈ</a></li>
             <li><a class="hero__nav-link" href="#Footer">LIÊN HỆ</a></li>
           </ul>
         </nav>
@@ -94,7 +96,7 @@
                 src="img/features/Signboard.svg"
                 alt="Quality"
                 class="features__card-icon"
-              ></img>
+              />
               <div class="features__card-info">
                 <h3 class="features__card-title">Nguồn gốc</h3>
                 <p class="features__card-text">
@@ -104,11 +106,11 @@
               </div>
             </div>
             <div class="features__card">
-              <image
+              <img
                 src="img/features/CoffeePackage.svg"
                 alt="Quality"
                 class="features__card-icon"
-              ></image>
+              />
               <div class="features__card-info">
                 <h3 class="features__card-title">Các loại hạt</h3>
                 <p class="features__card-text">
@@ -118,11 +120,11 @@
               </div>
             </div>
             <div class="features__card">
-              <image
+              <img
                 src="img/features/CoffeeMachine.svg"
                 alt="Quality"
                 class="features__card-icon"
-              ></image>
+              />
               <div class="features__card-info">
                 <h3 class="features__card-title">Pha chế</h3>
                 <p class="features__card-text">
@@ -141,6 +143,9 @@
             <h2 class="section-header__title">CHUẨN GU ĐÚNG VỊ</h2>
           </div>
           <div class="catalog__slider">
+            <button class="catalog__prev-btn slider-button slider-button--prev" type="button" aria-label="Предыдущие товары">
+              <img src="img/icons/arrow.svg" alt="" />
+            </button>
             <div class="catalog__track">
               
                 <article class="catalog__product">
@@ -283,8 +288,8 @@
                   </div>
                 </article>
             </div>
-            <button class="catalog__next-btn">
-              <img src="img/icons/arrow.svg" alt="Next" />
+            <button class="catalog__next-btn" type="button" aria-label="Следующие товары">
+              <img src="img/icons/arrow.svg" alt="" />
             </button>
           </div>
           <a class="catalog__page-link btn btn--primary" href="catalog.html">
@@ -364,6 +369,9 @@
             <h2 class="section-header__title">COMBO PHIN PHÊ</h2>
           </div>
           <div class="combo__slider">
+            <button class="combo__prev-btn slider-button slider-button--prev" type="button" aria-label="Предыдущие наборы">
+              <img src="img/icons/arrow.svg" alt="" />
+            </button>
             <div class="combo__track">
               <article class="combo__card">
                 <img
@@ -470,13 +478,78 @@
                 </div>
               </article> 
             </div>
-            <button class="combo__next-btn">
-              <img src="img/icons/arrow.svg" alt="Next button" />
+            <button class="combo__next-btn" type="button" aria-label="Следующие наборы">
+              <img src="img/icons/arrow.svg" alt="" />
             </button>
           </div>
         </div>
       </section>
+      <section class="coffee-parallax" aria-label="От зерна до чашки">
+        <div class="coffee-parallax__scene" data-parallax-scene>
+          <img class="coffee-parallax__layer coffee-parallax__layer--back" data-parallax-speed="0.12" src="img/products/catalog/card-image-blue.jpg" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--middle" data-parallax-speed="-0.18" src="img/products/combo/brown-combo.png" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--front" data-parallax-speed="0.28" src="img/products/catalog/card-image-yellow.jpg" alt="" />
+          <div class="coffee-parallax__content">
+            <p class="section-header__slogan">From Bean To Cup</p>
+            <h2 class="coffee-parallax__title">СВОЙ ХАРАКТЕР В КАЖДОЙ ЧАШКЕ</h2>
+            <a class="btn btn--primary" href="catalog.html">Выбрать кофе</a>
+          </div>
+        </div>
+      </section>
+      <section class="media-gallery" id="Gallery">
+        <div class="container media-gallery__container">
+          <div class="section-header">
+            <p class="section-header__slogan">Coffee Mood</p>
+            <h2 class="section-header__title">ОТКРОЙТЕ СВОЙ ВКУС</h2>
+          </div>
+          <div class="media-gallery__layout">
+            <div class="media-gallery__stage" id="galleryStage">
+              <img id="galleryImage" class="media-gallery__image" src="img/products/catalog/card-image-yellow.jpg" alt="REVO Morning" />
+              <button id="galleryVideoButton" class="media-gallery__video-button" type="button" data-open-video hidden>
+                <img src="img/icons/play-button.svg" alt="" />
+                Смотреть историю
+              </button>
+            </div>
+            <div class="media-gallery__panel">
+              <p class="media-gallery__eyebrow">Коллекция Revo</p>
+              <h3 id="galleryTitle" class="media-gallery__title">REVO Morning</h3>
+              <p id="galleryDescription" class="media-gallery__description">Лёгкий цветочный профиль для спокойного начала дня.</p>
+              <div class="media-gallery__controls">
+                <button class="media-control" type="button" data-gallery-random aria-label="Показать случайный вкус">↝</button>
+                <button class="media-control" type="button" data-gallery-random aria-label="Выбрать другой случайный вкус">✦</button>
+                <button id="gallerySoundToggle" class="media-control media-control--sound" type="button" aria-pressed="false">▶ Звук</button>
+              </div>
+              <label class="media-gallery__volume" for="galleryVolume">
+                Громкость
+                <input id="galleryVolume" type="range" min="0" max="1" step="0.05" value="0.65" />
+              </label>
+              <p id="galleryStatus" class="media-gallery__status" aria-live="polite">Выберите настроение — у каждого вкуса своё звучание.</p>
+            </div>
+          </div>
+        </div>
+        <audio id="galleryAudio" preload="auto"></audio>
+      </section>
+      <section class="location" id="Location">
+        <div class="container location__container">
+          <div class="location__content">
+            <p class="section-header__slogan">Revo Coffee Hà Nội</p>
+            <h2 class="location__title">ВСТРЕТИМСЯ ЗА КОФЕ</h2>
+            <p class="location__text">Hoàn Kiếm, Hà Nội · ежедневно с 08:00 до 22:00</p>
+            <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&query=Hoan+Kiem+Hanoi" target="_blank" rel="noopener">Построить маршрут</a>
+          </div>
+          <iframe class="location__map" title="Карта кофейни Revo Coffee в Ханое" src="https://www.google.com/maps?q=Hoan%20Kiem%2C%20Hanoi&z=14&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </section>
     </main>
+    <dialog id="videoDialog" class="video-dialog">
+      <div class="video-dialog__content">
+        <button class="dialog-close" type="button" data-video-close aria-label="Закрыть видео">×</button>
+        <video id="coffeeVideo" controls preload="metadata" poster="img/products/catalog/card-image-red.jpg">
+          <source src="media/video/revo-coffee-story.webm" type="video/webm" />
+        </video>
+      </div>
+    </dialog>
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
     <footer class="footer" id="Footer">
       <p class="footer__text">© Revo Coffee Việt Nam - 2018</p>
     </footer>

@@ -1,37 +1,288 @@
+import { addProductToCart, getProduct } from './api.js';
+import {
+  initializePageInteractions,
+  refreshShopCounters,
+} from './interactions.js';
 import { syncSessionNavigation } from './session.js';
+import { showNotice } from './ui.js';
+
+const galleryItems = [
+  { image: 'img/products/catalog/card-image-yellow.jpg', audio: 'media/audio/coffee-note-01.wav', title: 'REVO Morning', description: 'Лёгкий цветочный профиль для спокойного начала дня.' },
+  { image: 'img/products/catalog/card-image-orange.jpg', audio: 'media/audio/coffee-note-02.wav', title: 'REVO Origin', description: 'Мягкая сладость и чистая фруктовая кислинка.' },
+  { image: 'img/products/catalog/card-image-blue.jpg', audio: 'media/audio/coffee-note-03.wav', title: 'REVO Everyday', description: 'Плотный классический вкус для привычного ритма.' },
+  { image: 'img/products/catalog/card-image-brown.jpg', audio: 'media/audio/coffee-note-04.wav', title: 'REVO Đậm Đà', description: 'Насыщенный кофе с выразительной горчинкой.' },
+  { image: 'img/products/catalog/card-image-red.jpg', audio: 'media/audio/coffee-note-05.wav', title: 'REVO Honey', description: 'Медовая сладость, яблочная кислинка и история Revo.', video: true },
+  { image: 'img/products/catalog/card-image-green.jpg', audio: 'media/audio/coffee-note-06.wav', title: 'REVO Natural', description: 'Ягодные ноты и долгое природное послевкусие.' },
+  { image: 'img/products/combo/brown-combo.png', audio: 'media/audio/coffee-note-07.wav', title: 'Combo Đậm Đà', description: 'Крепкий набор для тех, кто любит насыщенный кофе.' },
+  { image: 'img/products/combo/blue-combo.png', audio: 'media/audio/coffee-note-08.wav', title: 'Combo Everyday', description: 'Универсальный набор на каждый день.' },
+  { image: 'img/products/combo/red-combo.png', audio: 'media/audio/coffee-note-09.wav', title: 'Combo Honey', description: 'Сладкий кофейный дуэт с фруктовым характером.' },
+  { image: 'img/products/combo/green-combo.png', audio: 'media/audio/coffee-note-10.wav', title: 'Combo Natural', description: 'Свежий ягодный профиль в подарочном формате.' },
+];
+
+const initializeSlider = ({ rootSelector, trackSelector, cardSelector, prevSelector, nextSelector, rows = 1 }) => {
+  const root = document.querySelector(rootSelector);
+  const track = document.querySelector(trackSelector);
+  const cards = [...document.querySelectorAll(cardSelector)];
+  const previousButton = document.querySelector(prevSelector);
+  const nextButton = document.querySelector(nextSelector);
+
+  if (!root || !track || cards.length < 2 || !previousButton || !nextButton) {
+    return;
+  }
+
+  let index = 0;
+  let timerId;
+
+  const getStep = () => {
+    const trackStyles = window.getComputedStyle(track);
+    return cards[0].getBoundingClientRect().width
+      + Number.parseFloat(trackStyles.columnGap || trackStyles.gap || 0);
+  };
+
+  const getLastIndex = () => {
+    const visibleCards = Math.max(1, Math.floor((root.clientWidth + 1) / getStep()));
+    const slidesCount = Math.ceil(cards.length / rows);
+    return Math.max(0, slidesCount - visibleCards);
+  };
+
+  const render = () => {
+    index = Math.min(index, getLastIndex());
+    track.style.transform = `translate3d(${-index * getStep()}px, 0, 0)`;
+    previousButton.disabled = index === 0;
+    nextButton.disabled = index === getLastIndex();
+  };
+
+  const move = (direction) => {
+    const lastIndex = getLastIndex();
+    index = direction > 0
+      ? (index >= lastIndex ? 0 : index + 1)
+      : (index <= 0 ? lastIndex : index - 1);
+    render();
+  };
+
+  const stopAutoplay = () => window.clearInterval(timerId);
+  const startAutoplay = () => {
+    stopAutoplay();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      timerId = window.setInterval(() => move(1), 4500);
+    }
+  };
+
+  previousButton.addEventListener('click', () => {
+    move(-1);
+    startAutoplay();
+  });
+  nextButton.addEventListener('click', () => {
+    move(1);
+    startAutoplay();
+  });
+  root.addEventListener('mouseenter', stopAutoplay);
+  root.addEventListener('mouseleave', startAutoplay);
+  root.addEventListener('focusin', stopAutoplay);
+  root.addEventListener('focusout', startAutoplay);
+  window.addEventListener('resize', render);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  });
+
+  render();
+  startAutoplay();
+};
+
+const initializeLandingProducts = () => {
+  const cards = [...document.querySelectorAll('.catalog__product')];
+  const notice = document.querySelector('#notice');
+
+  cards.forEach((card, index) => {
+    const productId = index + 1;
+    const [buyButton, detailsButton] = card.querySelectorAll('.catalog__actions .btn');
+
+    card.dataset.productId = String(productId);
+    detailsButton.dataset.productDetailId = String(productId);
+
+    buyButton.addEventListener('click', async () => {
+      try {
+        const product = await getProduct(productId);
+        const result = await addProductToCart(product);
+        showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+        await refreshShopCounters();
+      } catch (error) {
+        showNotice(notice, 'Не удалось добавить товар. Попробуйте ещё раз.');
+      }
+    });
+  });
+};
+
+const initializeGallery = () => {
+  const image = document.querySelector('#galleryImage');
+  const audio = document.querySelector('#galleryAudio');
+  const title = document.querySelector('#galleryTitle');
+  const description = document.querySelector('#galleryDescription');
+  const status = document.querySelector('#galleryStatus');
+  const soundToggle = document.querySelector('#gallerySoundToggle');
+  const volume = document.querySelector('#galleryVolume');
+  const videoButton = document.querySelector('#galleryVideoButton');
+  const randomButtons = document.querySelectorAll('[data-gallery-random]');
+
+  if (!image || !audio) {
+    return;
+  }
+
+  let currentIndex = 0;
+
+  const syncSoundState = () => {
+    const isPlaying = !audio.paused;
+    soundToggle.setAttribute('aria-pressed', String(isPlaying));
+    soundToggle.textContent = isPlaying ? 'Ⅱ Пауза' : '▶ Звук';
+    status.textContent = isPlaying
+      ? `Сейчас звучит ${galleryItems[currentIndex].title}.`
+      : 'Звук приостановлен.';
+  };
+
+  const playCurrentSound = async () => {
+    try {
+      await audio.play();
+    } catch (error) {
+      syncSoundState();
+      status.textContent = 'Нажмите «Звук», чтобы услышать настроение вкуса.';
+      return;
+    }
+    syncSoundState();
+  };
+
+  const showItem = (nextIndex, playSound = true) => {
+    const item = galleryItems[nextIndex];
+    currentIndex = nextIndex;
+    image.classList.add('is-changing');
+    audio.pause();
+    audio.src = item.audio;
+    title.textContent = item.title;
+    description.textContent = item.description;
+    videoButton.hidden = !item.video;
+
+    window.setTimeout(() => {
+      image.src = item.image;
+      image.alt = item.title;
+      image.classList.remove('is-changing');
+    }, 170);
+
+    if (playSound) {
+      playCurrentSound();
+    } else {
+      syncSoundState();
+    }
+  };
+
+  const showRandomItem = () => {
+    let nextIndex = currentIndex;
+
+    while (nextIndex === currentIndex) {
+      nextIndex = Math.floor(Math.random() * galleryItems.length);
+    }
+
+    showItem(nextIndex);
+  };
+
+  randomButtons.forEach((button) => button.addEventListener('click', showRandomItem));
+  soundToggle.addEventListener('click', () => {
+    if (audio.paused) {
+      playCurrentSound();
+    } else {
+      audio.pause();
+    }
+  });
+  volume.addEventListener('input', () => {
+    audio.volume = Number(volume.value);
+  });
+  audio.addEventListener('play', syncSoundState);
+  audio.addEventListener('pause', syncSoundState);
+  audio.addEventListener('ended', syncSoundState);
+  audio.volume = Number(volume.value);
+  showItem(0, false);
+};
+
+const initializeVideoDialog = () => {
+  const dialog = document.querySelector('#videoDialog');
+  const video = document.querySelector('#coffeeVideo');
+
+  if (!dialog || !video) {
+    return;
+  }
+
+  const close = () => {
+    video.pause();
+    dialog.close();
+  };
+
+  document.querySelectorAll('[data-open-video]').forEach((button) => {
+    button.addEventListener('click', () => {
+      dialog.showModal();
+      video.play().catch(() => {});
+    });
+  });
+  dialog.querySelector('[data-video-close]').addEventListener('click', close);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      close();
+    }
+  });
+  dialog.addEventListener('close', () => video.pause());
+};
+
+const initializeParallax = () => {
+  const scene = document.querySelector('[data-parallax-scene]');
+  const layers = document.querySelectorAll('[data-parallax-speed]');
+
+  if (!scene || !layers.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  let animationFrame;
+  const render = () => {
+    const bounds = scene.getBoundingClientRect();
+    const centerOffset = bounds.top + bounds.height / 2 - window.innerHeight / 2;
+
+    layers.forEach((layer) => {
+      const speed = Number(layer.dataset.parallaxSpeed);
+      layer.style.setProperty('--parallax-offset', `${centerOffset * speed}px`);
+    });
+    animationFrame = null;
+  };
+
+  const requestRender = () => {
+    if (!animationFrame) {
+      animationFrame = window.requestAnimationFrame(render);
+    }
+  };
+
+  window.addEventListener('scroll', requestRender, { passive: true });
+  window.addEventListener('resize', requestRender);
+  render();
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   syncSessionNavigation();
-  const burger = document.querySelector('.hero__burger');
-  const navList = document.querySelector('.hero__nav-list');
-  const navLinks = document.querySelectorAll('.hero__nav-link');
-  const giftsetTabs = document.querySelectorAll('.giftset__tab');
+  initializePageInteractions();
 
-  if (burger && navList) {
-    burger.addEventListener('click', () => {
-      navList.classList.toggle('is-open');
-    });
-  }
-
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      navList.classList.remove('is-open');
-    });
-  });
-
-  giftsetTabs.forEach((tab) => {
-    tab.setAttribute(
-      'aria-pressed',
-      String(tab.classList.contains('giftset__tab--active')),
-    );
-
+  document.querySelectorAll('.giftset__tab').forEach((tab) => {
+    tab.setAttribute('aria-pressed', String(tab.classList.contains('giftset__tab--active')));
     tab.addEventListener('click', () => {
-      giftsetTabs.forEach((item) => {
+      document.querySelectorAll('.giftset__tab').forEach((item) => {
         const isActive = item === tab;
-
         item.classList.toggle('giftset__tab--active', isActive);
         item.setAttribute('aria-pressed', String(isActive));
       });
     });
   });
+
+  initializeSlider({ rootSelector: '.catalog__slider', trackSelector: '.catalog__track', cardSelector: '.catalog__product', prevSelector: '.catalog__prev-btn', nextSelector: '.catalog__next-btn', rows: 2 });
+  initializeSlider({ rootSelector: '.combo__slider', trackSelector: '.combo__track', cardSelector: '.combo__card', prevSelector: '.combo__prev-btn', nextSelector: '.combo__next-btn' });
+  initializeLandingProducts();
+  initializeGallery();
+  initializeVideoDialog();
+  initializeParallax();
 });
