@@ -1,4 +1,7 @@
+import { syncSessionNavigation } from './session.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  syncSessionNavigation();
   const burger = document.querySelector('.hero__burger');
   const navList = document.querySelector('.hero__nav-list');
   const navLinks = document.querySelectorAll('.hero__nav-link');

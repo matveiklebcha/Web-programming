@@ -9,6 +9,7 @@ import {
   formatProductsCount,
   showNotice,
 } from './ui.js';
+import { syncSessionNavigation } from './session.js';
 
 const favoritesGrid = document.querySelector('#favoritesGrid');
 const favoritesEmpty = document.querySelector('#favoritesEmpty');
@@ -81,4 +82,5 @@ favoritesGrid.addEventListener('click', async (event) => {
   }
 });
 
+syncSessionNavigation();
 renderFavorites();

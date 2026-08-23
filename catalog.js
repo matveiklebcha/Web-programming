@@ -12,6 +12,7 @@ import {
   setActiveButton,
   showNotice,
 } from './ui.js';
+import { syncSessionNavigation } from './session.js';
 
 const state = {
   query: '',
@@ -397,6 +398,8 @@ productsGrid.addEventListener('click', async (event) => {
     showNotice(notice, 'Не удалось добавить товар. Попробуйте еще раз.');
   }
 });
+
+syncSessionNavigation();
 
 try {
   await renderFilterOptions();
