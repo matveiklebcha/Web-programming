@@ -211,6 +211,108 @@
       "imageFilter": "hue-rotate(-28deg) brightness(0.88) contrast(1.18) saturate(1.2)"
     }
   ],
-  "favorites": [],
-  "cart": []
+  "favorites": [
+    {
+      "productId": 2,
+      "name": "REVO Origin Citrus",
+      "price": 139000,
+      "image": "img/products/catalog/card-image-orange.jpg",
+      "category": "Fruity",
+      "rating": 4.8,
+      "description": "Яркий сорт с цитрусовой кислинкой, медовым послевкусием и легким телом.",
+      "roast": "Light",
+      "origin": "Cau Dat",
+      "intensity": 2,
+      "weight": "250 г",
+      "imageFilter": "hue-rotate(-8deg) saturate(1.18)",
+      "id": 1
+    }
+  ],
+  "cart": [],
+  "users": [
+    {
+      "id": 1,
+      "phone": "+375291234567",
+      "email": "admin@revo.coffee",
+      "birthDate": "1990-01-01",
+      "lastName": "Revo",
+      "firstName": "Admin",
+      "patronymic": "",
+      "nickname": "revoAdmin",
+      "passwordHash": "b5af2beb9b7fd5aa4eb21b61925bd3856793e54e0a39052fbcfaf5b477fd07f3",
+      "role": "admin",
+      "createdAt": "2026-08-23T00:00:00.000Z"
+    },
+    {
+      "phone": "+375441112233",
+      "email": "ivan@example.com",
+      "birthDate": "2010-07-31",
+      "lastName": "Петров",
+      "firstName": "Антон",
+      "patronymic": "",
+      "nickname": "HmmHmm",
+      "passwordHash": "459aacb4eeb7db63145439d130d79e3c2fcdb173ab15fd905715427898d75536",
+      "role": "customer",
+      "createdAt": "2026-08-23T12:06:21.782Z",
+      "id": 2
+    }
+  ],
+  "orders": [
+    {
+      "userId": 2,
+      "items": [
+        {
+          "productId": 1,
+          "name": "REVO Morning Amber",
+          "price": 99000,
+          "quantity": 5,
+          "image": "img/products/catalog/card-image-yellow.jpg"
+        },
+        {
+          "productId": 2,
+          "name": "REVO Origin Citrus",
+          "price": 139000,
+          "quantity": 4,
+          "image": "img/products/catalog/card-image-orange.jpg"
+        },
+        {
+          "productId": 3,
+          "name": "REVO Everyday Blue",
+          "price": 85000,
+          "quantity": 4,
+          "image": "img/products/catalog/card-image-blue.jpg"
+        }
+      ],
+      "total": 1391000,
+      "status": "created",
+      "createdAt": "2026-08-23T12:07:49.200Z",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "productId": 2,
+          "name": "REVO Origin Citrus",
+          "price": 139000,
+          "quantity": 1,
+          "image": "img/products/catalog/card-image-orange.jpg"
+        }
+      ],
+      "total": 139000,
+      "status": "created",
+      "createdAt": "2026-08-23T12:08:03.633Z",
+      "id": 2
+    }
+  ],
+  "feedback": [
+    {
+      "userId": 2,
+      "productId": 2,
+      "rating": 4,
+      "text": "Ну и фигня, пооооооооооооооооооооооооооолная",
+      "createdAt": "2026-08-23T12:08:29.001Z",
+      "id": 1
+    }
+  ]
 }
