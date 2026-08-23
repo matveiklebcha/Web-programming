@@ -60,6 +60,23 @@ export const getProduct = async (productId) => {
   return data;
 };
 
+export const createProduct = (product) =>
+  request('/products', {
+    method: 'POST',
+    body: JSON.stringify(product),
+  });
+
+export const replaceProduct = (productId, product) =>
+  request(`/products/${productId}`, {
+    method: 'PUT',
+    body: JSON.stringify(product),
+  });
+
+export const deleteProduct = (productId) =>
+  request(`/products/${productId}`, {
+    method: 'DELETE',
+  });
+
 export const getFavorites = async () => {
   const { data } = await request('/favorites');
 
@@ -159,3 +176,50 @@ export const clearCart = async () => {
     });
   }
 };
+
+export const getUsers = async (query = '') => {
+  const { data } = await request(`/users${query}`);
+
+  return data;
+};
+
+export const getUser = async (userId) => {
+  const { data } = await request(`/users/${userId}`);
+
+  return data;
+};
+
+export const createUser = (user) =>
+  request('/users', {
+    method: 'POST',
+    body: JSON.stringify(user),
+  });
+
+export const getOrders = async (query = '') => {
+  const { data } = await request(`/orders${query}`);
+
+  return data;
+};
+
+export const createOrder = (order) =>
+  request('/orders', {
+    method: 'POST',
+    body: JSON.stringify(order),
+  });
+
+export const getFeedback = async (query = '') => {
+  const { data } = await request(`/feedback${query}`);
+
+  return data;
+};
+
+export const createFeedback = (feedback) =>
+  request('/feedback', {
+    method: 'POST',
+    body: JSON.stringify(feedback),
+  });
+
+export const deleteFeedback = (feedbackId) =>
+  request(`/feedback/${feedbackId}`, {
+    method: 'DELETE',
+  });
