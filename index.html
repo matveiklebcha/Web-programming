@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,20 +51,20 @@
         <nav class="hero__nav">
           <ul class="hero__nav-list">
             <li>
-              <a class="hero__nav-link hero__nav-link--header" href="#Home"
-                >TRANG CHỦ</a
+              <a class="hero__nav-link hero__nav-link--header" href="#Home" data-i18n="nav.home"
+                >Главная</a
               >
             </li>
-            <li><a class="hero__nav-link" href="#Catalog">COFFEE</a></li>
-            <li><a class="hero__nav-link" href="#Gallery">MEDIA</a></li>
-            <li><a class="hero__nav-link" href="#Combo">COMBO PHIN PHÊ</a></li>
-            <li><a class="hero__nav-link" href="#Giftset">GIFTSET</a></li>
-            <li><a class="hero__nav-link" href="catalog.html">МАГАЗИН</a></li>
-            <li><a class="hero__nav-link" href="feedback.html">ОТЗЫВЫ</a></li>
-            <li><a class="hero__nav-link" href="auth.html">ПРОФИЛЬ</a></li>
-            <li data-session-admin hidden><a class="hero__nav-link" href="admin.html">УПРАВЛЕНИЕ</a></li>
-            <li><a class="hero__nav-link" href="#Location">ĐỊA CHỈ</a></li>
-            <li><a class="hero__nav-link" href="#Footer">LIÊN HỆ</a></li>
+            <li><a class="hero__nav-link" href="#Catalog" data-i18n="nav.coffee">Кофе</a></li>
+            <li><a class="hero__nav-link" href="#Gallery" data-i18n="nav.media">Медиа</a></li>
+            <li><a class="hero__nav-link" href="#Combo" data-i18n="nav.combo">Наборы</a></li>
+            <li><a class="hero__nav-link" href="#Giftset" data-i18n="nav.giftset">Подарочные наборы</a></li>
+            <li><a class="hero__nav-link" href="catalog.html" data-i18n="nav.catalog">Каталог</a></li>
+            <li><a class="hero__nav-link" href="feedback.html" data-i18n="nav.feedback">Отзывы</a></li>
+            <li><a class="hero__nav-link" href="auth.html" data-i18n="nav.profile">Профиль</a></li>
+            <li data-session-admin hidden><a class="hero__nav-link" href="admin.html" data-i18n="nav.management">Управление</a></li>
+            <li><a class="hero__nav-link" href="#Location" data-i18n="nav.location">Адрес</a></li>
+            <li><a class="hero__nav-link" href="#Footer" data-i18n="nav.contacts">Контакты</a></li>
           </ul>
         </nav>
       </div>
@@ -73,8 +73,8 @@
       <section class="features">
         <div class="container features__container">
           <div class="section-header">
-            <p class="section-header__slogan">Your Personalized Coffee</p>
-            <h2 class="section-header__title">COFFEE BUILD YOUR BASE</h2>
+            <p class="section-header__slogan" data-i18n="landing.featuresSlogan">Ваш персональный кофе</p>
+            <h2 class="section-header__title" data-i18n="landing.featuresTitle">КОФЕ — ОСНОВА ВАШЕГО ВКУСА</h2>
           </div>
           <div class="features__cards">
             <div class="features__card">
@@ -139,8 +139,8 @@
       <section class="catalog" id="Catalog">
         <div class="container catalog__container">
           <div class="section-header">
-            <p class="section-header__slogan">Choose Your Favorite</p>
-            <h2 class="section-header__title">ПОПУЛЯРНЫЙ КОФЕ</h2>
+            <p class="section-header__slogan" data-i18n="landing.featuredSlogan">Выберите любимый вкус</p>
+            <h2 class="section-header__title" data-i18n="landing.featuredTitle">ПОПУЛЯРНЫЙ КОФЕ</h2>
           </div>
           <div class="featured-products__slider">
             <button class="featured-products__button featured-products__button--prev" type="button" aria-label="Предыдущие товары">
@@ -156,7 +156,7 @@
           <p id="featuredProductsError" class="featured-products__error" hidden>
             Подборка временно недоступна. Весь ассортимент можно посмотреть в каталоге.
           </p>
-          <a class="catalog__page-link btn btn--primary" href="catalog.html">
+          <a class="catalog__page-link btn btn--primary" href="catalog.html" data-i18n="landing.allProducts">
             Смотреть весь каталог
           </a>
         </div>
@@ -352,21 +352,21 @@
       </section>
       <section class="coffee-parallax" aria-label="От зерна до чашки">
         <div class="coffee-parallax__scene" data-parallax-scene>
-          <img class="coffee-parallax__layer coffee-parallax__layer--back" data-parallax-speed="0.22" src="img/products/catalog/card-image-blue.jpg" alt="" />
-          <img class="coffee-parallax__layer coffee-parallax__layer--middle" data-parallax-speed="-0.32" src="img/products/combo/brown-combo.png" alt="" />
-          <img class="coffee-parallax__layer coffee-parallax__layer--front" data-parallax-speed="0.42" src="img/products/catalog/card-image-yellow.jpg" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--back" data-parallax-speed="0.22" data-theme-light-src="img/products/catalog/card-image-blue.jpg" data-theme-dark-src="img/products/catalog/card-image-brown.jpg" src="img/products/catalog/card-image-blue.jpg" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--middle" data-parallax-speed="-0.32" data-theme-light-src="img/products/combo/brown-combo.png" data-theme-dark-src="img/products/combo/blue-combo.png" src="img/products/combo/brown-combo.png" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--front" data-parallax-speed="0.42" data-theme-light-src="img/products/catalog/card-image-yellow.jpg" data-theme-dark-src="img/products/catalog/card-image-green.jpg" src="img/products/catalog/card-image-yellow.jpg" alt="" />
           <div class="coffee-parallax__content">
-            <p class="section-header__slogan">From Bean To Cup</p>
-            <h2 class="coffee-parallax__title">СВОЙ ХАРАКТЕР В КАЖДОЙ ЧАШКЕ</h2>
-            <a class="btn btn--primary" href="catalog.html">Выбрать кофе</a>
+            <p class="section-header__slogan" data-i18n="landing.parallaxSlogan">От зерна до чашки</p>
+            <h2 class="coffee-parallax__title" data-i18n="landing.parallaxTitle">СВОЙ ХАРАКТЕР В КАЖДОЙ ЧАШКЕ</h2>
+            <a class="btn btn--primary" href="catalog.html" data-i18n="landing.chooseCoffee">Выбрать кофе</a>
           </div>
         </div>
       </section>
       <section class="media-gallery" id="Gallery">
         <div class="container media-gallery__container">
           <div class="section-header">
-            <p class="section-header__slogan">Coffee Mood</p>
-            <h2 class="section-header__title">ОТКРОЙТЕ СВОЙ ВКУС</h2>
+            <p class="section-header__slogan" data-i18n="landing.gallerySlogan">Кофейное настроение</p>
+            <h2 class="section-header__title" data-i18n="landing.galleryTitle">ОТКРОЙТЕ СВОЙ ВКУС</h2>
           </div>
           <div class="media-gallery__layout">
             <div class="media-gallery__stage" id="galleryStage">
@@ -399,9 +399,9 @@
         <div class="container location__container">
           <div class="location__content">
             <p class="section-header__slogan">Revo Coffee Hà Nội</p>
-            <h2 class="location__title">ВСТРЕТИМСЯ ЗА КОФЕ</h2>
+            <h2 class="location__title" data-i18n="landing.locationTitle">ВСТРЕТИМСЯ ЗА КОФЕ</h2>
             <p class="location__text">Hoàn Kiếm, Hà Nội · ежедневно с 08:00 до 22:00</p>
-            <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&query=Hoan+Kiem+Hanoi" target="_blank" rel="noopener">Построить маршрут</a>
+            <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&query=Hoan+Kiem+Hanoi" target="_blank" rel="noopener" data-i18n="landing.route">Построить маршрут</a>
           </div>
           <iframe class="location__map" title="Карта кофейни Revo Coffee в Ханое" src="https://www.google.com/maps?q=Hoan%20Kiem%2C%20Hanoi&z=14&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>

@@ -1,5 +1,9 @@
 import { getCart, getFavorites, getProduct } from './api.js';
-import { categoryLabels, formatPrice, roastLabels } from './ui.js';
+import { initializePreferences } from './preferences.js';
+import { initializeProfile } from './profile.js';
+import { getCurrentUser } from './session.js';
+import { t } from './translations.js';
+import { formatPrice, getCategoryLabel, getRoastLabel } from './ui.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -152,7 +156,7 @@ const animateCounter = (element, nextValue) => {
       element.classList.toggle('is-empty', nextValue === 0);
       element.setAttribute(
         'aria-label',
-        `${element.dataset.shopCounter === 'cart' ? 'Товаров в корзине' : 'Товаров в избранном'}: ${nextValue}`,
+        `${element.dataset.shopCounter === 'cart' ? t('nav.cart') : t('nav.favorites')}: ${nextValue}`,
       );
     }
   };
@@ -170,7 +174,7 @@ const getCounter = (link, kind) => {
     counter.dataset.shopCounter = kind;
     counter.dataset.value = '0';
     counter.textContent = '0';
-    counter.setAttribute('aria-label', kind === 'cart' ? 'Товаров в корзине' : 'Товаров в избранном');
+    counter.setAttribute('aria-label', t(kind === 'cart' ? 'nav.cart' : 'nav.favorites'));
     link.append(counter);
   }
 
@@ -178,8 +182,13 @@ const getCounter = (link, kind) => {
 };
 
 export const refreshShopCounters = async () => {
+  const currentUser = getCurrentUser();
+
   try {
-    const [favorites, cart] = await Promise.all([getFavorites(), getCart()]);
+    const [favorites, cart] = await Promise.all([
+      getFavorites(currentUser?.id),
+      getCart(currentUser?.id),
+    ]);
     const counts = {
       favorites: favorites.length,
       cart: cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
@@ -202,18 +211,18 @@ const createProductDialog = () => {
   dialog.className = 'product-dialog';
   dialog.innerHTML = `
     <article class="product-dialog__card">
-      <button class="dialog-close" type="button" data-dialog-close aria-label="Закрыть">×</button>
+      <button class="dialog-close" type="button" data-dialog-close aria-label="${t('common.close')}">×</button>
       <div class="product-dialog__image-wrap"><img class="product-dialog__image" alt="" /></div>
       <div class="product-dialog__content">
         <p class="product-dialog__category"></p>
         <h2 class="product-dialog__title"></h2>
         <p class="product-dialog__description"></p>
         <dl class="product-dialog__specs">
-          <div><dt>Обжарка</dt><dd data-product-roast></dd></div>
-          <div><dt>Происхождение</dt><dd data-product-origin></dd></div>
-          <div><dt>Интенсивность</dt><dd data-product-intensity></dd></div>
-          <div><dt>Вес</dt><dd data-product-weight></dd></div>
-          <div><dt>Рейтинг</dt><dd data-product-rating></dd></div>
+          <div><dt>${t('product.roast')}</dt><dd data-product-roast></dd></div>
+          <div><dt>${t('product.origin')}</dt><dd data-product-origin></dd></div>
+          <div><dt>${t('product.intensity')}</dt><dd data-product-intensity></dd></div>
+          <div><dt>${t('product.weight')}</dt><dd data-product-weight></dd></div>
+          <div><dt>${t('product.rating')}</dt><dd data-product-rating></dd></div>
         </dl>
         <p class="product-dialog__price"></p>
       </div>
@@ -237,10 +246,10 @@ export const openProductDetails = (product) => {
   image.src = product.image;
   image.alt = product.name;
   image.style.filter = product.imageFilter || 'none';
-  dialog.querySelector('.product-dialog__category').textContent = categoryLabels[product.category] || product.category;
+  dialog.querySelector('.product-dialog__category').textContent = getCategoryLabel(product.category);
   dialog.querySelector('.product-dialog__title').textContent = product.name;
   dialog.querySelector('.product-dialog__description').textContent = product.description;
-  dialog.querySelector('[data-product-roast]').textContent = roastLabels[product.roast] || product.roast;
+  dialog.querySelector('[data-product-roast]').textContent = getRoastLabel(product.roast);
   dialog.querySelector('[data-product-origin]').textContent = product.origin;
   dialog.querySelector('[data-product-intensity]').textContent = `${product.intensity}/5`;
   dialog.querySelector('[data-product-weight]').textContent = product.weight;
@@ -269,6 +278,8 @@ const initializeProductDetails = () => {
 };
 
 export const initializePageInteractions = () => {
+  initializePreferences();
+  initializeProfile();
   initializePreloader();
   initializeNavigation();
   initializeScrollReveal();

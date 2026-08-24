@@ -24,13 +24,13 @@
           />
         </a>
         <nav class="catalog-header__nav" aria-label="Навигация магазина">
-          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
-          <a class="catalog-header__back" href="catalog.html">Каталог</a>
-          <a class="catalog-header__back" href="favorites.html" aria-current="page">Избранное</a>
-          <a class="catalog-header__back" href="cart.html">Корзина</a>
-          <a class="catalog-header__back" href="feedback.html">Отзывы</a>
-          <a class="catalog-header__back" href="auth.html">Профиль</a>
-          <a class="catalog-header__back" href="admin.html" data-session-admin hidden>Админ-панель</a>
+          <a class="catalog-header__back" href="index.html#Catalog" data-i18n="nav.home">Главная</a>
+          <a class="catalog-header__back" href="catalog.html" data-i18n="nav.catalog">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html" aria-current="page" data-i18n="nav.favorites">Избранное</a>
+          <a class="catalog-header__back" href="cart.html" data-i18n="nav.cart">Корзина</a>
+          <a class="catalog-header__back" href="feedback.html" data-i18n="nav.feedback">Отзывы</a>
+          <a class="catalog-header__back" href="auth.html" data-i18n="nav.profile">Профиль</a>
+          <a class="catalog-header__back" href="admin.html" data-session-admin hidden data-i18n="nav.admin">Админ-панель</a>
         </nav>
       </div>
     </header>
@@ -40,21 +40,21 @@
         <div class="container products__container">
           <div class="section-header products__header">
             <p class="section-header__slogan">Revo Coffee</p>
-            <h1 class="section-header__title">Избранное</h1>
+            <h1 class="section-header__title" data-i18n="favorites.title">Избранное</h1>
           </div>
 
           <p id="favoritesStatus" class="products__count" aria-live="polite"></p>
           <p id="favoritesError" class="products__error" role="alert" hidden></p>
-          <p id="favoritesLoader" class="products__loader" hidden>Загрузка избранного...</p>
+          <p id="favoritesLoader" class="products__loader" hidden data-i18n="favorites.loading">Загрузка избранного...</p>
 
           <div id="favoritesGrid" class="products__grid"></div>
 
           <div id="favoritesEmpty" class="products__empty" hidden>
-            <h2 class="products__empty-title">Избранное пусто</h2>
-            <p class="products__empty-text">
+            <h2 class="products__empty-title" data-i18n="favorites.emptyTitle">Избранное пусто</h2>
+            <p class="products__empty-text" data-i18n="favorites.emptyText">
               Добавьте кофе из каталога, чтобы быстро вернуться к нему позже.
             </p>
-            <a class="btn btn--primary products__reset" href="catalog.html">Перейти в каталог</a>
+            <a class="btn btn--primary products__reset" href="catalog.html" data-i18n="common.goCatalog">Перейти в каталог</a>
           </div>
         </div>
       </section>

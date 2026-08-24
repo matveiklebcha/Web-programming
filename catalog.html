@@ -24,13 +24,13 @@
           />
         </a>
         <nav class="catalog-header__nav" aria-label="Навигация магазина">
-          <a class="catalog-header__back" href="index.html#Catalog">Главная</a>
-          <a class="catalog-header__back" href="catalog.html" aria-current="page">Каталог</a>
-          <a class="catalog-header__back" href="favorites.html">Избранное</a>
-          <a class="catalog-header__back" href="cart.html">Корзина</a>
-          <a class="catalog-header__back" href="feedback.html">Отзывы</a>
-          <a class="catalog-header__back" href="auth.html">Профиль</a>
-          <a class="catalog-header__back" href="admin.html" data-session-admin hidden>Админ-панель</a>
+          <a class="catalog-header__back" href="index.html#Catalog" data-i18n="nav.home">Главная</a>
+          <a class="catalog-header__back" href="catalog.html" aria-current="page" data-i18n="nav.catalog">Каталог</a>
+          <a class="catalog-header__back" href="favorites.html" data-i18n="nav.favorites">Избранное</a>
+          <a class="catalog-header__back" href="cart.html" data-i18n="nav.cart">Корзина</a>
+          <a class="catalog-header__back" href="feedback.html" data-i18n="nav.feedback">Отзывы</a>
+          <a class="catalog-header__back" href="auth.html" data-i18n="nav.profile">Профиль</a>
+          <a class="catalog-header__back" href="admin.html" data-session-admin hidden data-i18n="nav.admin">Админ-панель</a>
         </nav>
       </div>
     </header>
@@ -40,29 +40,30 @@
         <div class="container products__container">
           <div class="section-header products__header">
             <p class="section-header__slogan">Revo Coffee</p>
-            <h1 class="section-header__title">Каталог кофе</h1>
+            <h1 class="section-header__title" data-i18n="catalog.title">Каталог кофе</h1>
           </div>
 
           <div class="products__controls" aria-label="Управление каталогом">
             <label class="products__search">
-              <span class="products__label">Поиск</span>
+              <span class="products__label" data-i18n="catalog.search">Поиск</span>
               <input
                 id="searchInput"
                 class="products__input"
                 type="search"
                 placeholder="Название, описание, происхождение"
+                data-i18n-placeholder="catalog.searchPlaceholder"
                 autocomplete="off"
               />
             </label>
 
             <label class="products__sort">
-              <span class="products__label">Сортировка</span>
+              <span class="products__label" data-i18n="catalog.sort">Сортировка</span>
               <select id="sortSelect" class="products__select">
-                <option value="default">По умолчанию</option>
-                <option value="price-asc">Цена по возрастанию</option>
-                <option value="price-desc">Цена по убыванию</option>
-                <option value="name-asc">Название А-Я</option>
-                <option value="rating-desc">Рейтинг по убыванию</option>
+                <option value="default" data-i18n="catalog.sortDefault">По умолчанию</option>
+                <option value="price-asc" data-i18n="catalog.sortPriceAsc">Цена по возрастанию</option>
+                <option value="price-desc" data-i18n="catalog.sortPriceDesc">Цена по убыванию</option>
+                <option value="name-asc" data-i18n="catalog.sortNameAsc">Название А-Я</option>
+                <option value="rating-desc" data-i18n="catalog.sortRatingDesc">Рейтинг по убыванию</option>
               </select>
             </label>
           </div>
@@ -75,9 +76,9 @@
 
           <div class="products__advanced" aria-label="Расширенные фильтры">
             <label class="products__field">
-              <span class="products__label">Обжарка</span>
+              <span class="products__label" data-i18n="catalog.roast">Обжарка</span>
               <select id="roastSelect" class="products__select">
-                <option value="">Любая</option>
+                <option value="" data-i18n="catalog.anyFeminine">Любая</option>
                 <option value="Light">Light</option>
                 <option value="Medium">Medium</option>
                 <option value="Dark">Dark</option>
@@ -85,14 +86,14 @@
             </label>
 
             <label class="products__field">
-              <span class="products__label">Происхождение</span>
+              <span class="products__label" data-i18n="catalog.origin">Происхождение</span>
               <select id="originSelect" class="products__select">
-                <option value="">Любое</option>
+                <option value="" data-i18n="catalog.anyNeuter">Любое</option>
               </select>
             </label>
 
             <label class="products__field">
-              <span class="products__label">Цена от</span>
+              <span class="products__label" data-i18n="catalog.priceFrom">Цена от</span>
               <input
                 id="minPriceInput"
                 class="products__input"
@@ -104,7 +105,7 @@
             </label>
 
             <label class="products__field">
-              <span class="products__label">Цена до</span>
+              <span class="products__label" data-i18n="catalog.priceTo">Цена до</span>
               <input
                 id="maxPriceInput"
                 class="products__input"
@@ -116,9 +117,9 @@
             </label>
 
             <label class="products__field">
-              <span class="products__label">Рейтинг от</span>
+              <span class="products__label" data-i18n="catalog.ratingFrom">Рейтинг от</span>
               <select id="ratingSelect" class="products__select">
-                <option value="">Любой</option>
+                <option value="" data-i18n="catalog.anyMasculine">Любой</option>
                 <option value="4.5">4.5</option>
                 <option value="4.7">4.7</option>
                 <option value="4.9">4.9</option>
@@ -126,9 +127,9 @@
             </label>
 
             <label class="products__field">
-              <span class="products__label">Интенсивность от</span>
+              <span class="products__label" data-i18n="catalog.intensityFrom">Интенсивность от</span>
               <select id="intensitySelect" class="products__select">
-                <option value="">Любая</option>
+                <option value="" data-i18n="catalog.anyFeminine">Любая</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -139,37 +140,37 @@
 
           <div class="products__toolbar">
             <label class="products__limit">
-              <span class="products__label">На странице</span>
+              <span class="products__label" data-i18n="catalog.perPage">На странице</span>
               <select id="limitSelect" class="products__select">
                 <option value="6">6</option>
                 <option value="9">9</option>
                 <option value="12">12</option>
               </select>
             </label>
-            <button id="resetFilters" class="btn btn--secondary products__reset" type="button">
+            <button id="resetFilters" class="btn btn--secondary products__reset" type="button" data-i18n="catalog.resetFilters">
               Сбросить фильтры
             </button>
           </div>
 
           <p id="productsStatus" class="products__count" aria-live="polite"></p>
           <p id="productsError" class="products__error" role="alert" hidden></p>
-          <p id="productsLoader" class="products__loader" hidden>Загрузка каталога...</p>
+          <p id="productsLoader" class="products__loader" hidden data-i18n="catalog.loading">Загрузка каталога...</p>
 
           <div id="productsGrid" class="products__grid"></div>
 
           <div id="emptyState" class="products__empty" hidden>
-            <h2 class="products__empty-title">Кофе не найден</h2>
-            <p class="products__empty-text">
+            <h2 class="products__empty-title" data-i18n="catalog.emptyTitle">Кофе не найден</h2>
+            <p class="products__empty-text" data-i18n="catalog.emptyText">
               Попробуйте изменить запрос, категорию или расширенные фильтры.
             </p>
           </div>
 
           <div class="products__pagination" aria-label="Пагинация каталога">
-            <button id="prevPageButton" class="btn btn--secondary" type="button">
+            <button id="prevPageButton" class="btn btn--secondary" type="button" data-i18n="catalog.previous">
               Назад
             </button>
             <span id="paginationInfo" class="products__pagination-info"></span>
-            <button id="nextPageButton" class="btn btn--secondary" type="button">
+            <button id="nextPageButton" class="btn btn--secondary" type="button" data-i18n="catalog.next">
               Вперед
             </button>
           </div>

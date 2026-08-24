@@ -3,20 +3,21 @@ import {
   initializePageInteractions,
   refreshShopCounters,
 } from './interactions.js';
-import { syncSessionNavigation } from './session.js';
-import { categoryLabels, formatPrice, showNotice } from './ui.js';
+import { getCurrentUser, syncSessionNavigation } from './session.js';
+import { getLanguage, t } from './translations.js';
+import { formatPrice, getCategoryLabel, showNotice } from './ui.js';
 
 const galleryItems = [
-  { image: 'img/products/catalog/card-image-yellow.jpg', audio: 'media/audio/coffee-note-01.wav', title: 'REVO Morning', description: 'Лёгкий цветочный профиль для спокойного начала дня.' },
-  { image: 'img/products/catalog/card-image-orange.jpg', audio: 'media/audio/coffee-note-02.wav', title: 'REVO Origin', description: 'Мягкая сладость и чистая фруктовая кислинка.' },
-  { image: 'img/products/catalog/card-image-blue.jpg', audio: 'media/audio/coffee-note-03.wav', title: 'REVO Everyday', description: 'Плотный классический вкус для привычного ритма.' },
-  { image: 'img/products/catalog/card-image-brown.jpg', audio: 'media/audio/coffee-note-04.wav', title: 'REVO Đậm Đà', description: 'Насыщенный кофе с выразительной горчинкой.' },
-  { image: 'img/products/catalog/card-image-red.jpg', audio: 'media/audio/coffee-note-05.wav', title: 'REVO Honey', description: 'Медовая сладость, яблочная кислинка и история Revo.', video: true },
-  { image: 'img/products/catalog/card-image-green.jpg', audio: 'media/audio/coffee-note-06.wav', title: 'REVO Natural', description: 'Ягодные ноты и долгое природное послевкусие.' },
-  { image: 'img/products/combo/brown-combo.png', audio: 'media/audio/coffee-note-07.wav', title: 'Combo Đậm Đà', description: 'Крепкий набор для тех, кто любит насыщенный кофе.' },
-  { image: 'img/products/combo/blue-combo.png', audio: 'media/audio/coffee-note-08.wav', title: 'Combo Everyday', description: 'Универсальный набор на каждый день.' },
-  { image: 'img/products/combo/red-combo.png', audio: 'media/audio/coffee-note-09.wav', title: 'Combo Honey', description: 'Сладкий кофейный дуэт с фруктовым характером.' },
-  { image: 'img/products/combo/green-combo.png', audio: 'media/audio/coffee-note-10.wav', title: 'Combo Natural', description: 'Свежий ягодный профиль в подарочном формате.' },
+  { image: 'img/products/catalog/card-image-yellow.jpg', audio: 'media/audio/coffee-note-01.wav', title: 'REVO Morning', description: 'Лёгкий цветочный профиль для спокойного начала дня.', descriptionEn: 'A light floral profile for an easy start to the day.' },
+  { image: 'img/products/catalog/card-image-orange.jpg', audio: 'media/audio/coffee-note-02.wav', title: 'REVO Origin', description: 'Мягкая сладость и чистая фруктовая кислинка.', descriptionEn: 'Gentle sweetness with a clean fruity acidity.' },
+  { image: 'img/products/catalog/card-image-blue.jpg', audio: 'media/audio/coffee-note-03.wav', title: 'REVO Everyday', description: 'Плотный классический вкус для привычного ритма.', descriptionEn: 'A full classic flavor for your daily rhythm.' },
+  { image: 'img/products/catalog/card-image-brown.jpg', audio: 'media/audio/coffee-note-04.wav', title: 'REVO Đậm Đà', description: 'Насыщенный кофе с выразительной горчинкой.', descriptionEn: 'Rich coffee with a bold bittersweet finish.' },
+  { image: 'img/products/catalog/card-image-red.jpg', audio: 'media/audio/coffee-note-05.wav', title: 'REVO Honey', description: 'Медовая сладость, яблочная кислинка и история Revo.', descriptionEn: 'Honey sweetness, apple acidity, and the Revo story.', video: true },
+  { image: 'img/products/catalog/card-image-green.jpg', audio: 'media/audio/coffee-note-06.wav', title: 'REVO Natural', description: 'Ягодные ноты и долгое природное послевкусие.', descriptionEn: 'Berry notes with a long, natural aftertaste.' },
+  { image: 'img/products/combo/brown-combo.png', audio: 'media/audio/coffee-note-07.wav', title: 'Combo Đậm Đà', description: 'Крепкий набор для тех, кто любит насыщенный кофе.', descriptionEn: 'A strong set for those who enjoy rich coffee.' },
+  { image: 'img/products/combo/blue-combo.png', audio: 'media/audio/coffee-note-08.wav', title: 'Combo Everyday', description: 'Универсальный набор на каждый день.', descriptionEn: 'A versatile coffee set for every day.' },
+  { image: 'img/products/combo/red-combo.png', audio: 'media/audio/coffee-note-09.wav', title: 'Combo Honey', description: 'Сладкий кофейный дуэт с фруктовым характером.', descriptionEn: 'A sweet coffee duo with a fruity character.' },
+  { image: 'img/products/combo/green-combo.png', audio: 'media/audio/coffee-note-10.wav', title: 'Combo Natural', description: 'Свежий ягодный профиль в подарочном формате.', descriptionEn: 'A fresh berry profile in a gift-ready set.' },
 ];
 
 const initializeSlider = ({ rootSelector, trackSelector, cardSelector, prevSelector, nextSelector, rows = 1 }) => {
@@ -115,8 +116,8 @@ const createFeaturedProductCard = (product) => {
       <div class="featured-product__footer">
         <p class="featured-product__price"></p>
         <div class="featured-product__actions">
-          <button class="btn btn--primary" type="button" data-featured-cart-id="${product.id}">В корзину</button>
-          <button class="btn btn--secondary" type="button" data-product-detail-id="${product.id}">Подробнее</button>
+          <button class="btn btn--primary" type="button" data-featured-cart-id="${product.id}">${t('common.addCart')}</button>
+          <button class="btn btn--secondary" type="button" data-product-detail-id="${product.id}">${t('common.details')}</button>
         </div>
       </div>
     </div>
@@ -127,11 +128,13 @@ const createFeaturedProductCard = (product) => {
   image.alt = product.name;
   image.style.filter = product.imageFilter || 'none';
   card.querySelector('.featured-product__rating').textContent = `★ ${Number(product.rating).toFixed(1)}`;
-  card.querySelector('.featured-product__category').textContent = categoryLabels[product.category] || product.category;
+  card.querySelector('.featured-product__category').textContent = getCategoryLabel(product.category);
   card.querySelector('.featured-product__title').textContent = product.name;
-  card.querySelector('.featured-product__description').textContent = product.description;
+  card.querySelector('.featured-product__description').textContent = getLanguage() === 'en'
+    ? product.descriptionEn || product.description
+    : product.description;
   card.querySelector('[data-featured-origin]').textContent = product.origin;
-  card.querySelector('[data-featured-intensity]').textContent = `Интенсивность ${product.intensity}/5`;
+  card.querySelector('[data-featured-intensity]').textContent = `${t('product.intensity')} ${product.intensity}/5`;
   card.querySelector('.featured-product__price').textContent = formatPrice(product.price);
 
   return card;
@@ -170,19 +173,25 @@ const initializeLandingProducts = async () => {
       }
 
       const product = productsById.get(cartButton.dataset.featuredCartId);
+      const currentUser = getCurrentUser();
 
       if (!product) {
+        return;
+      }
+
+      if (!currentUser) {
+        showNotice(notice, t('common.loginRequired'));
         return;
       }
 
       cartButton.disabled = true;
 
       try {
-        const result = await addProductToCart(product);
-        showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+        const result = await addProductToCart(product, currentUser.id);
+        showNotice(notice, t(result.created ? 'common.addedCart' : 'common.cartIncreased'));
         await refreshShopCounters();
       } catch (error) {
-        showNotice(notice, 'Не удалось добавить товар. Попробуйте ещё раз.');
+        showNotice(notice, t('common.actionError'));
       } finally {
         cartButton.disabled = false;
       }
@@ -216,10 +225,10 @@ const initializeGallery = () => {
   const syncSoundState = () => {
     const isPlaying = !audio.paused;
     soundToggle.setAttribute('aria-pressed', String(isPlaying));
-    soundToggle.textContent = isPlaying ? 'Ⅱ Пауза' : '▶ Звук';
+    soundToggle.textContent = t(isPlaying ? 'gallery.pause' : 'gallery.sound');
     status.textContent = isPlaying
-      ? `Сейчас звучит ${galleryItems[currentIndex].title}.`
-      : 'Звук приостановлен.';
+      ? t('gallery.playing', { title: galleryItems[currentIndex].title })
+      : t('gallery.paused');
   };
 
   const playCurrentSound = async () => {
@@ -227,7 +236,7 @@ const initializeGallery = () => {
       await audio.play();
     } catch (error) {
       syncSoundState();
-      status.textContent = 'Нажмите «Звук», чтобы услышать настроение вкуса.';
+      status.textContent = t('gallery.playHint');
       return;
     }
     syncSoundState();
@@ -240,7 +249,7 @@ const initializeGallery = () => {
     audio.pause();
     audio.src = item.audio;
     title.textContent = item.title;
-    description.textContent = item.description;
+    description.textContent = getLanguage() === 'en' ? item.descriptionEn || item.description : item.description;
     videoButton.hidden = !item.video;
 
     window.setTimeout(() => {

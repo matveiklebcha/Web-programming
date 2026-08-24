@@ -10,19 +10,20 @@ export const getCurrentUser = () => {
 };
 
 export const setCurrentUser = (user) => {
-  const sessionUser = {
-    id: user.id,
-    email: user.email,
-    nickname: user.nickname,
-    role: user.role,
-  };
+  const sessionUser = Object.fromEntries(
+    ['id', 'phone', 'email', 'birthDate', 'lastName', 'firstName', 'patronymic', 'nickname', 'role']
+      .filter((field) => user[field] !== undefined)
+      .map((field) => [field, user[field]]),
+  );
 
   window.localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+  window.dispatchEvent(new CustomEvent('revo:session-changed', { detail: sessionUser }));
   return sessionUser;
 };
 
 export const clearCurrentUser = () => {
   window.localStorage.removeItem(SESSION_KEY);
+  window.dispatchEvent(new CustomEvent('revo:session-changed', { detail: null }));
 };
 
 export const isAdmin = (user = getCurrentUser()) => user?.role === 'admin';
@@ -47,6 +48,11 @@ export const syncSessionNavigation = () => {
   });
 
   document.querySelectorAll('[data-session-logout]').forEach((button) => {
+    if (button.dataset.sessionLogoutReady === 'true') {
+      return;
+    }
+
+    button.dataset.sessionLogoutReady = 'true';
     button.addEventListener('click', () => {
       clearCurrentUser();
       window.location.href = 'auth.html';

@@ -1,3 +1,5 @@
+import { getLanguage, t } from './translations.js';
+
 export const categoryLabels = {
   Classic: 'Классика',
   Fruity: 'Фруктовый',
@@ -11,9 +13,17 @@ export const roastLabels = {
   Dark: 'Dark',
 };
 
-export const formatPrice = (price) => `${Number(price).toLocaleString('ru-RU')} VND`;
+export const getCategoryLabel = (category) => t(`category.${category}`);
+
+export const getRoastLabel = (roast) => t(`roast.${roast}`);
+
+export const formatPrice = (price) => `${Number(price).toLocaleString(getLanguage() === 'en' ? 'en-US' : 'ru-RU')} VND`;
 
 export const formatProductsCount = (count) => {
+  if (getLanguage() === 'en') {
+    return `${count} ${count === 1 ? 'item' : 'items'}`;
+  }
+
   const lastDigit = count % 10;
   const lastTwoDigits = count % 100;
 
@@ -58,24 +68,24 @@ export const createProductCard = (product, options = {}) => {
   const actions = [];
 
   actions.push(
-    `<button class="btn btn--secondary product-card__button" type="button" data-product-detail-id="${productId}">Подробнее</button>`,
+    `<button class="btn btn--secondary product-card__button" type="button" data-product-detail-id="${productId}">${t('common.details')}</button>`,
   );
 
   if (showFavorite) {
     actions.push(
-      `<button class="btn btn--secondary product-card__button" type="button" data-favorite-id="${productId}">В избранное</button>`,
+      `<button class="btn btn--secondary product-card__button" type="button" data-favorite-id="${productId}">${t('common.addFavorite')}</button>`,
     );
   }
 
   if (showCart) {
     actions.push(
-      `<button class="btn btn--primary product-card__button" type="button" data-cart-id="${productId}">В корзину</button>`,
+      `<button class="btn btn--primary product-card__button" type="button" data-cart-id="${productId}">${t('common.addCart')}</button>`,
     );
   }
 
   if (showRemoveFavorite) {
     actions.push(
-      `<button class="btn btn--secondary product-card__button" type="button" data-remove-favorite-id="${product.id}">Удалить</button>`,
+      `<button class="btn btn--secondary product-card__button" type="button" data-remove-favorite-id="${product.id}">${t('common.remove')}</button>`,
     );
   }
 
@@ -88,13 +98,13 @@ export const createProductCard = (product, options = {}) => {
     </div>
     <div class="product-card__body">
       <div class="product-card__top">
-        <span class="product-card__category">${categoryLabels[product.category] || product.category}</span>
+        <span class="product-card__category">${getCategoryLabel(product.category)}</span>
         <span class="product-card__rating">★ ${Number(product.rating).toFixed(1)}</span>
       </div>
       <h2 class="product-card__title">${product.name}</h2>
-      <p class="product-card__description">${product.description}</p>
+      <p class="product-card__description">${getLanguage() === 'en' ? product.descriptionEn || product.description : product.description}</p>
       <div class="product-card__meta">
-        <span>${roastLabels[product.roast] || product.roast}</span>
+        <span>${getRoastLabel(product.roast)}</span>
         <span>${product.origin}</span>
         <span>${product.intensity}/5</span>
         <span>${product.weight}</span>
@@ -121,17 +131,17 @@ export const createCartItem = (item) => {
   row.innerHTML = `
     <img class="cart-item__image" src="${item.image}" alt="${item.name}" />
     <div class="cart-item__content">
-      <p class="cart-item__category">${categoryLabels[item.category] || item.category}</p>
+      <p class="cart-item__category">${getCategoryLabel(item.category)}</p>
       <h2 class="cart-item__title">${item.name}</h2>
       <p class="cart-item__price">${formatPrice(item.price)}</p>
     </div>
-    <div class="cart-item__quantity" aria-label="Количество товара">
-      <button class="cart-item__quantity-button" type="button" data-cart-decrease="${item.id}" aria-label="Уменьшить количество">−</button>
+    <div class="cart-item__quantity" aria-label="${t('product.quantity')}">
+      <button class="cart-item__quantity-button" type="button" data-cart-decrease="${item.id}" aria-label="${t('product.decrease')}">−</button>
       <span>${item.quantity}</span>
-      <button class="cart-item__quantity-button" type="button" data-cart-increase="${item.id}" aria-label="Увеличить количество">+</button>
+      <button class="cart-item__quantity-button" type="button" data-cart-increase="${item.id}" aria-label="${t('product.increase')}">+</button>
     </div>
     <p class="cart-item__sum">${formatPrice(item.price * item.quantity)}</p>
-    <button class="cart-item__remove" type="button" data-cart-remove="${item.id}">Удалить</button>
+    <button class="cart-item__remove" type="button" data-cart-remove="${item.id}">${t('common.remove')}</button>
   `;
 
   return row;

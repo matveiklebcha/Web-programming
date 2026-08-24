@@ -31,7 +31,8 @@ export const request = async (path, options = {}) => {
   };
 };
 
-const createProductSnapshot = (product) => ({
+const createProductSnapshot = (product, userId) => ({
+  userId,
   productId: product.productId || product.id,
   name: product.name,
   price: product.price,
@@ -39,6 +40,7 @@ const createProductSnapshot = (product) => ({
   category: product.category,
   rating: product.rating,
   description: product.description,
+  descriptionEn: product.descriptionEn,
   roast: product.roast,
   origin: product.origin,
   intensity: product.intensity,
@@ -77,20 +79,24 @@ export const deleteProduct = (productId) =>
     method: 'DELETE',
   });
 
-export const getFavorites = async () => {
-  const { data } = await request('/favorites');
+export const getFavorites = async (userId) => {
+  if (!userId) {
+    return [];
+  }
+
+  const { data } = await request(`/favorites?userId=${encodeURIComponent(userId)}`);
 
   return data;
 };
 
-export const getFavoriteByProductId = async (productId) => {
-  const { data } = await request(`/favorites?productId=${productId}`);
+export const getFavoriteByProductId = async (userId, productId) => {
+  const { data } = await request(`/favorites?userId=${encodeURIComponent(userId)}&productId=${encodeURIComponent(productId)}`);
 
   return data[0] || null;
 };
 
-export const addProductToFavorites = async (product) => {
-  const existingFavorite = await getFavoriteByProductId(product.id);
+export const addProductToFavorites = async (product, userId) => {
+  const existingFavorite = await getFavoriteByProductId(userId, product.id);
 
   if (existingFavorite) {
     return { data: existingFavorite, created: false };
@@ -98,7 +104,7 @@ export const addProductToFavorites = async (product) => {
 
   const { data } = await request('/favorites', {
     method: 'POST',
-    body: JSON.stringify(createProductSnapshot(product)),
+    body: JSON.stringify(createProductSnapshot(product, userId)),
   });
 
   return { data, created: true };
@@ -109,21 +115,25 @@ export const removeFavorite = (favoriteId) =>
     method: 'DELETE',
   });
 
-export const getCart = async () => {
-  const { data } = await request('/cart');
+export const getCart = async (userId) => {
+  if (!userId) {
+    return [];
+  }
+
+  const { data } = await request(`/cart?userId=${encodeURIComponent(userId)}`);
 
   return data;
 };
 
-export const getCartItemByProductId = async (productId) => {
-  const { data } = await request(`/cart?productId=${productId}`);
+export const getCartItemByProductId = async (userId, productId) => {
+  const { data } = await request(`/cart?userId=${encodeURIComponent(userId)}&productId=${encodeURIComponent(productId)}`);
 
   return data[0] || null;
 };
 
-export const addProductToCart = async (product) => {
+export const addProductToCart = async (product, userId) => {
   const productId = product.productId || product.id;
-  const existingCartItem = await getCartItemByProductId(productId);
+  const existingCartItem = await getCartItemByProductId(userId, productId);
 
   if (existingCartItem) {
     const { data } = await request(`/cart/${existingCartItem.id}`, {
@@ -139,7 +149,7 @@ export const addProductToCart = async (product) => {
   const { data } = await request('/cart', {
     method: 'POST',
     body: JSON.stringify({
-      ...createProductSnapshot(product),
+      ...createProductSnapshot(product, userId),
       quantity: 1,
     }),
   });
@@ -167,8 +177,8 @@ export const removeCartItem = (cartItemId) =>
     method: 'DELETE',
   });
 
-export const clearCart = async () => {
-  const cartItems = await getCart();
+export const clearCart = async (userId) => {
+  const cartItems = await getCart(userId);
 
   for (const item of cartItems) {
     await request(`/cart/${item.id}`, {
@@ -193,6 +203,12 @@ export const createUser = (user) =>
   request('/users', {
     method: 'POST',
     body: JSON.stringify(user),
+  });
+
+export const updateUser = (userId, values) =>
+  request(`/users/${userId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(values),
   });
 
 export const getOrders = async (query = '') => {
