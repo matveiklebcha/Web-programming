@@ -11,14 +11,16 @@ const galleryItems = [
   { image: 'img/products/catalog/card-image-yellow.jpg', audio: 'media/audio/coffee-note-01.wav', title: 'REVO Morning', description: 'Лёгкий цветочный профиль для спокойного начала дня.', descriptionEn: 'A light floral profile for an easy start to the day.' },
   { image: 'img/products/catalog/card-image-orange.jpg', audio: 'media/audio/coffee-note-02.wav', title: 'REVO Origin', description: 'Мягкая сладость и чистая фруктовая кислинка.', descriptionEn: 'Gentle sweetness with a clean fruity acidity.' },
   { image: 'img/products/catalog/card-image-blue.jpg', audio: 'media/audio/coffee-note-03.wav', title: 'REVO Everyday', description: 'Плотный классический вкус для привычного ритма.', descriptionEn: 'A full classic flavor for your daily rhythm.' },
-  { image: 'img/products/catalog/card-image-brown.jpg', audio: 'media/audio/coffee-note-04.wav', title: 'REVO Đậm Đà', description: 'Насыщенный кофе с выразительной горчинкой.', descriptionEn: 'Rich coffee with a bold bittersweet finish.' },
+  { image: 'img/products/catalog/card-image-brown.jpg', audio: 'media/audio/coffee-note-04.wav', title: 'REVO Насыщенный', titleEn: 'REVO Bold', description: 'Насыщенный кофе с выразительной горчинкой.', descriptionEn: 'Rich coffee with a bold bittersweet finish.' },
   { image: 'img/products/catalog/card-image-red.jpg', audio: 'media/audio/coffee-note-05.wav', title: 'REVO Honey', description: 'Медовая сладость, яблочная кислинка и история Revo.', descriptionEn: 'Honey sweetness, apple acidity, and the Revo story.', video: true },
   { image: 'img/products/catalog/card-image-green.jpg', audio: 'media/audio/coffee-note-06.wav', title: 'REVO Natural', description: 'Ягодные ноты и долгое природное послевкусие.', descriptionEn: 'Berry notes with a long, natural aftertaste.' },
-  { image: 'img/products/combo/brown-combo.png', audio: 'media/audio/coffee-note-07.wav', title: 'Combo Đậm Đà', description: 'Крепкий набор для тех, кто любит насыщенный кофе.', descriptionEn: 'A strong set for those who enjoy rich coffee.' },
+  { image: 'img/products/combo/brown-combo.png', audio: 'media/audio/coffee-note-07.wav', title: 'Насыщенный набор Revo', titleEn: 'Revo Bold Combo', description: 'Крепкий набор для тех, кто любит насыщенный кофе.', descriptionEn: 'A strong set for those who enjoy rich coffee.' },
   { image: 'img/products/combo/blue-combo.png', audio: 'media/audio/coffee-note-08.wav', title: 'Combo Everyday', description: 'Универсальный набор на каждый день.', descriptionEn: 'A versatile coffee set for every day.' },
   { image: 'img/products/combo/red-combo.png', audio: 'media/audio/coffee-note-09.wav', title: 'Combo Honey', description: 'Сладкий кофейный дуэт с фруктовым характером.', descriptionEn: 'A sweet coffee duo with a fruity character.' },
   { image: 'img/products/combo/green-combo.png', audio: 'media/audio/coffee-note-10.wav', title: 'Combo Natural', description: 'Свежий ягодный профиль в подарочном формате.', descriptionEn: 'A fresh berry profile in a gift-ready set.' },
 ];
+
+const getGalleryItemTitle = (item) => getLanguage() === 'en' ? item.titleEn || item.title : item.title;
 
 const initializeSlider = ({ rootSelector, trackSelector, cardSelector, prevSelector, nextSelector, rows = 1 }) => {
   const root = document.querySelector(rootSelector);
@@ -227,7 +229,7 @@ const initializeGallery = () => {
     soundToggle.setAttribute('aria-pressed', String(isPlaying));
     soundToggle.textContent = t(isPlaying ? 'gallery.pause' : 'gallery.sound');
     status.textContent = isPlaying
-      ? t('gallery.playing', { title: galleryItems[currentIndex].title })
+      ? t('gallery.playing', { title: getGalleryItemTitle(galleryItems[currentIndex]) })
       : t('gallery.paused');
   };
 
@@ -248,13 +250,13 @@ const initializeGallery = () => {
     image.classList.add('is-changing');
     audio.pause();
     audio.src = item.audio;
-    title.textContent = item.title;
+    title.textContent = getGalleryItemTitle(item);
     description.textContent = getLanguage() === 'en' ? item.descriptionEn || item.description : item.description;
     videoButton.hidden = !item.video;
 
     window.setTimeout(() => {
       image.src = item.image;
-      image.alt = item.title;
+      image.alt = getGalleryItemTitle(item);
       image.classList.remove('is-changing');
     }, 170);
 
