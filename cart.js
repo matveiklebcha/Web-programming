@@ -13,6 +13,7 @@ import {
 } from './ui.js';
 import { getCurrentUser, syncSessionNavigation } from './session.js';
 import { initializePageInteractions, refreshShopCounters } from './interactions.js';
+import { t } from './translations.js';
 
 const cartList = document.querySelector('#cartList');
 const cartEmpty = document.querySelector('#cartEmpty');
@@ -44,7 +45,8 @@ const renderCart = async () => {
   setError();
 
   try {
-    cartItems = await getCart();
+    const currentUser = getCurrentUser();
+    cartItems = await getCart(currentUser?.id);
 
     cartList.replaceChildren(...cartItems.map(createCartItem));
 
@@ -52,7 +54,9 @@ const renderCart = async () => {
 
     cartEmpty.hidden = !isEmpty;
     cartSummary.hidden = isEmpty;
-    cartStatus.textContent = `В корзине: ${formatProductsCount(cartItems.length)}`;
+    cartStatus.textContent = currentUser
+      ? t('cart.count', { count: formatProductsCount(cartItems.length) })
+      : t('common.loginRequired');
     cartTotal.textContent = formatPrice(getTotalPrice());
   } catch (error) {
     cartItems = [];
@@ -60,7 +64,7 @@ const renderCart = async () => {
     cartEmpty.hidden = true;
     cartSummary.hidden = true;
     cartStatus.textContent = '';
-    setError('Корзина временно недоступна. Попробуйте обновить страницу.');
+    setError(t('cart.error'));
   } finally {
     setLoading(false);
   }
@@ -103,7 +107,7 @@ cartList.addEventListener('click', async (event) => {
     await renderCart();
     await refreshShopCounters();
   } catch (error) {
-    showNotice(notice, 'Не удалось изменить корзину. Попробуйте еще раз.');
+    showNotice(notice, t('cart.changeError'));
   }
 });
 
@@ -115,7 +119,7 @@ checkoutButton.addEventListener('click', async () => {
   const currentUser = getCurrentUser();
 
   if (!currentUser) {
-    showNotice(notice, 'Войдите в профиль, чтобы оформить заказ');
+    showNotice(notice, t('common.loginRequired'));
     window.setTimeout(() => {
       window.location.href = 'auth.html';
     }, 900);
@@ -138,12 +142,12 @@ checkoutButton.addEventListener('click', async () => {
       status: 'created',
       createdAt: new Date().toISOString(),
     });
-    await clearCart();
-    showNotice(notice, 'Покупка успешно оформлена');
+    await clearCart(currentUser.id);
+    showNotice(notice, t('cart.success'));
     await renderCart();
     await refreshShopCounters();
   } catch (error) {
-    showNotice(notice, 'Не удалось оформить покупку. Попробуйте еще раз.');
+    showNotice(notice, t('common.actionError'));
   } finally {
     checkoutButton.disabled = false;
   }

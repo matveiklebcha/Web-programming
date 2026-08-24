@@ -6,13 +6,14 @@ import {
   getProducts,
 } from './api.js';
 import {
-  categoryLabels,
   createProductCard,
   formatProductsCount,
+  getCategoryLabel,
   setActiveButton,
   showNotice,
 } from './ui.js';
-import { syncSessionNavigation } from './session.js';
+import { getCurrentUser, syncSessionNavigation } from './session.js';
+import { t } from './translations.js';
 import { initializePageInteractions, refreshShopCounters } from './interactions.js';
 
 const state = {
@@ -81,7 +82,7 @@ const getPriceRangeError = () => {
   }
 
   if (Number(state.minPrice) > Number(state.maxPrice)) {
-    return 'Цена «от» не может быть больше цены «до».';
+    return t('catalog.priceError');
   }
 
   return '';
@@ -158,7 +159,7 @@ const buildProductsQuery = () => {
 const renderPagination = (total) => {
   const totalPages = Math.max(1, Math.ceil(total / state.limit));
 
-  paginationInfo.textContent = `Страница ${state.page} из ${totalPages}`;
+  paginationInfo.textContent = t('catalog.page', { current: state.page, total: totalPages });
   prevPageButton.disabled = state.page <= 1;
   nextPageButton.disabled = state.page >= totalPages;
 };
@@ -174,7 +175,7 @@ const renderProducts = (products, total) => {
   );
 
   emptyState.hidden = products.length > 0;
-  productsStatus.textContent = `Найдено: ${formatProductsCount(total)}`;
+  productsStatus.textContent = t('catalog.found', { count: formatProductsCount(total) });
   renderPagination(total);
 };
 
@@ -218,7 +219,7 @@ const renderCatalog = async () => {
     paginationInfo.textContent = '';
     prevPageButton.disabled = true;
     nextPageButton.disabled = true;
-    setError('Каталог временно недоступен. Попробуйте обновить страницу.');
+    setError(t('catalog.error'));
   } finally {
     if (requestId === latestCatalogRequestId) {
       setLoading(false);
@@ -232,7 +233,7 @@ const createCategoryButton = (category) => {
   button.className = 'products__chip';
   button.type = 'button';
   button.dataset.category = category;
-  button.textContent = category === 'all' ? 'Все' : categoryLabels[category] || category;
+  button.textContent = category === 'all' ? t('catalog.all') : getCategoryLabel(category);
   button.setAttribute('aria-pressed', String(category === state.category));
 
   return button;
@@ -381,24 +382,31 @@ productsGrid.addEventListener('click', async (event) => {
     return;
   }
 
+  const currentUser = getCurrentUser();
+
+  if (!currentUser) {
+    showNotice(notice, t('common.loginRequired'));
+    return;
+  }
+
   try {
     if (favoriteButton) {
       const product = await getProduct(favoriteButton.dataset.favoriteId);
-      const result = await addProductToFavorites(product);
+      const result = await addProductToFavorites(product, currentUser.id);
 
-      showNotice(notice, result.created ? 'Товар добавлен в избранное' : 'Товар уже есть в избранном');
+      showNotice(notice, t(result.created ? 'common.addedFavorite' : 'common.alreadyFavorite'));
       await refreshShopCounters();
     }
 
     if (cartButton) {
       const product = await getProduct(cartButton.dataset.cartId);
-      const result = await addProductToCart(product);
+      const result = await addProductToCart(product, currentUser.id);
 
-      showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+      showNotice(notice, t(result.created ? 'common.addedCart' : 'common.cartIncreased'));
       await refreshShopCounters();
     }
   } catch (error) {
-    showNotice(notice, 'Не удалось добавить товар. Попробуйте еще раз.');
+    showNotice(notice, t('common.actionError'));
   }
 });
 
@@ -409,6 +417,6 @@ try {
   await renderFilterOptions();
   await renderCatalog();
 } catch (error) {
-  setError('Каталог временно недоступен. Попробуйте обновить страницу.');
+  setError(t('catalog.error'));
   setLoading(false);
 }

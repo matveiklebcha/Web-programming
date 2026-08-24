@@ -12,7 +12,8 @@
       "origin": "Lam Dong",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(0deg) saturate(1.05)"
+      "imageFilter": "hue-rotate(0deg) saturate(1.05)",
+      "descriptionEn": "A balanced morning coffee with gentle bitterness, nutty aroma, and a clean finish."
     },
     {
       "id": 2,
@@ -26,7 +27,8 @@
       "origin": "Cau Dat",
       "intensity": 2,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(-8deg) saturate(1.18)"
+      "imageFilter": "hue-rotate(-8deg) saturate(1.18)",
+      "descriptionEn": "A bright coffee with citrus acidity, a honeyed finish, and a light body."
     },
     {
       "id": 3,
@@ -40,7 +42,8 @@
       "origin": "Dak Lak",
       "intensity": 4,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(0deg) saturate(1.08)"
+      "imageFilter": "hue-rotate(0deg) saturate(1.08)",
+      "descriptionEn": "An everyday blend with cocoa, roasted nuts, and a smooth caramel finish."
     },
     {
       "id": 4,
@@ -54,7 +57,8 @@
       "origin": "Buon Ma Thuot",
       "intensity": 5,
       "weight": "250 г",
-      "imageFilter": "brightness(0.92) contrast(1.08) saturate(1.08)"
+      "imageFilter": "brightness(0.92) contrast(1.08) saturate(1.08)",
+      "descriptionEn": "A deep dark roast with dark chocolate, spice, and a bold traditional body."
     },
     {
       "id": 5,
@@ -68,7 +72,8 @@
       "origin": "Da Lat",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(0deg) saturate(1.15)"
+      "imageFilter": "hue-rotate(0deg) saturate(1.15)",
+      "descriptionEn": "A sweet honey-process coffee with caramel, apple, and soft berry notes."
     },
     {
       "id": 6,
@@ -82,7 +87,8 @@
       "origin": "Son La",
       "intensity": 2,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(4deg) saturate(1.12)"
+      "imageFilter": "hue-rotate(4deg) saturate(1.12)",
+      "descriptionEn": "A natural-process coffee with floral aroma, ripe berries, and gentle acidity."
     },
     {
       "id": 7,
@@ -96,7 +102,8 @@
       "origin": "Lam Ha",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(12deg) brightness(1.06) saturate(1.22)"
+      "imageFilter": "hue-rotate(12deg) brightness(1.06) saturate(1.22)",
+      "descriptionEn": "A golden blend for milk drinks with biscuit and creamy caramel notes."
     },
     {
       "id": 8,
@@ -110,7 +117,8 @@
       "origin": "Cau Dat",
       "intensity": 2,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(18deg) brightness(1.04) saturate(1.2)"
+      "imageFilter": "hue-rotate(18deg) brightness(1.04) saturate(1.2)",
+      "descriptionEn": "A light coffee with orange blossom, apricot, and cane sugar aromas."
     },
     {
       "id": 9,
@@ -124,7 +132,8 @@
       "origin": "Dak Nong",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(20deg) saturate(1.16) brightness(1.02)"
+      "imageFilter": "hue-rotate(20deg) saturate(1.16) brightness(1.02)",
+      "descriptionEn": "A silky coffee with blueberry, milk chocolate, and a delicate floral finish."
     },
     {
       "id": 10,
@@ -138,7 +147,8 @@
       "origin": "Gia Lai",
       "intensity": 5,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(-10deg) contrast(1.15) saturate(1.18)"
+      "imageFilter": "hue-rotate(-10deg) contrast(1.15) saturate(1.18)",
+      "descriptionEn": "An espresso blend with thick crema, dark chocolate, and a long dry finish."
     },
     {
       "id": 11,
@@ -152,7 +162,8 @@
       "origin": "Da Lat",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(14deg) brightness(1.03) saturate(1.25)"
+      "imageFilter": "hue-rotate(14deg) brightness(1.03) saturate(1.25)",
+      "descriptionEn": "A fruity profile with redcurrant, cocoa, and light wine-like acidity."
     },
     {
       "id": 12,
@@ -166,7 +177,8 @@
       "origin": "Son La",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(22deg) brightness(1.05) saturate(1.18)"
+      "imageFilter": "hue-rotate(22deg) brightness(1.05) saturate(1.18)",
+      "descriptionEn": "A sweet coffee with floral aroma, honey, green apple, and a soft body."
     },
     {
       "id": 13,
@@ -180,7 +192,8 @@
       "origin": "Buon Ma Thuot",
       "intensity": 5,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(-18deg) contrast(1.12) saturate(1.12)"
+      "imageFilter": "hue-rotate(-18deg) contrast(1.12) saturate(1.12)",
+      "descriptionEn": "A stronger morning blend with dark cocoa, toasted nuts, and caramel."
     },
     {
       "id": 14,
@@ -194,7 +207,8 @@
       "origin": "Lam Dong",
       "intensity": 3,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(28deg) brightness(1.07) saturate(1.26)"
+      "imageFilter": "hue-rotate(28deg) brightness(1.07) saturate(1.26)",
+      "descriptionEn": "A sweet profile with caramel, orange zest, and a velvety finish."
     },
     {
       "id": 15,
@@ -208,7 +222,8 @@
       "origin": "Dak Lak",
       "intensity": 5,
       "weight": "250 г",
-      "imageFilter": "hue-rotate(-28deg) brightness(0.88) contrast(1.18) saturate(1.2)"
+      "imageFilter": "hue-rotate(-28deg) brightness(0.88) contrast(1.18) saturate(1.2)",
+      "descriptionEn": "An intense night-time blend with dark chocolate, smoke, and roasted almonds."
     }
   ],
   "favorites": [
@@ -225,7 +240,9 @@
       "intensity": 2,
       "weight": "250 г",
       "imageFilter": "hue-rotate(-8deg) saturate(1.18)",
-      "id": 1
+      "id": 1,
+      "userId": 2,
+      "descriptionEn": "A bright coffee with citrus acidity, a honeyed finish, and a light body."
     }
   ],
   "cart": [],

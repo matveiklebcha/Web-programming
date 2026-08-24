@@ -9,8 +9,9 @@ import {
   formatProductsCount,
   showNotice,
 } from './ui.js';
-import { syncSessionNavigation } from './session.js';
+import { getCurrentUser, syncSessionNavigation } from './session.js';
 import { initializePageInteractions, refreshShopCounters } from './interactions.js';
+import { t } from './translations.js';
 
 const favoritesGrid = document.querySelector('#favoritesGrid');
 const favoritesEmpty = document.querySelector('#favoritesEmpty');
@@ -34,7 +35,8 @@ const renderFavorites = async () => {
   setError();
 
   try {
-    const favorites = await getFavorites();
+    const currentUser = getCurrentUser();
+    const favorites = await getFavorites(currentUser?.id);
 
     favoritesGrid.replaceChildren(
       ...favorites.map((favorite) =>
@@ -46,12 +48,14 @@ const renderFavorites = async () => {
     );
 
     favoritesEmpty.hidden = favorites.length > 0;
-    favoritesStatus.textContent = `В избранном: ${formatProductsCount(favorites.length)}`;
+    favoritesStatus.textContent = currentUser
+      ? t('favorites.count', { count: formatProductsCount(favorites.length) })
+      : t('common.loginRequired');
   } catch (error) {
     favoritesGrid.replaceChildren();
     favoritesEmpty.hidden = true;
     favoritesStatus.textContent = '';
-    setError('Избранное временно недоступно. Попробуйте обновить страницу.');
+    setError(t('favorites.error'));
   } finally {
     setLoading(false);
   }
@@ -65,23 +69,30 @@ favoritesGrid.addEventListener('click', async (event) => {
     return;
   }
 
+  const currentUser = getCurrentUser();
+
+  if (!currentUser) {
+    showNotice(notice, t('common.loginRequired'));
+    return;
+  }
+
   try {
     if (removeButton) {
       await removeFavorite(removeButton.dataset.removeFavoriteId);
-      showNotice(notice, 'Товар удален из избранного');
+      showNotice(notice, t('favorites.removed'));
       await renderFavorites();
       await refreshShopCounters();
     }
 
     if (cartButton) {
       const product = await getProduct(cartButton.dataset.cartId);
-      const result = await addProductToCart(product);
+      const result = await addProductToCart(product, currentUser.id);
 
-      showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
+      showNotice(notice, t(result.created ? 'common.addedCart' : 'common.cartIncreased'));
       await refreshShopCounters();
     }
   } catch (error) {
-    showNotice(notice, 'Не удалось выполнить действие. Попробуйте еще раз.');
+    showNotice(notice, t('common.actionError'));
   }
 });
 
