@@ -140,160 +140,24 @@
         <div class="container catalog__container">
           <div class="section-header">
             <p class="section-header__slogan">Choose Your Favorite</p>
-            <h2 class="section-header__title">CHUẨN GU ĐÚNG VỊ</h2>
+            <h2 class="section-header__title">ПОПУЛЯРНЫЙ КОФЕ</h2>
           </div>
-          <div class="catalog__slider">
-            <button class="catalog__prev-btn slider-button slider-button--prev" type="button" aria-label="Предыдущие товары">
+          <div class="featured-products__slider">
+            <button class="featured-products__button featured-products__button--prev" type="button" aria-label="Предыдущие товары">
               <img src="img/icons/arrow.svg" alt="" />
             </button>
-            <div class="catalog__track">
-              
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-yellow.jpg"
-                    alt="REVO Morning"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">99.000</p>
-                        <h3 class="catalog__product-name">REVO Morning</h3>
-                      </div>
-
-                      <p class="catalog__product-desc">
-                        đắng, hậu ngọt, hương hoa
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article>
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-orange.jpg"
-                    alt="REVO Origin"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">139.000</p>
-                        <h3 class="catalog__product-name">REVO Origin</h3>
-                      </div>
-
-                      <p class="catalog__product-desc">
-                        hậu ngọt, ít đắng, vị chua dâu
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article>
-              
-             
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-blue.jpg"
-                    alt="REVO Everyday"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">85.000</p>
-                        <h3 class="catalog__product-name">REVO Everyday</h3>
-                      </div>
-
-                      <p class="catalog__product-desc">
-                        đậm đà, đắng, truyền thống
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article>
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-brown.jpg"
-                    alt="REVO Đậm Đà"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">75.000</p>
-                        <h3 class="catalog__product-name">REVO Đậm Đà</h3>
-                      </div>
-
-                      <p class="catalog__product-desc">
-                        đậm đà, đắng, truyền thống
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article> 
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-red.jpg"
-                    alt="REVO Honey"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">195.000</p>
-                        <h3 class="catalog__product-name">REVO Honey</h3>
-                      </div>
-
-                      <p class="catalog__product-desc">
-                        độ ngọt cao, hậu ngọt, chua họ táo
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article>
-                <article class="catalog__product">
-                  <img
-                    class="catalog__product-img"
-                    src="img/products/catalog/card-image-green.jpg"
-                    alt="REVO Natural"
-                  />
-                  <div class="catalog__product-info">
-                    <div class="catalog__product-text">
-                      <div class="catalog__product-header">
-                        <p class="catalog__price">169.000</p>
-                        <h3 class="catalog__product-name">REVO Natural</h3>
-                      </div>
-                      <p class="catalog__product-desc">
-                        hậu ngọt, hương hoa, vị chua dâu
-                      </p>
-                    </div>
-                    <div class="catalog__actions">
-                      <button class="btn btn--primary">MUA NGAY</button>
-                      <button class="btn btn--secondary">CHI TIẾT</button>
-                    </div>
-                  </div>
-                </article>
+            <div class="featured-products__viewport" aria-live="polite">
+              <div id="featuredProductsTrack" class="featured-products__track" aria-busy="true"></div>
             </div>
-            <button class="catalog__next-btn" type="button" aria-label="Следующие товары">
+            <button class="featured-products__button featured-products__button--next" type="button" aria-label="Следующие товары">
               <img src="img/icons/arrow.svg" alt="" />
             </button>
           </div>
+          <p id="featuredProductsError" class="featured-products__error" hidden>
+            Подборка временно недоступна. Весь ассортимент можно посмотреть в каталоге.
+          </p>
           <a class="catalog__page-link btn btn--primary" href="catalog.html">
-            Перейти в каталог
+            Смотреть весь каталог
           </a>
         </div>
       </section>
@@ -372,7 +236,8 @@
             <button class="combo__prev-btn slider-button slider-button--prev" type="button" aria-label="Предыдущие наборы">
               <img src="img/icons/arrow.svg" alt="" />
             </button>
-            <div class="combo__track">
+            <div class="combo__viewport">
+              <div class="combo__track">
               <article class="combo__card">
                 <img
                   class="combo__card-img"
@@ -477,6 +342,7 @@
                   </div>
                 </div>
               </article> 
+              </div>
             </div>
             <button class="combo__next-btn" type="button" aria-label="Следующие наборы">
               <img src="img/icons/arrow.svg" alt="" />
@@ -486,9 +352,9 @@
       </section>
       <section class="coffee-parallax" aria-label="От зерна до чашки">
         <div class="coffee-parallax__scene" data-parallax-scene>
-          <img class="coffee-parallax__layer coffee-parallax__layer--back" data-parallax-speed="0.12" src="img/products/catalog/card-image-blue.jpg" alt="" />
-          <img class="coffee-parallax__layer coffee-parallax__layer--middle" data-parallax-speed="-0.18" src="img/products/combo/brown-combo.png" alt="" />
-          <img class="coffee-parallax__layer coffee-parallax__layer--front" data-parallax-speed="0.28" src="img/products/catalog/card-image-yellow.jpg" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--back" data-parallax-speed="0.22" src="img/products/catalog/card-image-blue.jpg" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--middle" data-parallax-speed="-0.32" src="img/products/combo/brown-combo.png" alt="" />
+          <img class="coffee-parallax__layer coffee-parallax__layer--front" data-parallax-speed="0.42" src="img/products/catalog/card-image-yellow.jpg" alt="" />
           <div class="coffee-parallax__content">
             <p class="section-header__slogan">From Bean To Cup</p>
             <h2 class="coffee-parallax__title">СВОЙ ХАРАКТЕР В КАЖДОЙ ЧАШКЕ</h2>

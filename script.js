@@ -1,10 +1,10 @@
-import { addProductToCart, getProduct } from './api.js';
+import { addProductToCart, getProducts } from './api.js';
 import {
   initializePageInteractions,
   refreshShopCounters,
 } from './interactions.js';
 import { syncSessionNavigation } from './session.js';
-import { showNotice } from './ui.js';
+import { categoryLabels, formatPrice, showNotice } from './ui.js';
 
 const galleryItems = [
   { image: 'img/products/catalog/card-image-yellow.jpg', audio: 'media/audio/coffee-note-01.wav', title: 'REVO Morning', description: 'Лёгкий цветочный профиль для спокойного начала дня.' },
@@ -33,14 +33,15 @@ const initializeSlider = ({ rootSelector, trackSelector, cardSelector, prevSelec
   let index = 0;
   let timerId;
 
-  const getStep = () => {
+  const getGap = () => {
     const trackStyles = window.getComputedStyle(track);
-    return cards[0].getBoundingClientRect().width
-      + Number.parseFloat(trackStyles.columnGap || trackStyles.gap || 0);
+    return Number.parseFloat(trackStyles.columnGap || trackStyles.gap || 0);
   };
 
+  const getStep = () => cards[0].getBoundingClientRect().width + getGap();
+
   const getLastIndex = () => {
-    const visibleCards = Math.max(1, Math.floor((root.clientWidth + 1) / getStep()));
+    const visibleCards = Math.max(1, Math.floor((root.clientWidth + getGap() + 1) / getStep()));
     const slidesCount = Math.ceil(cards.length / rows);
     return Math.max(0, slidesCount - visibleCards);
   };
@@ -93,28 +94,106 @@ const initializeSlider = ({ rootSelector, trackSelector, cardSelector, prevSelec
   startAutoplay();
 };
 
-const initializeLandingProducts = () => {
-  const cards = [...document.querySelectorAll('.catalog__product')];
+const createFeaturedProductCard = (product) => {
+  const card = document.createElement('article');
+
+  card.className = 'featured-product';
+  card.dataset.productId = product.id;
+  card.innerHTML = `
+    <div class="featured-product__image-wrap">
+      <img class="featured-product__image" alt="" />
+      <span class="featured-product__rating"></span>
+    </div>
+    <div class="featured-product__content">
+      <p class="featured-product__category"></p>
+      <h3 class="featured-product__title"></h3>
+      <p class="featured-product__description"></p>
+      <div class="featured-product__details">
+        <span data-featured-origin></span>
+        <span data-featured-intensity></span>
+      </div>
+      <div class="featured-product__footer">
+        <p class="featured-product__price"></p>
+        <div class="featured-product__actions">
+          <button class="btn btn--primary" type="button" data-featured-cart-id="${product.id}">В корзину</button>
+          <button class="btn btn--secondary" type="button" data-product-detail-id="${product.id}">Подробнее</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const image = card.querySelector('.featured-product__image');
+  image.src = product.image;
+  image.alt = product.name;
+  image.style.filter = product.imageFilter || 'none';
+  card.querySelector('.featured-product__rating').textContent = `★ ${Number(product.rating).toFixed(1)}`;
+  card.querySelector('.featured-product__category').textContent = categoryLabels[product.category] || product.category;
+  card.querySelector('.featured-product__title').textContent = product.name;
+  card.querySelector('.featured-product__description').textContent = product.description;
+  card.querySelector('[data-featured-origin]').textContent = product.origin;
+  card.querySelector('[data-featured-intensity]').textContent = `Интенсивность ${product.intensity}/5`;
+  card.querySelector('.featured-product__price').textContent = formatPrice(product.price);
+
+  return card;
+};
+
+const initializeLandingProducts = async () => {
+  const track = document.querySelector('#featuredProductsTrack');
+  const errorMessage = document.querySelector('#featuredProductsError');
   const notice = document.querySelector('#notice');
+  const sliderButtons = document.querySelectorAll('.featured-products__button');
 
-  cards.forEach((card, index) => {
-    const productId = index + 1;
-    const [buyButton, detailsButton] = card.querySelectorAll('.catalog__actions .btn');
+  try {
+    const { data: products } = await getProducts('?_sort=rating&_order=desc&_limit=10');
+    const productsById = new Map(products.map((product) => [String(product.id), product]));
 
-    card.dataset.productId = String(productId);
-    detailsButton.dataset.productDetailId = String(productId);
+    if (!products.length) {
+      throw new Error('Featured products are empty');
+    }
 
-    buyButton.addEventListener('click', async () => {
+    track.replaceChildren(...products.map(createFeaturedProductCard));
+    track.setAttribute('aria-busy', 'false');
+
+    initializeSlider({
+      rootSelector: '.featured-products__viewport',
+      trackSelector: '.featured-products__track',
+      cardSelector: '.featured-product',
+      prevSelector: '.featured-products__button--prev',
+      nextSelector: '.featured-products__button--next',
+    });
+
+    track.addEventListener('click', async (event) => {
+      const cartButton = event.target.closest('[data-featured-cart-id]');
+
+      if (!cartButton) {
+        return;
+      }
+
+      const product = productsById.get(cartButton.dataset.featuredCartId);
+
+      if (!product) {
+        return;
+      }
+
+      cartButton.disabled = true;
+
       try {
-        const product = await getProduct(productId);
         const result = await addProductToCart(product);
         showNotice(notice, result.created ? 'Товар добавлен в корзину' : 'Количество в корзине увеличено');
         await refreshShopCounters();
       } catch (error) {
         showNotice(notice, 'Не удалось добавить товар. Попробуйте ещё раз.');
+      } finally {
+        cartButton.disabled = false;
       }
     });
-  });
+  } catch (error) {
+    track.setAttribute('aria-busy', 'false');
+    errorMessage.hidden = false;
+    sliderButtons.forEach((button) => {
+      button.hidden = true;
+    });
+  }
 };
 
 const initializeGallery = () => {
@@ -246,9 +325,13 @@ const initializeParallax = () => {
     const bounds = scene.getBoundingClientRect();
     const centerOffset = bounds.top + bounds.height / 2 - window.innerHeight / 2;
 
-    layers.forEach((layer) => {
+    layers.forEach((layer, index) => {
       const speed = Number(layer.dataset.parallaxSpeed);
-      layer.style.setProperty('--parallax-offset', `${centerOffset * speed}px`);
+      const verticalOffset = Math.max(-190, Math.min(190, centerOffset * speed));
+      const horizontalDirection = index % 2 === 0 ? -1 : 1;
+
+      layer.style.setProperty('--parallax-offset', `${verticalOffset}px`);
+      layer.style.setProperty('--parallax-x', `${Math.abs(verticalOffset) * 0.16 * horizontalDirection}px`);
     });
     animationFrame = null;
   };
@@ -279,8 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  initializeSlider({ rootSelector: '.catalog__slider', trackSelector: '.catalog__track', cardSelector: '.catalog__product', prevSelector: '.catalog__prev-btn', nextSelector: '.catalog__next-btn', rows: 2 });
-  initializeSlider({ rootSelector: '.combo__slider', trackSelector: '.combo__track', cardSelector: '.combo__card', prevSelector: '.combo__prev-btn', nextSelector: '.combo__next-btn' });
+  initializeSlider({ rootSelector: '.combo__viewport', trackSelector: '.combo__track', cardSelector: '.combo__card', prevSelector: '.combo__prev-btn', nextSelector: '.combo__next-btn' });
   initializeLandingProducts();
   initializeGallery();
   initializeVideoDialog();
