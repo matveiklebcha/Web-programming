@@ -137,6 +137,10 @@ const animateCounter = (element, nextValue) => {
 
   element.dataset.value = String(nextValue);
 
+  if (nextValue > 0) {
+    element.classList.remove('is-empty');
+  }
+
   const render = (now) => {
     const progress = duration ? Math.min((now - startedAt) / duration, 1) : 1;
     const easedProgress = 1 - (1 - progress) ** 3;
@@ -144,6 +148,12 @@ const animateCounter = (element, nextValue) => {
 
     if (progress < 1) {
       window.requestAnimationFrame(render);
+    } else {
+      element.classList.toggle('is-empty', nextValue === 0);
+      element.setAttribute(
+        'aria-label',
+        `${element.dataset.shopCounter === 'cart' ? 'Товаров в корзине' : 'Товаров в избранном'}: ${nextValue}`,
+      );
     }
   };
 
@@ -156,6 +166,7 @@ const getCounter = (link, kind) => {
   if (!counter) {
     counter = document.createElement('span');
     counter.className = 'nav-counter';
+    counter.classList.add('is-empty');
     counter.dataset.shopCounter = kind;
     counter.dataset.value = '0';
     counter.textContent = '0';

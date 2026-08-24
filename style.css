@@ -85,6 +85,18 @@ body.menu-open {
   z-index: 90;
 }
 
+.hero.is-menu-open .hero__nav {
+  z-index: 90;
+}
+
+.hero.is-menu-open .hero__nav-list {
+  z-index: 91;
+}
+
+.hero.is-menu-open .hero__top-bar {
+  z-index: 92;
+}
+
 .hero__burger-line,
 .catalog-header__menu-button span {
   transition: transform 0.3s ease, opacity 0.2s ease;
@@ -136,6 +148,13 @@ body.menu-open {
   color: var(--color-white);
   font: 800 11px/1 var(--font-main);
   vertical-align: middle;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-counter.is-empty {
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
 }
 
 .hero__cart {
@@ -2233,19 +2252,6 @@ html {
   animation: play-ring 2.8s ease-out infinite;
 }
 
-.hero__cart::after {
-  content: "";
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 23px;
-  height: 23px;
-  border: 1px solid rgba(199, 161, 122, 0.55);
-  border-radius: 50%;
-  animation: cart-badge-pop 3.4s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .hero__nav-link {
   display: inline-block;
   transition:
@@ -3165,22 +3171,6 @@ html {
   100% {
     opacity: 0;
     transform: scale(1.35);
-  }
-}
-
-@keyframes cart-badge-pop {
-  0%,
-  78%,
-  100% {
-    transform: scale(1);
-  }
-
-  86% {
-    transform: scale(1.24);
-  }
-
-  92% {
-    transform: scale(0.94);
   }
 }
 
